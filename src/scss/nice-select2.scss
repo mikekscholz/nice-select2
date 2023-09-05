@@ -1,245 +1,277 @@
-@use 'sass:math';
-// Default variables
-$font_size: 14px !default;
-$font_size_small: 12px !default;
+$color_1: #999;
+$color_2: #FFF;
+$color_3: #FFFA;
+$font-family_1: inherit;
+$font-family_2: "Nunito", "Simple-Keyboard";
+$font-family_3: "Nunito";
+$background-color_1: #fff;
+$background-color_2: #FFF;
+$background-color_3: transparent;
+$background-color_4: rgba(0, 0, 0, 0);
+$background-color_5: #FFF3;
+$background-color_6: #444;
+$background-color_7: #fff2;
+$border-color_1: #fff;
+$border-color_2: #fff;
+$border-color_3: #fff;
+$border-color_4: #ccc;
 
-$input_border_radius: 5px !default;
-$input_height: 38px !default;
-$input_height_small: 36px !default;
-$dropdown_padding: 18px !default;
+@import 'overlayscrollbars';
 
-$gray_dark: #444 !default;
-$gray: #999 !default;
-$gray_light: #e8e8e8 !default;
-$gray_lighter: #f6f6f6 !default;
-$primary_light: $gray !default;
-$arrow_color: $gray !default;
-
-// Style the dropdown
 .nice-select {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-color: #fff;
-  border-radius: $input_border_radius;
-  border: solid 1px $gray_light;
-  box-sizing: border-box;
-  clear: both;
-  cursor: pointer;
-  display: block;
-  float: left;
-  font-family: inherit;
-  font-size: $font_size;
-  font-weight: normal;
-  height: $input_height;
-  line-height: $input_height - 2;
-  outline: none;
-  padding-left: $dropdown_padding;
-  padding-right: $dropdown_padding + 12;
-  position: relative;
-  text-align: left !important;
-  transition: all 0.2s ease-in-out;
-  user-select: none;
-  white-space: nowrap;
-  width: auto;
-  &:hover {
-    border-color: darken($gray_light, 5%);
-  }
-  &:active, &:focus {
-    border-color: $primary_light;
-  }
-  // Arrow
-  &:after { 
-    border-bottom: 2px solid $arrow_color;
-    border-right: 2px solid $arrow_color;
-    content: '';
-    display: block; 
-    height: 5px;
-    margin-top: -4px;
-    pointer-events: none;
-    position: absolute; 
-    right: 12px; 
-    top: 50%; 
-    transform-origin: 66% 66%;
-    transform: rotate(45deg);
-    transition: all 0.15s ease-in-out;
-    width: 5px;
-  }
-  
-  &.open {
-    @extend :active;
-    &:after {
-      transform: rotate(-135deg);
-    }
-    .nice-select-dropdown {
-      opacity: 1;
-      pointer-events: auto;
-      transform: scale(1) translateY(0);
-    }
-  }
-  &.disabled {
-    border-color: lighten($gray_light, 2%);
-    color: $gray;
-    pointer-events: none;
-    &:after { 
-      border-color: lighten($arrow_color, 20%);
-    }
-  }
-  
-  // Modifiers
-  &.wide {
-    width: 100%;
-    .nice-select-dropdown {
-      left: 0 !important;
-      right: 0 !important;
-    }
-  }
-  &.right {
-    float: right;
-    .nice-select-dropdown {
-      left: auto;
-      right: 0;
-    }
-  }
-  &.small {
-    font-size: $font_size_small;
-    height: $input_height_small;
-    line-height: $input_height_small - 2;
-    &:after { 
-      height: 4px;
-      width: 4px;
-    }
-    .option {
-      line-height: $input_height_small - 2;
-      min-height: $input_height_small - 2;
-    }
-  }
-
-  .nice-select-dropdown{
-    margin-top: 4px;
-    background-color: #fff;
-    border-radius: $input_border_radius;
-    box-shadow: 0 0 0 1px rgba($gray_dark, .11);
-
-    pointer-events: none;
-    position: absolute;
-    top: 100%; left: 0;
-    transform-origin: 50% 0;
-    transform: scale(.75) translateY(- math.div(-$input-height, 2));
-    transition: all .2s cubic-bezier(0.5, 0, 0, 1.25), opacity .15s ease-out;
-    z-index: 9;
-    opacity: 0;
-  }
-
-  // List and options
-  .list {
-    border-radius: $input_border_radius;
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 0;
-    max-height: 210px;
-    overflow-y: auto;
-
-    &:hover .option:not(:hover) {
-      background-color: transparent !important;
-    }
-  }
-  .option {
-    cursor: pointer;
-    font-weight: 400;
-    line-height: $input_height + 2;
-    list-style: none;
-    outline: none;
-    padding-left: $dropdown_padding;
-    padding-right: $dropdown_padding + 11;
-    text-align: left;
-    transition: all 0.2s;
-    &:hover, &.focus, &.selected.focus { 
-      background-color: $gray_lighter;
-    }
-    &.selected { 
-      font-weight: bold;
-    }
-    &.disabled {
-      background-color: transparent;
-      color: $gray;
-      cursor: default;
-    }
-  }
-  
-  .optgroup{
-    font-weight: bold;
-  }
+	-webkit-tap-highlight-color: transparent;
+	background-color: #222222;
+	color: #ffffff;
+	border-radius: 6px;
+	border: 1px solid transparent;
+	box-sizing: border-box;
+	clear: both;
+	cursor: pointer;
+	display: block;
+	font-family: 'Nunito';
+	font-size: 14px;
+	/* font-weight: normal; */
+	height: 30px !important;
+	line-height: 30px;
+	outline: none;
+	padding: 0px 32px 0px 8px;
+	position: relative;
+	text-align: left !important;
+	transition: all 0.4s ease-in-out;
+	user-select: none;
+	white-space: nowrap;
+	width: 100%;
+	min-width: fit-content;
+	&:hover {
+		border-color: $border-color_1;
+	}
+	&:active {
+		border-color: $border-color_2;
+	}
+	&:focus {
+		border-color: $border-color_2;
+	}
+	.current.placeholder {
+		opacity: 0.5;
+	}
+	.multiple-options.placeholder {
+		opacity: 0.5;
+	}
+	&::after {
+		width: 12px;
+		height: 28px;
+		opacity: 1;
+		content: "";
+		position: absolute;
+		right: 10px;
+		top: 0px;
+        /* webpackIgnore: true */
+		background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="21px" height="28px" fill="%23FFF"><path d="M371.515 229.055L219.516 373.033C211.797 380.344 201.891 384 192 384S172.203 380.344 164.484 373.033L12.485 229.055C-3.546 213.87 -4.233 188.561 10.97 172.532C26.157 156.472 51.485 155.785 67.516 171.001L192 288.921L316.484 171.001C332.499 155.754 357.827 156.441 373.03 172.532C388.233 188.561 387.546 213.87 371.515 229.055Z"/></svg>');
+		transform: rotate(0deg);
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position-y: center;
+		transition: all 0.2s ease-in;
+		pointer-events: none;
+	}
+	.optgroup {
+		font-weight: bold;
+	}
+	.list {
+		&::-webkit-scrollbar {
+			width: 0;
+		}
+	}
+	.has-multiple {
+		white-space: inherit;
+		height: auto;
+		padding: 7px 12px;
+		min-height: 36px;
+		line-height: 22px;
+		span.current {
+			border: 1px solid #ccc;
+			background: #eee;
+			padding: 0 10px;
+			border-radius: 3px;
+			display: inline-block;
+			line-height: 24px;
+			font-size: 14px;
+			margin-bottom: 3px;
+			margin-right: 3px;
+		}
+		.multiple-options {
+			display: block;
+			line-height: 24px;
+			padding: 0;
+		}
+	}
 }
-
-// Use display instead of opacity for IE <= 10
-.no-csspointerevents .nice-select {
-  .nice-select-dropdown {
-    display: none;
-  }
-  &.open {
-    .nice-select-dropdown {
-      display: block;
-    }
-  }
+.nice-select.open {
+	border-color: $border-color_2;
+	&::after {
+		z-index: 10;
+		transform: rotate(-180deg);
+	}
+	.nice-select-dropdown {
+		opacity: 1;
+		pointer-events: auto;
+		transform: scale(1) translateY(0);
+	}
 }
-
-
-.nice-select .list::-webkit-scrollbar {
-  width: 0
+.nice-select.disabled {
+	border-color: $border-color_3;
+	color: $color_1;
+	pointer-events: none;
 }
-
-
-
-
-.nice-select{
-  .has-multiple {
-    white-space: inherit;
-    height: auto;
-    padding: 7px 12px;
-    min-height: 36px;
-    line-height: 22px;
-
-    span.current {
-      border: 1px solid #CCC;
-      background: #EEE;
-      padding: 0 10px;
-      border-radius: 3px;
-      display: inline-block;
-      line-height: 24px;
-      font-size: 14px;
-      margin-bottom: 3px;
-      margin-right: 3px
-    }
-
-    .multiple-options {
-      display: block;
-      line-height: 24px;
-      padding: 0
-    }
-  }
-
-  .nice-select-search-box {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 5px;
-    pointer-events: none;
-    border-radius: 5px 5px 0 0;
-  }
-
-  .nice-select-search {
-    box-sizing: border-box;
-    background-color: #fff;
-    border: 1px solid $gray_light;
-    border-radius: 3px;
-    color: $gray_dark;
-    display: inline-block;
-    vertical-align: middle;
-    padding: 7px 12px;
-    margin: 0 10px 0 0;
-    width: 100%;
-    min-height: 36px;
-    line-height: 22px;
-    height: auto;
-    outline: 0!important;
-    font-size: $font_size;
-  }
+.nice-select.wide {
+	width: 100%;
+	.nice-select-dropdown {
+		left: 0 !important;
+		right: 0 !important;
+	}
+}
+.nice-select.right {
+	float: right;
+	.nice-select-dropdown {
+		left: auto;
+		right: 0;
+	}
+}
+.nice-select.small {
+	font-size: 12px;
+	height: 36px;
+	line-height: 34px;
+	&:after {
+		height: 4px;
+		width: 4px;
+	}
+	.option {
+		line-height: 34px;
+		min-height: 34px;
+	}
+}
+.nice-select-dropdown {
+	font-family: $font-family_2 !important;
+    color: #fff;
+	border-radius: 6px;
+	border: var(--form-focus-outline);
+	box-shadow: 0 2px 10px 2px #000;
+	position: absolute !important;
+	// top: 100%;
+	z-index: 9;
+	opacity: 1;
+	backdrop-filter: brightness(0.6) blur(6px);
+	symbol {
+		width: 20px;
+		margin-right: 10px;
+		text-align: center;
+	}
+	.os-scrollbar-vertical {
+		top: 2px;
+		right: 2px;
+		bottom: 2px !important;
+		width: 6px !important;
+		.os-scrollbar-handle {
+			width: 6px !important;
+			background-color: $background-color_2;
+		}
+	}
+	.os-scrollbar-track {
+		background-color: $background-color_3 !important;
+	}
+	.list {
+		box-sizing: border-box;
+		overflow: hidden;
+		padding: 0;
+		margin: 0;
+		overflow-y: auto;
+		&:hover {
+			.option {
+				&:not(:hover) {
+					background-color: $background-color_4 !important;
+				}
+			}
+		}
+	}
+	.option {
+		cursor: pointer;
+		font-weight: 400;
+		list-style: none;
+		outline: none;
+		padding: 6px 10px;
+		text-align: left;
+		transition: all .2s;
+		&:hover {
+			background-color: $background-color_5;
+		}
+	}
+	.option.focus {
+		background-color: $background-color_5;
+	}
+	.option.selected.focus {
+		background-color: $background-color_5;
+	}
+	.option.selected {
+		background-color: $background-color_6;
+		font-weight: bold;
+	}
+	.option.disabled {
+		background-color: $background-color_4;
+		color: $color_1;
+		cursor: default;
+	}
+	.nice-select-search-box {
+		position: absolute;
+		box-sizing: border-box;
+		width: 100%;
+		padding: 3px;
+		border-radius: 5px 5px 0 0;
+		~ {
+			.list {
+				margin-top: 36px;
+			}
+			.os-scrollbar-vertical {
+				top: 36px;
+			}
+		}
+	}
+	.nice-select-search {
+		box-sizing: border-box;
+		background-color: $background-color_7;
+		border: 1px solid #e8e8e8;
+		border-radius: 3px;
+		color: $color_2;
+		display: inline-block;
+		vertical-align: middle;
+		padding: 1px 6px 0px 26px;
+		margin: 0;
+		width: 100%;
+		line-height: 27px;
+		height: 30px;
+		outline: 0 !important;
+		font-size: 14px;
+		font-family: $font-family_3;
+		font-weight: 600;
+		background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="%23fffc"><path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"/></svg>');
+		background-repeat: no-repeat;
+		background-position: left 6px center;
+		background-size: 16px;
+		&::placeholder {
+			color: $color_3;
+			font-size: 14px;
+			font-family: $font-family_3;
+		}
+	}
+}
+.no-csspointerevents {
+	.nice-select {
+		.nice-select-dropdown {
+			display: none;
+		}
+	}
+	.nice-select.open {
+		.nice-select-dropdown {
+			display: block;
+		}
+	}
 }
