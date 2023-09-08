@@ -22,7 +22,7 @@
     "webpack-cli": "^4.9.1"
   },
   "scripts": {
-    "watch": "webpack --watch --progress",
+    "watch": "webpack --watch --progress --mode=development",
     "dev": "npm run clean && cross-env NODE_ENV=\"development\" webpack",
     "clean": "shx rm -rf build/static",
     "build": "npm run clean && cross-env NODE_ENV=\"production\" webpack"

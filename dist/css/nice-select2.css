@@ -1,3 +1,1022 @@
-.nice-select{-webkit-tap-highlight-color:rgba(0,0,0,0);background-color:#fff;border-radius:5px;border:solid 1px #e8e8e8;box-sizing:border-box;clear:both;cursor:pointer;display:block;float:left;font-family:inherit;font-size:14px;font-weight:normal;height:38px;line-height:36px;outline:none;padding-left:18px;padding-right:30px;position:relative;text-align:left !important;transition:all .2s ease-in-out;user-select:none;white-space:nowrap;width:auto}.nice-select:hover{border-color:#dbdbdb}.nice-select:active,.nice-select.open,.nice-select:focus{border-color:#999}.nice-select:after{border-bottom:2px solid #999;border-right:2px solid #999;content:"";display:block;height:5px;margin-top:-4px;pointer-events:none;position:absolute;right:12px;top:50%;transform-origin:66% 66%;transform:rotate(45deg);transition:all .15s ease-in-out;width:5px}.nice-select.open:after{transform:rotate(-135deg)}.nice-select.open .nice-select-dropdown{opacity:1;pointer-events:auto;transform:scale(1) translateY(0)}.nice-select.disabled{border-color:#ededed;color:#999;pointer-events:none}.nice-select.disabled:after{border-color:#ccc}.nice-select.wide{width:100%}.nice-select.wide .nice-select-dropdown{left:0 !important;right:0 !important}.nice-select.right{float:right}.nice-select.right .nice-select-dropdown{left:auto;right:0}.nice-select.small{font-size:12px;height:36px;line-height:34px}.nice-select.small:after{height:4px;width:4px}.nice-select.small .option{line-height:34px;min-height:34px}.nice-select .nice-select-dropdown{margin-top:4px;background-color:#fff;border-radius:5px;box-shadow:0 0 0 1px rgba(68,68,68,.11);pointer-events:none;position:absolute;top:100%;left:0;transform-origin:50% 0;transform:scale(0.75) translateY(19px);transition:all .2s cubic-bezier(0.5, 0, 0, 1.25),opacity .15s ease-out;z-index:9;opacity:0}.nice-select .list{border-radius:5px;box-sizing:border-box;overflow:hidden;padding:0;max-height:210px;overflow-y:auto}.nice-select .list:hover .option:not(:hover){background-color:rgba(0,0,0,0) !important}.nice-select .option{cursor:pointer;font-weight:400;line-height:40px;list-style:none;outline:none;padding-left:18px;padding-right:29px;text-align:left;transition:all .2s}.nice-select .option:hover,.nice-select .option.focus,.nice-select .option.selected.focus{background-color:#f6f6f6}.nice-select .option.selected{font-weight:bold}.nice-select .option.disabled{background-color:rgba(0,0,0,0);color:#999;cursor:default}.nice-select .optgroup{font-weight:bold}.no-csspointerevents .nice-select .nice-select-dropdown{display:none}.no-csspointerevents .nice-select.open .nice-select-dropdown{display:block}.nice-select .list::-webkit-scrollbar{width:0}.nice-select .has-multiple{white-space:inherit;height:auto;padding:7px 12px;min-height:36px;line-height:22px}.nice-select .has-multiple span.current{border:1px solid #ccc;background:#eee;padding:0 10px;border-radius:3px;display:inline-block;line-height:24px;font-size:14px;margin-bottom:3px;margin-right:3px}.nice-select .has-multiple .multiple-options{display:block;line-height:24px;padding:0}.nice-select .nice-select-search-box{box-sizing:border-box;width:100%;padding:5px;pointer-events:none;border-radius:5px 5px 0 0}.nice-select .nice-select-search{box-sizing:border-box;background-color:#fff;border:1px solid #e8e8e8;border-radius:3px;color:#444;display:inline-block;vertical-align:middle;padding:7px 12px;margin:0 10px 0 0;width:100%;min-height:36px;line-height:22px;height:auto;outline:0 !important;font-size:14px}
+/*!*********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/nice-select2.scss ***!
+  \*********************************************************************************************************************/
+/*! 
+ * OverlayScrollbars
+ * Version: 2.2.1
+ * 
+ * Copyright (c) Rene Haas | KingSora.
+ * https://github.com/KingSora
+ * 
+ * Released under the MIT license.
+ */
+.os-size-observer,
+.os-size-observer-listener {
+  direction: inherit;
+  pointer-events: none;
+  overflow: hidden;
+  visibility: hidden;
+  box-sizing: border-box;
+}
+
+.os-size-observer,
+.os-size-observer-listener,
+.os-size-observer-listener-item,
+.os-size-observer-listener-item-final {
+  writing-mode: horizontal-tb;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.os-size-observer {
+  z-index: -1;
+  contain: strict;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: inherit;
+  border: inherit;
+  box-sizing: inherit;
+  margin: -133px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale(0.1);
+}
+
+.os-size-observer::before {
+  content: "";
+  flex: none;
+  box-sizing: inherit;
+  padding: 10px;
+  width: 10px;
+  height: 10px;
+}
+
+.os-size-observer-appear {
+  animation: os-size-observer-appear-animation 1ms forwards;
+}
+
+.os-size-observer-listener {
+  box-sizing: border-box;
+  position: relative;
+  flex: auto;
+  padding: inherit;
+  border: inherit;
+  margin: -133px;
+  transform: scale(10);
+}
+
+.os-size-observer-listener.ltr {
+  margin-right: -266px;
+  margin-left: 0;
+}
+
+.os-size-observer-listener.rtl {
+  margin-left: -266px;
+  margin-right: 0;
+}
+
+.os-size-observer-listener:empty::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+}
+
+.os-size-observer-listener:empty::before, .os-size-observer-listener > .os-size-observer-listener-item {
+  display: block;
+  position: relative;
+  padding: inherit;
+  border: inherit;
+  box-sizing: content-box;
+  flex: auto;
+}
+
+.os-size-observer-listener-scroll {
+  box-sizing: border-box;
+  display: flex;
+}
+
+.os-size-observer-listener-item {
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  direction: ltr;
+  flex: none;
+}
+
+.os-size-observer-listener-item-final {
+  transition: none;
+}
+
+@keyframes os-size-observer-appear-animation {
+  from {
+    cursor: auto;
+  }
+  to {
+    cursor: none;
+  }
+}
+.os-trinsic-observer {
+  flex: none;
+  box-sizing: border-box;
+  position: relative;
+  max-width: 0px;
+  max-height: 1px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  overflow: hidden;
+  z-index: -1;
+  height: 0;
+  top: calc(100% + 1px);
+  contain: strict;
+}
+
+.os-trinsic-observer:not(:empty) {
+  height: calc(100% + 1px);
+  top: -1px;
+}
+
+.os-trinsic-observer:not(:empty) > .os-size-observer {
+  width: 1000%;
+  height: 1000%;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+/**
+ * environment setup 
+ */
+.os-environment {
+  --os-custom-prop: -1;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  overflow: scroll;
+  height: 200px;
+  width: 200px;
+  z-index: var(--os-custom-prop);
+}
+
+.os-environment div {
+  width: 200%;
+  height: 200%;
+  margin: 10px 0;
+}
+
+.os-environment.os-environment-flexbox-glue {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: auto;
+  width: auto;
+  min-height: 200px;
+  min-width: 200px;
+}
+
+.os-environment.os-environment-flexbox-glue div {
+  flex: auto;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
+.os-environment.os-environment-flexbox-glue-max {
+  max-height: 200px;
+}
+
+.os-environment.os-environment-flexbox-glue-max div {
+  overflow: visible;
+}
+
+.os-environment.os-environment-flexbox-glue-max div::before {
+  content: "";
+  display: block;
+  height: 999px;
+  width: 999px;
+}
+
+/**
+ * hide native scrollbars
+ */
+.os-environment,
+[data-overlayscrollbars-viewport] {
+  -ms-overflow-style: scrollbar !important;
+}
+
+[data-overlayscrollbars-initialize],
+[data-overlayscrollbars~=scrollbarHidden],
+[data-overlayscrollbars-viewport~=scrollbarHidden],
+.os-scrollbar-hidden.os-environment {
+  scrollbar-width: none !important;
+}
+
+[data-overlayscrollbars-initialize]::-webkit-scrollbar,
+[data-overlayscrollbars-initialize]::-webkit-scrollbar-corner,
+[data-overlayscrollbars~=scrollbarHidden]::-webkit-scrollbar,
+[data-overlayscrollbars~=scrollbarHidden]::-webkit-scrollbar-corner,
+[data-overlayscrollbars-viewport~=scrollbarHidden]::-webkit-scrollbar,
+[data-overlayscrollbars-viewport~=scrollbarHidden]::-webkit-scrollbar-corner,
+.os-scrollbar-hidden.os-environment::-webkit-scrollbar,
+.os-scrollbar-hidden.os-environment::-webkit-scrollbar-corner {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/**
+ * elements wont suddenly crop after initialization is done
+ */
+[data-overlayscrollbars-initialize] {
+  overflow: auto;
+}
+
+/**
+ * applied to body 
+ */
+html[data-overlayscrollbars],
+html.os-scrollbar-hidden,
+html.os-scrollbar-hidden > body {
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html[data-overlayscrollbars] > body {
+  overflow: visible;
+}
+
+/**
+ * structure setup 
+ */
+[data-overlayscrollbars~=host] {
+  position: relative;
+}
+
+[data-overlayscrollbars~=host],
+[data-overlayscrollbars-padding] {
+  display: flex;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+}
+
+[data-overlayscrollbars-padding],
+[data-overlayscrollbars-viewport] {
+  box-sizing: inherit;
+  position: relative;
+  flex: auto !important;
+  height: auto;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: none;
+  z-index: 0;
+}
+
+[data-overlayscrollbars-viewport] {
+  --os-vaw: 0;
+  --os-vah: 0;
+}
+
+[data-overlayscrollbars-viewport][data-overlayscrollbars-viewport~=arrange]::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  min-width: 1px;
+  min-height: 1px;
+  width: var(--os-vaw);
+  height: var(--os-vah);
+}
+
+[data-overlayscrollbars-padding],
+[data-overlayscrollbars-viewport] {
+  overflow: hidden;
+}
+
+[data-overlayscrollbars~=host],
+[data-overlayscrollbars~=viewport] {
+  overflow: hidden;
+}
+
+[data-overlayscrollbars~=overflowVisible],
+[data-overlayscrollbars-padding~=overflowVisible],
+[data-overlayscrollbars-viewport~=overflowVisible] {
+  overflow: visible;
+}
+
+[data-overlayscrollbars-overflow-x=hidden] {
+  overflow-x: hidden;
+}
+
+[data-overlayscrollbars-overflow-x=scroll] {
+  overflow-x: scroll;
+}
+
+[data-overlayscrollbars-overflow-x=hidden] {
+  overflow-y: hidden;
+}
+
+[data-overlayscrollbars-overflow-y=scroll] {
+  overflow-y: scroll;
+}
+
+[data-overlayscrollbars~=scrollbarPressed],
+[data-overlayscrollbars~=scrollbarPressed] [data-overlayscrollbars-viewport] {
+  scroll-behavior: auto !important;
+}
+
+[data-overlayscrollbars-content] {
+  box-sizing: inherit;
+}
+
+/**
+ * optional & experimental grid mode
+ */
+[data-overlayscrollbars-grid],
+[data-overlayscrollbars-grid] [data-overlayscrollbars-padding] {
+  display: grid;
+  grid-template: 1fr/1fr;
+}
+
+[data-overlayscrollbars-grid] > [data-overlayscrollbars-padding],
+[data-overlayscrollbars-grid] > [data-overlayscrollbars-viewport],
+[data-overlayscrollbars-grid] > [data-overlayscrollbars-padding] > [data-overlayscrollbars-viewport] {
+  height: auto !important;
+  width: auto !important;
+}
+
+.os-scrollbar {
+  contain: size layout;
+  contain: size layout style;
+  transition: opacity 0.15s, visibility 0.15s, top 0.15s, right 0.15s, bottom 0.15s, left 0.15s;
+  pointer-events: none;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+body > .os-scrollbar {
+  position: fixed;
+  z-index: 99999;
+}
+
+.os-scrollbar-transitionless {
+  transition: none;
+}
+
+.os-scrollbar-track {
+  position: relative;
+  direction: ltr !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.os-scrollbar-handle {
+  position: absolute;
+}
+
+.os-scrollbar-track,
+.os-scrollbar-handle {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.os-scrollbar.os-scrollbar-track-interactive .os-scrollbar-track,
+.os-scrollbar.os-scrollbar-handle-interactive .os-scrollbar-handle {
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.os-scrollbar-horizontal {
+  bottom: 0;
+  left: 0;
+}
+
+.os-scrollbar-vertical {
+  top: 0;
+  right: 0;
+}
+
+.os-scrollbar-rtl.os-scrollbar-horizontal {
+  right: 0;
+}
+
+.os-scrollbar-rtl.os-scrollbar-vertical {
+  right: auto;
+  left: 0;
+}
+
+.os-scrollbar-visible,
+.os-scrollbar-interaction.os-scrollbar-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.os-scrollbar-auto-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.os-scrollbar-unusable,
+.os-scrollbar-unusable *,
+.os-scrollbar-wheel,
+.os-scrollbar-wheel * {
+  pointer-events: none !important;
+}
+
+.os-scrollbar-unusable .os-scrollbar-handle {
+  opacity: 0 !important;
+}
+
+.os-scrollbar-horizontal .os-scrollbar-handle {
+  bottom: 0;
+}
+
+.os-scrollbar-vertical .os-scrollbar-handle {
+  right: 0;
+}
+
+.os-scrollbar-rtl.os-scrollbar-vertical .os-scrollbar-handle {
+  right: auto;
+  left: 0;
+}
+
+.os-scrollbar.os-scrollbar-horizontal.os-scrollbar-cornerless,
+.os-scrollbar.os-scrollbar-horizontal.os-scrollbar-cornerless.os-scrollbar-rtl {
+  left: 0;
+  right: 0;
+}
+
+.os-scrollbar.os-scrollbar-vertical.os-scrollbar-cornerless,
+.os-scrollbar.os-scrollbar-vertical.os-scrollbar-cornerless.os-scrollbar-rtl {
+  top: 0;
+  bottom: 0;
+}
+
+.os-scrollbar {
+  --os-size: 10px;
+  --os-padding-perpendicular: 0px;
+  --os-padding-axis: 0;
+  --os-track-border-radius: 5px;
+  --os-track-bg: #444;
+  --os-track-bg-hover: #444;
+  --os-track-bg-active: #444;
+  --os-track-border: none;
+  --os-track-border-hover: none;
+  --os-track-border-active: none;
+  --os-handle-border-radius: 5px;
+  --os-handle-bg: #888;
+  --os-handle-bg-hover: #ccc;
+  --os-handle-bg-active: #ccc;
+  --os-handle-border: none;
+  --os-handle-border-hover: none;
+  --os-handle-border-active: none;
+  --os-handle-min-size: 33px;
+  --os-handle-max-size: none;
+  --os-handle-perpendicular-size: 10px;
+  --os-handle-perpendicular-size-hover: 10px;
+  --os-handle-perpendicular-size-active: 10px;
+  --os-handle-interactive-area-offset: 10px;
+}
+
+.os-scrollbar .os-scrollbar-track {
+  border: var(--os-track-border);
+  border-radius: var(--os-track-border-radius);
+  background: var(--os-track-bg);
+  transition: opacity 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+.os-scrollbar .os-scrollbar-track:hover {
+  border: var(--os-track-border-hover);
+  background: var(--os-track-bg-hover);
+}
+
+.os-scrollbar .os-scrollbar-track:active {
+  border: var(--os-track-border-active);
+  background: var(--os-track-bg-active);
+}
+
+.os-scrollbar .os-scrollbar-handle {
+  border: var(--os-handle-border);
+  border-radius: var(--os-handle-border-radius);
+  background: var(--os-handle-bg);
+}
+
+.os-scrollbar .os-scrollbar-handle:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+}
+
+.os-scrollbar .os-scrollbar-handle:hover {
+  border: var(--os-handle-border-hover);
+  background: var(--os-handle-bg-hover);
+}
+
+.os-scrollbar .os-scrollbar-handle:active {
+  border: var(--os-handle-border-active);
+  background: var(--os-handle-bg-active);
+}
+
+.os-scrollbar-horizontal {
+  padding: var(--os-padding-perpendicular) var(--os-padding-axis);
+  right: var(--os-size);
+  height: var(--os-size);
+}
+
+.os-scrollbar-horizontal.os-scrollbar-rtl {
+  left: var(--os-size);
+  right: 0;
+}
+
+.os-scrollbar-horizontal .os-scrollbar-handle {
+  min-width: var(--os-handle-min-size);
+  max-width: var(--os-handle-max-size);
+  height: var(--os-handle-perpendicular-size);
+  transition: opacity 0.15s, background-color 0.15s, border-color 0.15s, height 0.15s;
+}
+
+.os-scrollbar-horizontal .os-scrollbar-handle:before {
+  top: calc((var(--os-padding-perpendicular) + var(--os-handle-interactive-area-offset)) * -1);
+  bottom: calc(var(--os-padding-perpendicular) * -1);
+}
+
+.os-scrollbar-horizontal:hover .os-scrollbar-handle {
+  height: var(--os-handle-perpendicular-size-hover);
+}
+
+.os-scrollbar-horizontal:active .os-scrollbar-handle {
+  height: var(--os-handle-perpendicular-size-active);
+}
+
+.os-scrollbar-vertical {
+  padding: var(--os-padding-axis) var(--os-padding-perpendicular);
+  bottom: var(--os-size);
+  width: var(--os-size);
+}
+
+.os-scrollbar-vertical .os-scrollbar-handle {
+  min-height: var(--os-handle-min-size);
+  max-height: var(--os-handle-max-size);
+  width: var(--os-handle-perpendicular-size);
+  transition: opacity 0.15s, background-color 0.15s, border-color 0.15s, width 0.15s;
+}
+
+.os-scrollbar-vertical .os-scrollbar-handle:before {
+  left: calc((var(--os-padding-perpendicular) + var(--os-handle-interactive-area-offset)) * -1);
+  right: calc(var(--os-handle-interactive-area-offset) * -1);
+}
+
+.os-scrollbar-vertical.os-scrollbar-rtl .os-scrollbar-handle:before {
+  right: calc((var(--os-padding-perpendicular) + var(--os-handle-interactive-area-offset)) * -1);
+  left: calc(var(--os-padding-perpendicular) * -1);
+}
+
+.os-scrollbar-vertical:hover .os-scrollbar-handle {
+  width: var(--os-handle-perpendicular-size-hover);
+}
+
+.os-scrollbar-vertical:active .os-scrollbar-handle {
+  width: var(--os-handle-perpendicular-size-active);
+}
+
+/* .os-scrollbar-horizontal os-scrollbar-handle-interactive os-scrollbar-track-interactive os-scrollbar-visible os-scrollbar-unusable */
+.os-scrollbar-horizontal.os-scrollbar-unusable {
+  display: none;
+}
+.os-scrollbar-horizontal.os-scrollbar-unusable + .os-scrollbar-vertical {
+  bottom: 0;
+}
+
+/* NONE THEME: */
+[data-overlayscrollbars~=updating] > .os-scrollbar,
+.os-theme-none.os-scrollbar {
+  display: none !important;
+}
+
+/* DARK & LIGHT THEME: */
+.os-theme-dark,
+.os-theme-light {
+  box-sizing: border-box;
+  --os-size: 10px;
+  --os-padding-perpendicular: 2px;
+  --os-padding-axis: 2px;
+  --os-track-border-radius: 10px;
+  --os-handle-interactive-area-offset: 4px;
+  --os-handle-border-radius: 10px;
+}
+
+.os-theme-dark {
+  --os-handle-bg: rgba(0, 0, 0, 0.44);
+  --os-handle-bg-hover: rgba(0, 0, 0, 0.55);
+  --os-handle-bg-active: rgba(0, 0, 0, 0.66);
+}
+
+.os-theme-light {
+  --os-handle-bg: rgba(255, 255, 255, 0.44);
+  --os-handle-bg-hover: rgba(255, 255, 255, 0.55);
+  --os-handle-bg-active: rgba(255, 255, 255, 0.66);
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar .os-scrollbar-handle, .os-no-css-vars.os-theme-light.os-scrollbar .os-scrollbar-handle {
+  border-radius: 10px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar .os-scrollbar-track, .os-no-css-vars.os-theme-light.os-scrollbar .os-scrollbar-track {
+  border-radius: 10px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar .os-scrollbar-handle, .os-no-css-vars.os-theme-light.os-scrollbar .os-scrollbar-handle {
+  border-radius: 10px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-horizontal, .os-no-css-vars.os-theme-light.os-scrollbar-horizontal {
+  padding: 2px 2px;
+  right: 10px;
+  height: 10px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-horizontal.os-scrollbar-rtl, .os-no-css-vars.os-theme-light.os-scrollbar-horizontal.os-scrollbar-rtl {
+  left: 10px;
+  right: 0;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-horizontal .os-scrollbar-handle, .os-no-css-vars.os-theme-light.os-scrollbar-horizontal .os-scrollbar-handle {
+  min-width: 33px;
+  max-width: none;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-horizontal .os-scrollbar-handle:before, .os-no-css-vars.os-theme-light.os-scrollbar-horizontal .os-scrollbar-handle:before {
+  top: -6px;
+  bottom: -2px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-vertical, .os-no-css-vars.os-theme-light.os-scrollbar-vertical {
+  padding: 2px 2px;
+  bottom: 10px;
+  width: 10px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-vertical .os-scrollbar-handle, .os-no-css-vars.os-theme-light.os-scrollbar-vertical .os-scrollbar-handle {
+  min-height: 33px;
+  max-height: none;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-vertical .os-scrollbar-handle:before, .os-no-css-vars.os-theme-light.os-scrollbar-vertical .os-scrollbar-handle:before {
+  left: -6px;
+  right: -2px;
+}
+
+.os-no-css-vars.os-theme-dark.os-scrollbar-vertical.os-scrollbar-rtl .os-scrollbar-handle:before, .os-no-css-vars.os-theme-light.os-scrollbar-vertical.os-scrollbar-rtl .os-scrollbar-handle:before {
+  right: -6px;
+  left: -2px;
+}
+
+.os-no-css-vars.os-theme-dark .os-scrollbar-handle {
+  background: rgba(0, 0, 0, 0.44);
+}
+
+.os-no-css-vars.os-theme-dark:hover .os-scrollbar-handle {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.os-no-css-vars.os-theme-dark:active .os-scrollbar-handle {
+  background: rgba(0, 0, 0, 0.66);
+}
+
+.os-no-css-vars.os-theme-light .os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.44);
+}
+
+.os-no-css-vars.os-theme-light:hover .os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.os-no-css-vars.os-theme-light:active .os-scrollbar-handle {
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.optiscroll-dark {
+  height: 100%;
+  border-radius: var(--form-radius-outer);
+  background-color: #222;
+  padding: 8px;
+}
+.optiscroll-dark .viewport {
+  border-radius: 5px;
+}
+.optiscroll-dark .os-scrollbar-vertical {
+  top: 8px;
+  right: 8px;
+}
+.optiscroll-dark .os-scrollbar-horizontal.os-scrollbar-unusable {
+  display: none;
+}
+.optiscroll-dark .os-scrollbar-horizontal.os-scrollbar-unusable + .os-scrollbar-vertical {
+  bottom: 8px;
+}
+
+#settingsOptions.scroll-revert, #settingsOptions.scroll-revert .optiscroll, #settingsOptions.scroll-revert .viewport,
+#settingsNetwork.scroll-revert,
+#settingsNetwork.scroll-revert .optiscroll,
+#settingsNetwork.scroll-revert .viewport,
+#settingsAppearance.scroll-revert,
+#settingsAppearance.scroll-revert .optiscroll,
+#settingsAppearance.scroll-revert .viewport,
+#settingsKeys.scroll-revert,
+#settingsKeys.scroll-revert .optiscroll,
+#settingsKeys.scroll-revert .viewport {
+  overflow: visible !important;
+}
+
+.nice-select {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #222222;
+  color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  clear: both;
+  cursor: pointer;
+  display: block;
+  font-family: "Nunito";
+  font-size: 14px;
+  font-weight: 500;
+  height: 30px !important;
+  line-height: 30px;
+  outline: none;
+  padding: 0px 32px 0px 8px;
+  position: relative;
+  text-align: left !important;
+  transition: all 0.4s ease-in-out;
+  user-select: none;
+  white-space: nowrap;
+  width: 100%;
+  min-width: fit-content;
+}
+.nice-select:hover {
+  border-color: #fff;
+}
+.nice-select:active {
+  border-color: #fff;
+}
+.nice-select:focus {
+  border-color: #fff;
+}
+.nice-select .current.placeholder {
+  opacity: 0.5;
+}
+.nice-select .multiple-options.placeholder {
+  opacity: 0.5;
+}
+.nice-select::after {
+  width: 12px;
+  height: 28px;
+  opacity: 1;
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  /* webpackIgnore: true */
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" fill="%23fff"><path d="M371.515 229.055L219.516 373.033C211.797 380.344 201.891 384 192 384S172.203 380.344 164.484 373.033L12.485 229.055C-3.546 213.87 -4.233 188.561 10.97 172.532C26.157 156.472 51.485 155.785 67.516 171.001L192 288.921L316.484 171.001C332.499 155.754 357.827 156.441 373.03 172.532C388.233 188.561 387.546 213.87 371.515 229.055Z"/></svg>');
+  transform: rotate(0deg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  transition: all 0.2s ease-in;
+  pointer-events: none;
+}
+.nice-select .optgroup {
+  font-weight: bold;
+}
+.nice-select .list::-webkit-scrollbar {
+  width: 0;
+}
+.nice-select .has-multiple {
+  white-space: inherit;
+  height: auto;
+  padding: 7px 12px;
+  min-height: 36px;
+  line-height: 22px;
+}
+.nice-select .has-multiple span.current {
+  border: 1px solid #ccc;
+  background: #eee;
+  padding: 0 10px;
+  border-radius: 3px;
+  display: inline-block;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+}
+.nice-select .has-multiple .multiple-options {
+  display: block;
+  line-height: 24px;
+  padding: 0;
+}
+
+.nice-select.open {
+  border-color: #fff;
+}
+.nice-select.open::after {
+  z-index: 10;
+  transform: rotate(-180deg);
+}
+.nice-select.open .nice-select-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+}
+
+.nice-select.disabled {
+  border-color: #fff;
+  color: #999;
+  pointer-events: none;
+}
+
+.nice-select.wide {
+  width: 100%;
+}
+.nice-select.wide .nice-select-dropdown {
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.nice-select.right {
+  float: right;
+}
+.nice-select.right .nice-select-dropdown {
+  left: auto;
+  right: 0;
+}
+
+.nice-select.small {
+  font-size: 12px;
+  height: 36px;
+  line-height: 34px;
+}
+.nice-select.small:after {
+  height: 4px;
+  width: 4px;
+}
+.nice-select.small .option {
+  line-height: 34px;
+  min-height: 34px;
+}
+
+.nice-select-dropdown {
+  font-family: "Nunito", "Simple-Keyboard" !important;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 6px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fff;
+  box-shadow: 0 2px 10px 2px #000;
+  box-sizing: border-box;
+  position: absolute !important;
+  max-height: 0;
+  transition-property: max-height, opacity;
+  transition-duration: 500ms, 200ms;
+  transition-delay: 0ms, 300ms;
+  transition-timing-function: ease;
+  opacity: 0;
+  z-index: 9;
+  backdrop-filter: brightness(0.6) blur(6px);
+}
+.nice-select-dropdown .os-scrollbar-vertical {
+  top: 2px;
+  right: 2px;
+  bottom: 2px !important;
+  width: 6px !important;
+  opacity: 0;
+}
+.nice-select-dropdown .os-scrollbar-vertical .os-scrollbar-handle {
+  width: 6px !important;
+  background-color: #FFF;
+}
+.nice-select-dropdown .os-scrollbar-track {
+  background-color: transparent !important;
+}
+.nice-select-dropdown.open {
+  opacity: 1;
+  transition-property: max-height, opacity;
+  transition-duration: 500ms, 200ms;
+  transition-delay: 0ms, 0ms;
+  transition-timing-function: ease;
+}
+.nice-select-dropdown.open .os-scrollbar-vertical {
+  opacity: 1;
+  transition-property: opacity;
+  transition-duration: 500ms;
+  transition-delay: 500ms;
+  transition-timing-function: ease;
+}
+.nice-select-dropdown symbol {
+  width: 20px;
+  margin-right: 10px;
+  text-align: center;
+}
+.nice-select-dropdown .list {
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+}
+.nice-select-dropdown .list:hover .option:not(:hover) {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+.nice-select-dropdown .option {
+  cursor: pointer;
+  font-weight: 400;
+  list-style: none;
+  outline: none;
+  padding: 6px 10px;
+  text-align: left;
+  transition: all 0.2s;
+}
+.nice-select-dropdown .option:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.nice-select-dropdown .option.focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.nice-select-dropdown .option.selected.focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.nice-select-dropdown .option.selected {
+  background-color: #444;
+  font-weight: bold;
+}
+.nice-select-dropdown .option.disabled {
+  background-color: rgba(0, 0, 0, 0);
+  color: #999;
+  cursor: default;
+}
+.nice-select-dropdown .nice-select-search-box {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px 5px 0 0;
+}
+.nice-select-dropdown .nice-select-search-box ~ .list {
+  margin-top: 36px;
+}
+.nice-select-dropdown .nice-select-search-box ~ .os-scrollbar-vertical {
+  top: 36px;
+}
+.nice-select-dropdown .nice-select-search {
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1333333333);
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
+  color: #FFFA;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 1px 6px 0px 26px;
+  margin: 0;
+  width: 100%;
+  line-height: 27px;
+  height: 30px;
+  outline: 0 !important;
+  font-size: 14px;
+  font-family: "Nunito";
+  font-weight: 600;
+  /* webpackIgnore: true */
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="%23FFFA"><path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: left 6px center;
+  background-size: 16px;
+}
+.nice-select-dropdown .nice-select-search::placeholder {
+  color: #FFFA;
+  font-size: 14px;
+  font-family: "Nunito";
+}
+
+.no-csspointerevents .nice-select .nice-select-dropdown {
+  display: none;
+}
+.no-csspointerevents .nice-select.open .nice-select-dropdown {
+  display: block;
+}
 
 /*# sourceMappingURL=nice-select2.css.map*/

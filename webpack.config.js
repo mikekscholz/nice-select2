@@ -2,8 +2,16 @@
 
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
 
 module.exports = {
+	mode: "development", // "production" | "development" | "none"
+	watch: true,
+	watchOptions: {
+	  aggregateTimeout: 1000,
+	  poll: 1000,
+	  ignored: ['/.git/', '/node_modules/', '/webfonts/', '/config.json/', '/main.js/', '/package/'],
+	},
     entry: {
 		"nice-select2": './src/js/nice-select2.js',
 		style: "./src/scss/style.scss",
@@ -12,16 +20,19 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'js/[name].js',
 		library: {
-			name: 'NiceSelect',
-			type: 'umd',
+			type: 'module',
 		},
+	},
+	experiments: {
+		outputModule: true,
 	},
     optimization: {
 		usedExports: true,
     },
-	plugins: [new MiniCssExtractPlugin({
-		filename: "css/[name].css",
-    })],
+	plugins: [
+		new MiniCssExtractPlugin({ filename: "css/[name].css" }),
+		new webpack.ProgressPlugin(),
+	],
 	module: {
 		rules: [
 		  {
