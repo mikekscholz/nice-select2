@@ -7,7 +7,7 @@ $font-family_3: "Nunito";
 $background-color_1: #fff;
 $background-color_2: #FFF;
 $background-color_3: transparent;
-$background-color_4: rgba(0, 0, 0, 0);
+$background-color_4: #FFF2;
 $background-color_5: #FFF3;
 $background-color_6: #444;
 $search-background-color: #fff2;
@@ -60,10 +60,6 @@ $arrow-color: #fff;
 		opacity: 0.5;
 	}
 
-	.multiple-options.placeholder {
-		opacity: 0.5;
-	}
-
 	&::after {
 		width: 12px;
 		height: 28px;
@@ -92,29 +88,35 @@ $arrow-color: #fff;
 		}
 	}
 
-	.has-multiple {
-		white-space: inherit;
-		height: auto;
-		padding: 7px 12px;
-		min-height: 36px;
-		line-height: 22px;
+	&.has-multiple {
+		// white-space: inherit;
+		// height: auto;
+		// padding: 7px 12px;
+		padding: 0;
+		// min-height: 36px;
+		// line-height: 22px;
 
 		span.current {
-			border: 1px solid #ccc;
-			background: #eee;
-			padding: 0 10px;
+			// border: 1px solid #ccc;
+			background: #444;
+			padding: 0 6px;
 			border-radius: 3px;
 			display: inline-block;
-			line-height: 24px;
+			line-height: 22px;
 			font-size: 14px;
-			margin-bottom: 3px;
-			margin-right: 3px;
+			margin-bottom: 0px;
+			margin-right: 4px;
 		}
 
 		.multiple-options {
 			display: block;
-			line-height: 24px;
-			padding: 0;
+			line-height: 28px;
+			padding: 0 3px;
+			&.placeholder {
+				opacity: 0.5;
+				padding: 0 8px;
+				line-height: 30px;
+			}
 		}
 	}
 }
@@ -211,10 +213,25 @@ $arrow-color: #fff;
 		background-color: $background-color_3 !important;
 	}
 	
+	&.opening {
+		opacity: 1;
+		transition-property: max-height, opacity;
+		transition-duration: 500ms, 500ms;
+		transition-delay: 0ms, 0ms;
+		transition-timing-function: ease;
+		.os-scrollbar-vertical {
+			opacity: 0;
+			transition-property: opacity;
+			transition-duration: 500ms;
+			transition-delay: 500ms;
+			transition-timing-function: ease;
+		}
+	}
+	
 	&.open {
 		opacity: 1;
 		transition-property: max-height, opacity;
-		transition-duration: 500ms, 200ms;
+		transition-duration: 0ms, 200ms;
 		transition-delay: 0ms, 0ms;
 		transition-timing-function: ease;
 		.os-scrollbar-vertical {
@@ -225,6 +242,7 @@ $arrow-color: #fff;
 			transition-timing-function: ease;
 		}
 	}
+	
 	symbol {
 		width: 20px;
 		margin-right: 10px;
@@ -240,7 +258,7 @@ $arrow-color: #fff;
 		overflow-y: auto;
 
 		&:hover {
-			.option {
+			.option.selected {
 				&:not(:hover) {
 					background-color: $background-color_4 !important;
 				}
@@ -271,7 +289,7 @@ $arrow-color: #fff;
 	}
 
 	.option.selected {
-		background-color: $background-color_6;
+		background-color: $background-color_4;
 		font-weight: bold;
 	}
 

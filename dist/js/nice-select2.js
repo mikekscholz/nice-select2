@@ -5505,14 +5505,15 @@ class NiceSelect {
 		this.sameWidth = this.el.dataset.sameWidth || this.config.sameWidth;
 		this.availableHeight = this.el.dataset.availableHeight || this.config.availableHeight;
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
-
+		this.searchable = this.el.dataset.searchable || this.config.searchable;
+		
 		this.dropdown = null;
 		this.multiple = attr(this.el, "multiple");
 		this.disabled = attr(this.el, "disabled");
 
 		this.create();
 	}
-	
+
 	create() {
 		this.el.style.opacity = "0";
 		this.el.style.width = "0";
@@ -5529,7 +5530,7 @@ class NiceSelect {
 		this.renderDropdown();
 		this.bindEvent();
 	}
-	
+
 	processData(data) {
 		var options = [];
 		data.forEach(item => {
@@ -5544,7 +5545,7 @@ class NiceSelect {
 		});
 		this.options = options;
 	}
-	
+
 	extractData() {
 		var options = this.el.querySelectorAll("option,optgroup");
 		var data = [];
@@ -5593,7 +5594,7 @@ class NiceSelect {
 
 		this.selectedOptions = selectedOptions;
 	}
-	
+
 	renderDropdown() {
 		var classes = [
 			"nice-select",
@@ -5612,7 +5613,7 @@ class NiceSelect {
 
 		this.menu = document.createElement("div");
 		this.menu.classList.add("nice-select-dropdown");
-		this.menu.innerHTML = `${this.config.searchable ? searchHtml : ""} <ul class="list"></ul>`;
+		this.menu.innerHTML = `${this.searchable ? searchHtml : ""} <ul class="list"></ul>`;
 		this.menu.OverlayScrollbars = (0,overlayscrollbars__WEBPACK_IMPORTED_MODULE_2__.OverlayScrollbars)({
 			target: this.menu,
 			elements: {
@@ -5701,17 +5702,17 @@ class NiceSelect {
 		option.element = el;
 		return el;
 	}
-	
+
 	positionMenu(target, element) {
 		(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.computePosition)(target, element, {
 			placement: "bottom",
 			middleware: [
-				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_4__.offset)(this.offset), 
-				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_4__.flip)({ padding: this.offset }),
+				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_4__.offset)(this.offset),
+				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_4__.flip)({ fallbackStrategy: 'bestFit', padding: this.offset }),
 				this.availableHeight && (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_4__.size)({
 					apply({ availableHeight }) {
 						Object.assign(element.style, {
-							maxHeight: `${availableHeight}px`
+							maxHeight: `${Math.max(100, availableHeight)}px`,
 						});
 					},
 					padding: this.offset
@@ -5723,18 +5724,18 @@ class NiceSelect {
 						});
 					},
 					padding: this.offset
-				})
+				}),
 			]
 		}).then(({ x, y, placement }) => {
 			Object.assign(element.style, {
 				top: `${y}px`,
 				left: `${x}px`
 			});
-			
+
 			this.finalPosition = placement;
 		});
 	}
-	
+
 	hideMenu(e) {
 		if (this.finalPosition === "top") {
 			let bottom = getComputedStyle(this.menu).bottom;
@@ -5748,6 +5749,7 @@ class NiceSelect {
 		}
 		if (this.cleanup) this.cleanup();
 		removeClass(this.dropdown, "open");
+		removeClass(this.menu, "opening");
 		removeClass(this.menu, "open");
 		triggerModalClose(this.el);
 		this.menu.style.maxHeight = "0";
@@ -5757,7 +5759,7 @@ class NiceSelect {
 			this.menu.style.bottom = "";
 		}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
 	}
-	
+
 	update() {
 		this.extractData();
 		if (this.dropdown) {
@@ -5816,7 +5818,7 @@ class NiceSelect {
 		this.el.addEventListener("invalid", triggerValidationMessage.bind(this, this.el, 'invalid'));
 		window.addEventListener("click", this._onClickedOutside.bind(this));
 
-		if (this.config.searchable) {
+		if (this.searchable) {
 			this._bindSearchEvent();
 		}
 	}
@@ -5831,14 +5833,16 @@ class NiceSelect {
 		}
 
 		searchBox.addEventListener("input", this._onSearchChanged.bind(this));
-		searchBox.addEventListener("keydown", this._onSearchKeyDown.bind(this));
+		searchBox.addEventListener("keydown", this._onKeyPressed.bind(this));
 	}
 
 	_onClicked(e) {
 		e.preventDefault();
-    // e.stopImmediatePropagation();
+		var search = this.menu.querySelector(".nice-select-search");
+		// e.stopImmediatePropagation();
 		if (!hasClass(this.dropdown, "open")) {
 			addClass(this.dropdown, "open");
+			addClass(this.menu, "opening");
 			triggerModalOpen(this.el);
 			document.body.appendChild(this.menu);
 			// this.positionMenu(this.dropdown, this.menu);
@@ -5848,23 +5852,24 @@ class NiceSelect {
 				() => {
 					this.positionMenu(this.dropdown, this.menu);
 				}
-				);
-				scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(this.menu.querySelector(".selected"), {
-					time: 0,
-					validTarget: function (target, parentsScrolled) {
-						return parentsScrolled < 2 && target !== window && target.matches('.list');
-					}
-				});
+			);
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(this.menu.querySelector(".selected"), {
+				time: 0, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+			setTimeout(() => {
 				addClass(this.menu, "open");
+				if (search) search.focus();
+			}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
 		} else {
-			this.hideMenu(e);			
+			this.hideMenu(e);
 		}
 
 		if (hasClass(this.dropdown, "open")) {
-			var search = this.menu.querySelector(".nice-select-search");
 			if (search) {
 				search.value = "";
-				search.focus();
+				// search.focus();
 			}
 
 			var t = this.menu.querySelector(".focus");
@@ -5907,6 +5912,7 @@ class NiceSelect {
 			this.updateSelectValue();
 		}
 	}
+
 	updateSelectValue() {
 		if (this.multiple) {
 			var select = this.el;
@@ -5921,6 +5927,7 @@ class NiceSelect {
 		}
 		triggerChange(this.el);
 	}
+
 	resetSelectValue() {
 		if (this.multiple) {
 			var select = this.el;
@@ -5936,108 +5943,140 @@ class NiceSelect {
 
 		triggerChange(this.el);
 	}
+
 	_onClickedOutside(e) {
 		if (!this.dropdown.contains(e.target)) {
 			this.hideMenu(e);
 		}
 	}
 
-	_onSearchKeyDown(e) {
-		var focusedOption = this.menu.querySelector(".focus");
-		var open = hasClass(this.dropdown, "open");
+	// _onSearchKeyDown(e) {
+	// 	var focusedOption = this.menu.querySelector(".focus");
+	// 	var open = hasClass(this.dropdown, "open");
 
-		if (e.keyCode === 13 && open) { // Enter
-			triggerClick(focusedOption);
-		} else if (e.keyCode === 40) { // Down
-			e.preventDefault();
-			var next = this._findNext(focusedOption);
-			if (next) {
-				var t = this.menu.querySelector(".focus");
-				removeClass(t, "focus");
-				addClass(next, "focus");
-				scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(next, {
-					time: 250,
-					validTarget: function (target, parentsScrolled) {
-						return parentsScrolled < 2 && target !== window && target.matches('.list');
-					}
-				});
-			}
-		} else if (e.keyCode === 38) { // Up
-			e.preventDefault();
-			var prev = this._findPrev(focusedOption);
-			if (prev) {
-				var t = this.menu.querySelector(".focus");
-				removeClass(t, "focus");
-				addClass(prev, "focus");
-				scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(prev, {
-					time: 250,
-					validTarget: function (target, parentsScrolled) {
-						return parentsScrolled < 2 && target !== window && target.matches('.list');
-					}
-				});
-			}
-		} else if (e.keyCode === 27 && open) { // Esc
-			triggerClick(this.dropdown);
-		} else if (e.keyCode === 9 && open) { // Tab
-			// e.preventDefault();
-			triggerClick(this.dropdown);
-			// this.removeMenu(e);
-			// this.dropdown.focus();
-		}
-	}
+	// 	if (e.keyCode === 13 && open) { // Enter
+	// 		triggerClick(focusedOption);
+	// 	} else if (e.keyCode === 40) { // Down
+	// 		e.preventDefault();
+	// 		var next = this._findNext(focusedOption);
+	// 		if (next) {
+	// 			var t = this.menu.querySelector(".focus");
+	// 			removeClass(t, "focus");
+	// 			addClass(next, "focus");
+	// 			scrollIntoView(next, {
+	// 				time: 250,
+	// 				validTarget: function (target, parentsScrolled) {
+	// 					return parentsScrolled < 2 && target !== window && target.matches('.list');
+	// 				}
+	// 			});
+	// 		}
+	// 	} else if (e.keyCode === 38) { // Up
+	// 		e.preventDefault();
+	// 		var prev = this._findPrev(focusedOption);
+	// 		if (prev) {
+	// 			var t = this.menu.querySelector(".focus");
+	// 			removeClass(t, "focus");
+	// 			addClass(prev, "focus");
+	// 			scrollIntoView(prev, {
+	// 				time: 250,
+	// 				validTarget: function (target, parentsScrolled) {
+	// 					return parentsScrolled < 2 && target !== window && target.matches('.list');
+	// 				}
+	// 			});
+	// 		}
+	// 	} else if (e.keyCode === 27 && open) { // Esc
+	// 		triggerClick(this.dropdown);
+	// 	} else if (e.keyCode === 9 && open) { // Tab
+	// 		// e.preventDefault();
+	// 		triggerClick(this.dropdown);
+	// 		// this.removeMenu(e);
+	// 		// this.dropdown.focus();
+	// 	}
+	// }
 	_onKeyPressed(e) {
 		// Keyboard events
 		let focusedOption = this.menu.querySelector(".focus");
-		let open = hasClass(this.dropdown, "open");
-		let scrollOptions = {
-			time: 250,
-			validTarget: function (target, parentsScrolled) {
-				return parentsScrolled < 2 && target !== window && target.matches('.list');
-			}
-		}
+		let isOpen = hasClass(this.dropdown, "open");
 
-		
-		if (e.keyCode === 13) { // Enter
-			if (open) {
-				triggerClick(focusedOption);
-			} else {
+		if (!isOpen) {
+			// On "Arrow down", "Arrow up", "Space" and "Enter" keys opens the panel
+			if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 32|| e.keyCode === 13) {
+				e.preventDefault();
 				triggerClick(this.dropdown);
 			}
-		} else if (e.keyCode === 40) { // Down
-			e.preventDefault();
-			if (!open) {
-				triggerClick(this.dropdown);
-			} else {
-				var next = this._findNext(focusedOption);
-				if (next) {
-					var t = this.menu.querySelector(".focus");
-					removeClass(t, "focus");
-					addClass(next, "focus");
-					scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(next, scrollOptions);
-				}
+		} else {
+			switch (e.keyCode) {
+				case 13:
+				case 32:
+					// On "Enter" or "Space" selects the focused element as the selected one
+					triggerClick(focusedOption);
+					break;
+
+				case 27:
+					// On "Escape" closes the panel
+					triggerClick(this.dropdown);
+					break;
+
+				case 38:
+					// On "Arrow up" set focus to the prev option if present
+					e.preventDefault();
+					this._focusPrev(focusedOption);
+					break;
+
+				case 40:
+					// On "Arrow down" set focus to the next option if present
+					e.preventDefault();
+					this._focusNext(focusedOption);
+					break;
+
+				default:
+					return;
 			}
-		} else if (e.keyCode === 38) { // Up
-			e.preventDefault();
-			if (!open) {
-				triggerClick(this.dropdown);
-			} else {
-				var prev = this._findPrev(focusedOption);
-				if (prev) {
-					var t = this.menu.querySelector(".focus");
-					removeClass(t, "focus");
-					addClass(prev, "focus");
-					scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(prev, scrollOptions);
-				}
-			}
-		} else if (e.keyCode === 27 && open) {
-			// Esc
-			triggerClick(this.dropdown);
-		} else if (e.keyCode === 32 && open) {
-			// Space
-			return false;
 		}
-		return false;
+		/*
+					if (e.keyCode === 13) { // Enter
+						if (open) {
+							triggerClick(focusedOption);
+						} else {
+							triggerClick(this.dropdown);
+						}
+					} else if (e.keyCode === 40) { // Down
+						e.preventDefault();
+						if (!open) {
+							triggerClick(this.dropdown);
+						} else {
+							var next = this._findNext(focusedOption);
+							if (next) {
+								var t = this.menu.querySelector(".focus");
+								removeClass(t, "focus");
+								addClass(next, "focus");
+								scrollIntoView(next, scrollOptions);
+							}
+						}
+					} else if (e.keyCode === 38) { // Up
+						e.preventDefault();
+						if (!open) {
+							triggerClick(this.dropdown);
+						} else {
+							var prev = this._findPrev(focusedOption);
+							if (prev) {
+								var t = this.menu.querySelector(".focus");
+								removeClass(t, "focus");
+								addClass(prev, "focus");
+								scrollIntoView(prev, scrollOptions);
+							}
+						}
+					} else if (e.keyCode === 27 && open) {
+						// Esc
+						triggerClick(this.dropdown);
+					} else if (e.keyCode === 32 && open) {
+						// Space
+						return false;
+					}
+					return false;
+					*/
 	}
+
 	_findNext(el) {
 		if (el) {
 			el = el.nextElementSibling;
@@ -6046,7 +6085,7 @@ class NiceSelect {
 		}
 
 		while (el) {
-			if (!hasClass(el, "disabled") && el.style.display != "none") {
+			if (!hasClass(el, "disabled") && el.style.display !== "none") {
 				return el;
 			}
 			el = el.nextElementSibling;
@@ -6054,6 +6093,7 @@ class NiceSelect {
 
 		return null;
 	}
+
 	_findPrev(el) {
 		if (el) {
 			el = el.previousElementSibling;
@@ -6062,7 +6102,7 @@ class NiceSelect {
 		}
 
 		while (el) {
-			if (!hasClass(el, "disabled") && el.style.display != "none") {
+			if (!hasClass(el, "disabled") && el.style.display !== "none") {
 				return el;
 			}
 			el = el.previousElementSibling;
@@ -6070,12 +6110,41 @@ class NiceSelect {
 
 		return null;
 	}
+
+	_focusNext(focusedOption) {
+		var next = this._findNext(focusedOption);
+		if (next) {
+			var t = this.menu.querySelector(".focus");
+			removeClass(t, "focus");
+			addClass(next, "focus");
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(next, {
+				time: 250, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+		}
+	}
+
+	_focusPrev(focusedOption) {
+		var prev = this._findPrev(focusedOption);
+		if (prev) {
+			var t = this.menu.querySelector(".focus");
+			removeClass(t, "focus");
+			addClass(prev, "focus");
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_1___default()(prev, {
+				time: 250, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+		}
+	}
+
 	_onSearchChanged(e) {
 		var open = hasClass(this.dropdown, "open");
 		var text = e.target.value;
 		text = text.toLowerCase();
 
-		if (text == "") {
+		if (text === "") {
 			this.options.forEach(function (item) {
 				item.element.style.display = "";
 			});

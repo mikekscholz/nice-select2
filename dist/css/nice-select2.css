@@ -781,9 +781,6 @@ body > .os-scrollbar {
 .nice-select .current.placeholder {
   opacity: 0.5;
 }
-.nice-select .multiple-options.placeholder {
-  opacity: 0.5;
-}
 .nice-select::after {
   width: 12px;
   height: 28px;
@@ -807,28 +804,28 @@ body > .os-scrollbar {
 .nice-select .list::-webkit-scrollbar {
   width: 0;
 }
-.nice-select .has-multiple {
-  white-space: inherit;
-  height: auto;
-  padding: 7px 12px;
-  min-height: 36px;
-  line-height: 22px;
+.nice-select.has-multiple {
+  padding: 0;
 }
-.nice-select .has-multiple span.current {
-  border: 1px solid #ccc;
-  background: #eee;
-  padding: 0 10px;
+.nice-select.has-multiple span.current {
+  background: #444;
+  padding: 0 6px;
   border-radius: 3px;
   display: inline-block;
-  line-height: 24px;
+  line-height: 22px;
   font-size: 14px;
-  margin-bottom: 3px;
-  margin-right: 3px;
+  margin-bottom: 0px;
+  margin-right: 4px;
 }
-.nice-select .has-multiple .multiple-options {
+.nice-select.has-multiple .multiple-options {
   display: block;
-  line-height: 24px;
-  padding: 0;
+  line-height: 28px;
+  padding: 0 3px;
+}
+.nice-select.has-multiple .multiple-options.placeholder {
+  opacity: 0.5;
+  padding: 0 8px;
+  line-height: 30px;
 }
 
 .nice-select.open {
@@ -914,10 +911,24 @@ body > .os-scrollbar {
 .nice-select-dropdown .os-scrollbar-track {
   background-color: transparent !important;
 }
+.nice-select-dropdown.opening {
+  opacity: 1;
+  transition-property: max-height, opacity;
+  transition-duration: 500ms, 500ms;
+  transition-delay: 0ms, 0ms;
+  transition-timing-function: ease;
+}
+.nice-select-dropdown.opening .os-scrollbar-vertical {
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 500ms;
+  transition-delay: 500ms;
+  transition-timing-function: ease;
+}
 .nice-select-dropdown.open {
   opacity: 1;
   transition-property: max-height, opacity;
-  transition-duration: 500ms, 200ms;
+  transition-duration: 0ms, 200ms;
   transition-delay: 0ms, 0ms;
   transition-timing-function: ease;
 }
@@ -940,8 +951,8 @@ body > .os-scrollbar {
   margin: 0;
   overflow-y: auto;
 }
-.nice-select-dropdown .list:hover .option:not(:hover) {
-  background-color: rgba(0, 0, 0, 0) !important;
+.nice-select-dropdown .list:hover .option.selected:not(:hover) {
+  background-color: rgba(255, 255, 255, 0.1333333333) !important;
 }
 .nice-select-dropdown .option {
   cursor: pointer;
@@ -962,11 +973,11 @@ body > .os-scrollbar {
   background-color: rgba(255, 255, 255, 0.2);
 }
 .nice-select-dropdown .option.selected {
-  background-color: #444;
+  background-color: rgba(255, 255, 255, 0.1333333333);
   font-weight: bold;
 }
 .nice-select-dropdown .option.disabled {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.1333333333);
   color: #999;
   cursor: default;
 }
