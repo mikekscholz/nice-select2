@@ -5575,14 +5575,14 @@ class NiceSelect {
 					text: text,
 					display: display,
 					value: item.value,
-					selected: item.getAttribute("selected") != null,
-					disabled: item.getAttribute("disabled") != null
+					selected: item.selected || item.getAttribute("selected") != null,
+					disabled: item.disabled || item.getAttribute("disabled") != null
 				};
 			}
 
 			var attributes = {
-				selected: item.getAttribute("selected") != null,
-				disabled: item.getAttribute("disabled") != null,
+				selected: item.selected || item.getAttribute("selected") != null,
+				disabled: item.disabled || item.getAttribute("disabled") != null,
 				optgroup: item.tagName == 'OPTGROUP'
 			};
 
@@ -5642,8 +5642,8 @@ class NiceSelect {
 		this.el.insertAdjacentHTML("afterend", html);
 
 		this.dropdown = this.el.nextElementSibling;
-		this._renderSelectedItems();
 		this._renderItems();
+		this._renderSelectedItems();
 		
 		if (this.fitContent && !this.el.classList.contains('wide')) {
 			document.body.appendChild(this.menu);
@@ -5703,6 +5703,9 @@ class NiceSelect {
 			el.setAttribute("data-value", option.data.value);
 			el.addEventListener("click", this._onItemClicked.bind(this, option));
 			el.classList.add("option");
+			if (option.data.value === this.el.value) {
+				el.classList.add("selected");
+			}
 			if (option.attributes.selected) {
 				el.classList.add("selected");
 			}
@@ -5789,6 +5792,7 @@ class NiceSelect {
 			this.disable();
 		} else {
 			this.enable();
+			this.updateSelectValue();
 		}
 	}
 
@@ -6081,29 +6085,6 @@ class NiceSelect {
 		addClass(firstEl, "focus");
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function bind(el, options) {
 	return new NiceSelect(el, options);

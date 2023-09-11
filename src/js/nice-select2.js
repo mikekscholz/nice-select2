@@ -182,14 +182,14 @@ export default class NiceSelect {
 					text: text,
 					display: display,
 					value: item.value,
-					selected: item.getAttribute("selected") != null,
-					disabled: item.getAttribute("disabled") != null
+					selected: item.selected || item.getAttribute("selected") != null,
+					disabled: item.disabled || item.getAttribute("disabled") != null
 				};
 			}
 
 			var attributes = {
-				selected: item.getAttribute("selected") != null,
-				disabled: item.getAttribute("disabled") != null,
+				selected: item.selected || item.getAttribute("selected") != null,
+				disabled: item.disabled || item.getAttribute("disabled") != null,
 				optgroup: item.tagName == 'OPTGROUP'
 			};
 
@@ -249,8 +249,8 @@ export default class NiceSelect {
 		this.el.insertAdjacentHTML("afterend", html);
 
 		this.dropdown = this.el.nextElementSibling;
-		this._renderSelectedItems();
 		this._renderItems();
+		this._renderSelectedItems();
 		
 		if (this.fitContent && !this.el.classList.contains('wide')) {
 			document.body.appendChild(this.menu);
@@ -310,6 +310,9 @@ export default class NiceSelect {
 			el.setAttribute("data-value", option.data.value);
 			el.addEventListener("click", this._onItemClicked.bind(this, option));
 			el.classList.add("option");
+			if (option.data.value === this.el.value) {
+				el.classList.add("selected");
+			}
 			if (option.attributes.selected) {
 				el.classList.add("selected");
 			}
@@ -689,29 +692,6 @@ export default class NiceSelect {
 		addClass(firstEl, "focus");
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export function bind(el, options) {
 	return new NiceSelect(el, options);
