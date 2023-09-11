@@ -41,7 +41,7 @@ $arrow-color: #fff;
 	transition: all 0.4s ease-in-out;
 	user-select: none;
 	white-space: nowrap;
-	width: 100%;
+	width: max-content;
 	min-width: fit-content;
 
 	&:hover {
@@ -56,8 +56,11 @@ $arrow-color: #fff;
 		border-color: $border-color_2;
 	}
 
-	.current.placeholder {
-		opacity: 0.5;
+	.current{
+		pointer-events: none;
+		&.placeholder {
+			opacity: 0.5;
+		}
 	}
 
 	&::after {
@@ -92,7 +95,7 @@ $arrow-color: #fff;
 		// white-space: inherit;
 		// height: auto;
 		// padding: 7px 12px;
-		padding: 0;
+		padding: 0 32px 0 0;
 		// min-height: 36px;
 		// line-height: 22px;
 
@@ -112,6 +115,7 @@ $arrow-color: #fff;
 			display: block;
 			line-height: 28px;
 			padding: 0 3px;
+			pointer-events: none;
 			&.placeholder {
 				opacity: 0.5;
 				padding: 0 8px;
@@ -194,6 +198,7 @@ $arrow-color: #fff;
 	transition-timing-function: ease;
 	opacity: 0;
 	z-index: 9;
+	width: max-content;
 	backdrop-filter: brightness(0.6) blur(6px);
 	
 	.os-scrollbar-vertical {
@@ -215,6 +220,7 @@ $arrow-color: #fff;
 	
 	&.opening {
 		opacity: 1;
+		max-height: 100%;
 		transition-property: max-height, opacity;
 		transition-duration: 500ms, 500ms;
 		transition-delay: 0ms, 0ms;
@@ -230,6 +236,7 @@ $arrow-color: #fff;
 	
 	&.open {
 		opacity: 1;
+		// max-height: unset;
 		transition-property: max-height, opacity;
 		transition-duration: 0ms, 200ms;
 		transition-delay: 0ms, 0ms;

@@ -4,7 +4,7 @@
 code[class*=language-],
 pre[class*=language-] {
   border-radius: 2px;
-  color: #445870;
+  color: #f6f6f6;
   hyphens: none;
   line-height: 1.5;
   tab-size: 4;
@@ -28,7 +28,7 @@ pre[class*=language-] {
 
 :not(pre) > code[class*=language-],
 pre[class*=language-] {
-  background: #f6f7f9;
+  background: #333;
 }
 
 /* Inline code */
@@ -40,7 +40,7 @@ pre[class*=language-] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #90a1b5;
+  color: #999;
 }
 
 .token.punctuation {
@@ -57,36 +57,35 @@ pre[class*=language-] {
 .token.number,
 .token.constant,
 .token.symbol,
+.token.atrule,
 .token.deleted {
-  color: #EC4444;
+  color: #ff118c;
 }
 
 .token.selector,
 .token.attr-name,
-.token.string,
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #4ABF60;
+  color: #85eb0d;
 }
 
+.token.string,
 .token.operator,
 .token.entity,
 .token.url,
 .language-css .token.string,
+.token.attr-value,
 .style .token.string {
-  color: #a67f59;
-  background: hsla(0deg, 0%, 100%, 0.5);
+  color: #f3e95d;
 }
 
-.token.atrule,
-.token.attr-value,
 .token.keyword {
-  color: #55a1fb;
+  color: #ff118c;
 }
 
 .token.function {
-  color: #DD4A68;
+  color: #85eb0d;
 }
 
 .token.regex,
@@ -111,13 +110,14 @@ pre[class*=language-] {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #445870;
+  color: #f6f6f6;
   font-family: "Work Sans", sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: -0.25px;
   margin: 0;
   padding: 0 18px;
+  background-color: #222;
 }
 
 p {
@@ -152,7 +152,7 @@ ul {
 }
 
 a:not(.button) {
-  color: #55a1fb;
+  color: #00ccff;
   outline: none;
   text-decoration: none;
   -webkit-transition: all 0.2s ease-in-out;
@@ -160,11 +160,11 @@ a:not(.button) {
   border-bottom: 1px solid transparent;
 }
 a:not(.button):hover, a:not(.button):focus {
-  border-bottom: 1px solid #88bfff;
+  border-bottom: 1px solid #999;
 }
 
 ::selection {
-  background: #f3f4f7;
+  background: #f3f3f3;
 }
 
 .container {
@@ -173,7 +173,7 @@ a:not(.button):hover, a:not(.button):focus {
 }
 
 .box {
-  background-color: #f6f7f9;
+  background-color: #333;
   border-radius: 2px;
   margin-bottom: 30px;
   padding: 24px 30px;
@@ -187,7 +187,7 @@ a:not(.button):hover, a:not(.button):focus {
 }
 
 label {
-  color: #90a1b5;
+  color: #999;
   font-size: 11px;
   margin: 0 2px 4px;
   text-transform: uppercase;
@@ -199,7 +199,7 @@ label.right {
 
 .button {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-color: #55a1fb;
+  background-color: #00ccff;
   border-radius: 5px;
   border: none;
   box-sizing: border-box;
@@ -219,15 +219,15 @@ label.right {
   width: auto;
 }
 .button:hover, .button:focus {
-  background-color: #4196fb;
+  background-color: #00bceb;
 }
 .button:active {
-  background-color: #2d8bfa;
+  background-color: #00abd6;
 }
 .button.light {
   background-color: #fff;
   border: 1px solid #e8e8e8;
-  color: #55a1fb;
+  color: #00ccff;
   line-height: 36px;
   margin-left: 24px;
 }
@@ -235,7 +235,7 @@ label.right {
   border-color: #dbdbdb;
 }
 .button.light:active, .button.light:focus {
-  border-color: #88bfff;
+  border-color: #999;
 }
 @media screen and (max-width: 360px) {
   .button {
@@ -256,7 +256,7 @@ label.right {
   }
 }
 .header p {
-  color: #90a1b5;
+  color: #999;
   font-size: 18px;
   margin-bottom: 36px;
 }
@@ -269,7 +269,7 @@ label.right {
 }
 
 .credit {
-  color: #90a1b5;
+  color: #999;
   clear: both;
   font-size: 12px;
   margin-top: 90px;

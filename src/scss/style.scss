@@ -1,11 +1,11 @@
-$gray_dark: #445870;
-$gray: #90a1b5;
-$gray_light: #e0e7ee;
-$gray_lighter: #f6f7f9;
-$blue: #55a1fb;
-$blue_light: #88bfff;
+// $gray_dark: #445870;
+// $gray: #90a1b5;
+// $gray_light: #e0e7ee;
+// $gray_lighter: #f6f7f9;
+$blue: #00ccff;
+$blue_light: #00ccff;
 $primary: $blue;
-$primary_light: $blue_light;
+// $primary_light: $blue_light;
 
 // Default variables
 $font_size: 14px !default;
@@ -16,7 +16,7 @@ $input_height: 38px;
 $input_height_small: 36px !default;
 $dropdown_padding: 18px !default;
 
-$gray_dark: #444 !default;
+$gray_dark: #333 !default;
 $gray: #999 !default;
 $gray_light: #e8e8e8 ;
 $gray_lighter: #f6f6f6 !default;
@@ -38,13 +38,14 @@ $arrow_color: $gray !default;
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: $gray_dark;
+  color: $gray_lighter;
   font-family: 'Work Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
   letter-spacing: -0.25px;
   margin: 0;
   padding: 0 18px;
+  background-color: #222;
 }
 
 p {
@@ -101,7 +102,7 @@ a:not(.button) {
 
 .box {
   @include clearfix;
-  background-color: $gray_lighter;
+  background-color: $gray_dark;
   border-radius: 2px;
   margin-bottom: 30px;
   padding: 24px 30px;

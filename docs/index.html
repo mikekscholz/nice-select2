@@ -8,8 +8,8 @@
   <title>Vanilla Javascript Nice Select2</title>
 
   <link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,600&Inconsolata:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="dist/css/style.css">
-  <link rel="stylesheet" href="dist/css/nice-select2.css">
+  <link rel="stylesheet" href="../dist/css/style.css">
+  <link rel="stylesheet" href="../dist/css/nice-select2.css">
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-40665301-3"></script>
@@ -231,11 +231,17 @@
     
   </div>
   
-  <script src="dist/js/nice-select2.js"></script>
+  <!-- <script src="../dist/js/nice-select2.js"></script> -->
   <script src="demo/fastclick.js"></script>
   <script src="demo/prism.js"></script>
-  
-  <script>
+  <script type="module">
+		import NiceSelect from '../dist/js/nice-select2.js';
+		document.querySelectorAll("select").forEach(select => {
+			select.NiceSelect = new NiceSelect(select, { searchable: false, showSelectedItems: true });
+		})
+		
+	</script>
+  <!-- <script>
    document.addEventListener("DOMContentLoaded", function(e){
 
      // default
@@ -258,7 +264,7 @@
     };
     document.getElementById("translated-select")._niceSelect  = NiceSelect.bind(document.getElementById("translated-select"), options); 
    });
-  </script>
+  </script> -->
   
 </body>
 </html>

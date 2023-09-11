@@ -766,7 +766,7 @@ body > .os-scrollbar {
   transition: all 0.4s ease-in-out;
   user-select: none;
   white-space: nowrap;
-  width: 100%;
+  width: max-content;
   min-width: fit-content;
 }
 .nice-select:hover {
@@ -777,6 +777,9 @@ body > .os-scrollbar {
 }
 .nice-select:focus {
   border-color: #fff;
+}
+.nice-select .current {
+  pointer-events: none;
 }
 .nice-select .current.placeholder {
   opacity: 0.5;
@@ -805,7 +808,7 @@ body > .os-scrollbar {
   width: 0;
 }
 .nice-select.has-multiple {
-  padding: 0;
+  padding: 0 32px 0 0;
 }
 .nice-select.has-multiple span.current {
   background: #444;
@@ -821,6 +824,7 @@ body > .os-scrollbar {
   display: block;
   line-height: 28px;
   padding: 0 3px;
+  pointer-events: none;
 }
 .nice-select.has-multiple .multiple-options.placeholder {
   opacity: 0.5;
@@ -895,6 +899,7 @@ body > .os-scrollbar {
   transition-timing-function: ease;
   opacity: 0;
   z-index: 9;
+  width: max-content;
   backdrop-filter: brightness(0.6) blur(6px);
 }
 .nice-select-dropdown .os-scrollbar-vertical {
@@ -913,6 +918,7 @@ body > .os-scrollbar {
 }
 .nice-select-dropdown.opening {
   opacity: 1;
+  max-height: 100%;
   transition-property: max-height, opacity;
   transition-duration: 500ms, 500ms;
   transition-delay: 0ms, 0ms;
