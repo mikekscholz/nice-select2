@@ -481,7 +481,7 @@ export default class NiceSelect {
 			}
 			);
 			scrollIntoView(this.menu.querySelector(".selected"), {
-				time: 0, validTarget: function (target, parentsScrolled) {
+				time: 100, maxSynchronousAlignments: 6, validTarget: function (target, parentsScrolled) {
 					return parentsScrolled < 2 && target !== window && target.matches('.list');
 				}
 			});
