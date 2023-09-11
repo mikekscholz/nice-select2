@@ -396,6 +396,7 @@ export default class NiceSelect {
 			this.disable();
 		} else {
 			this.enable();
+			this.updateSelectValue();
 		}
 	}
 
