@@ -133,6 +133,7 @@ export default class NiceSelect {
 		this.el.style.padding = "0";
 		this.el.style.height = "0";
 		this.el.style.border = "0";
+		this.el.style.position = "absolute";
 		this.el.tabIndex = -1;
 		if (this.data) {
 			this.processData(this.data);
@@ -166,7 +167,7 @@ export default class NiceSelect {
 		var selectedOptions = [];
 
 		options.forEach(item => {
-			if (item.tagName == 'OPTGROUP') {
+			if (item.tagName === 'OPTGROUP') {
 				var itemData = {
 					display: item.label,
 					value: 'optgroup'
@@ -182,15 +183,17 @@ export default class NiceSelect {
 					text: text,
 					display: display,
 					value: item.value,
+					optgroupOption: item.parentElement.tagName === 'OPTGROUP',
 					selected: item.selected || item.getAttribute("selected") != null,
 					disabled: item.disabled || item.getAttribute("disabled") != null
 				};
 			}
-
+			
 			var attributes = {
 				selected: item.selected || item.getAttribute("selected") != null,
 				disabled: item.disabled || item.getAttribute("disabled") != null,
-				optgroup: item.tagName == 'OPTGROUP'
+				optgroupOption: item.parentElement.tagName === 'OPTGROUP',
+				optgroup: item.tagName === 'OPTGROUP'
 			};
 
 			data.push(itemData);
@@ -245,7 +248,6 @@ export default class NiceSelect {
 					pointers: ['mouse', 'touch', 'pen'],
 				}
 			});
-
 		this.el.insertAdjacentHTML("afterend", html);
 
 		this.dropdown = this.el.nextElementSibling;
@@ -318,6 +320,9 @@ export default class NiceSelect {
 			}
 			if (option.attributes.disabled) {
 				el.classList.add("disabled");
+			}
+			if (option.attributes.optgroupOption) {
+				el.classList.add("optgroup-option");
 			}
 		}
 
@@ -612,7 +617,7 @@ export default class NiceSelect {
 		}
 
 		while (el) {
-			if (!hasClass(el, "disabled") && el.style.display !== "none") {
+			if (!hasClass(el, "optgroup") && !hasClass(el, "disabled") && el.style.display !== "none") {
 				return el;
 			}
 			el = el.nextElementSibling;
@@ -629,7 +634,7 @@ export default class NiceSelect {
 		}
 
 		while (el) {
-			if (!hasClass(el, "disabled") && el.style.display !== "none") {
+			if (!hasClass(el, "optgroup") && !hasClass(el, "disabled") && el.style.display !== "none") {
 				return el;
 			}
 			el = el.previousElementSibling;

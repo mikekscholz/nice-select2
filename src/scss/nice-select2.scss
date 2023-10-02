@@ -81,9 +81,7 @@ $arrow-color: #fff;
 		pointer-events: none;
 	}
 
-	.optgroup {
-		font-weight: bold;
-	}
+
 
 	.list {
 		&::-webkit-scrollbar {
@@ -272,7 +270,15 @@ $arrow-color: #fff;
 			}
 		}
 	}
-
+	
+	.optgroup {
+		cursor: pointer;
+		font-weight: 700;
+		list-style: none;
+		outline: none;
+		padding: 6px 10px;
+	}
+	
 	.option {
 		cursor: pointer;
 		font-weight: 400;
@@ -281,6 +287,22 @@ $arrow-color: #fff;
 		padding: 6px 10px;
 		text-align: left;
 		transition: all .2s;
+		display: flex;
+		align-items: center;
+		
+		&.optgroup-option {
+			padding: 6px 30px;
+			// &::before {
+			// 	content: "";
+			// 	padding-right: 20px;
+			// 	// font-weight: 900;
+			// 	background-color: currentColor;
+			// 	width: 10px;
+			// 	height: 4px;
+			// 	border-radius: 2px;
+			// 	display: block;
+			// }
+		}
 
 		&:hover {
 			background-color: $background-color_5;
