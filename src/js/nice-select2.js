@@ -169,7 +169,8 @@ export default class NiceSelect {
 			if (item.tagName == 'OPTGROUP') {
 				var itemData = {
 					text: item.label,
-					value: 'optgroup'
+					value: 'optgroup',
+					display: text
 				};
 			} else {
 				let text = item.innerText;
