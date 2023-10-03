@@ -10,11 +10,12 @@ module.exports = {
 	watchOptions: {
 	  aggregateTimeout: 1000,
 	  poll: 1000,
-	  ignored: ['/.git/', '/node_modules/', '/webfonts/', '/config.json/', '/main.js/', '/package/'],
+	  ignored: ['/.git/', '/node_modules/', '/webfonts/'],
 	},
     entry: {
 		"nice-select2": './src/js/nice-select2.js',
-		style: "./src/scss/style.scss",
+		// "style": "./src/scss/style.scss",
+		// "nice-select2": "./src/scss/nice-select2.scss",
 	},
     output: {
 		path: path.resolve(__dirname, 'dist'),

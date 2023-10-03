@@ -1,5 +1,5 @@
 import "../scss/nice-select2.scss";
-import { autoUpdate, computePosition, flip, offset, size } from "@floating-ui/dom";
+import { autoUpdate, computePosition, offset, size, autoPlacement } from "@floating-ui/dom";
 
 import { OverlayScrollbars } from 'overlayscrollbars';
 
@@ -312,9 +312,9 @@ export default class NiceSelect {
 			el.setAttribute("data-value", option.data.value);
 			el.addEventListener("click", this._onItemClicked.bind(this, option));
 			el.classList.add("option");
-			if (option.data.value === this.el.value) {
-				el.classList.add("selected");
-			}
+			// if (option.data.value === this.el.value) {
+			// 	el.classList.add("selected");
+			// }
 			if (option.attributes.selected) {
 				el.classList.add("selected");
 			}
@@ -335,7 +335,11 @@ export default class NiceSelect {
 			placement: this.placement,
 			middleware: [
 				offset(this.offset),
-				flip({ fallbackStrategy: 'bestFit', padding: this.offset }),
+				// flip({ fallbackStrategy: 'bestFit', padding: this.offset }),
+				autoPlacement({
+					padding: 5, // 0 by default
+					allowedPlacements: ['top-start', 'bottom-start'],
+				}),
 				this.availableHeight == true && size({
 					apply({ availableHeight }) {
 						Object.assign(element.style, {
@@ -477,6 +481,7 @@ export default class NiceSelect {
 			var t = this.menu.querySelector(".focus");
 			removeClass(t, "focus");
 			t = this.menu.querySelector(".selected");
+			if (!t) t = this.menu.querySelector(".list .option");
 			addClass(t, "focus");
 			this.menu.querySelectorAll("ul li").forEach(function (item) {
 				item.style.display = "";
