@@ -340,16 +340,16 @@ export default class NiceSelect {
 			placement: this.placement,
 			middleware: [
 				offset(this.offset),
+				flip({ fallbackStrategy: 'initialPlacement', padding: this.offset, crossAxis: false }),
 				this.availableHeight == true && size({
 					apply({ availableHeight }) {
 						Object.assign(element.style, {
-							maxHeight: `${Math.max(150, availableHeight)}px`,
-							height: `${Math.max(150, availableHeight)}px`,
+							maxHeight: `${Math.max(100, availableHeight)}px`,
+							height: `${Math.max(100, availableHeight)}px`,
 						});
 					},
 					padding: this.offset
 				}),
-				flip({ fallbackStrategy: 'initialPlacement', padding: this.offset, crossAxis: false }),
 				this.sameWidth == true && size({
 					apply({ rects }) {
 						Object.assign(element.style, {

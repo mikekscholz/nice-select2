@@ -181,6 +181,7 @@ $arrow-color: #fff;
 .nice-select-float {
 	position: absolute !important;
 	max-height: 0;
+	// height: max-content;
 	min-width: max-content;
 	box-sizing: border-box;
 	width: max-content;
