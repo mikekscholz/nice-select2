@@ -1,5 +1,5 @@
 import "../scss/nice-select2.scss";
-import { autoUpdate, computePosition, offset, size, autoPlacement } from "@floating-ui/dom";
+import { autoUpdate, computePosition, flip, offset, size, autoPlacement } from "@floating-ui/dom";
 
 import { OverlayScrollbars } from 'overlayscrollbars';
 
@@ -119,7 +119,7 @@ export default class NiceSelect {
 		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
 		this.placement = this.el.dataset.placement || this.config.placement;
-		
+
 		this.dropdown = null;
 		this.multiple = attr(this.el, "multiple");
 		this.disabled = attr(this.el, "disabled");
@@ -188,7 +188,7 @@ export default class NiceSelect {
 					disabled: item.disabled || item.getAttribute("disabled") != null
 				};
 			}
-			
+
 			var attributes = {
 				selected: item.selected || item.getAttribute("selected") != null,
 				disabled: item.disabled || item.getAttribute("disabled") != null,
@@ -236,28 +236,33 @@ export default class NiceSelect {
 				viewport: this.menu.querySelector('.list'),
 			}
 		},
-			{
-				paddingAbsolute: true,
-				scrollbars: {
-					theme: null,
-					visibility: 'visible',
-					autoHide: 'never',
-					autoHideDelay: 1300,
-					dragScroll: true,
-					clickScroll: true,
-					pointers: ['mouse', 'touch', 'pen'],
-				}
-			});
+		{
+			paddingAbsolute: true,
+			scrollbars: {
+				theme: null,
+				visibility: 'visible',
+				autoHide: 'never',
+				autoHideDelay: 1300,
+				dragScroll: true,
+				clickScroll: true,
+				pointers: ['mouse', 'touch', 'pen'],
+			}
+		});
+		
+		this.float = document.createElement("div");
+		this.float.classList.add("nice-select-float");
+		this.float.appendChild(this.menu);
+		
 		this.el.insertAdjacentHTML("afterend", html);
 
 		this.dropdown = this.el.nextElementSibling;
 		this._renderItems();
 		this._renderSelectedItems();
-		
+
 		if (this.fitContent && !this.el.classList.contains('wide')) {
-			document.body.appendChild(this.menu);
+			document.body.appendChild(this.float);
 			this.dropdown.style.width = `${this.menu.offsetWidth}px`;
-			this.menu.remove();
+			this.float.remove();
 		}
 	}
 
@@ -335,15 +340,12 @@ export default class NiceSelect {
 			placement: this.placement,
 			middleware: [
 				offset(this.offset),
-				// flip({ fallbackStrategy: 'bestFit', padding: this.offset }),
-				autoPlacement({
-					padding: 5, // 0 by default
-					allowedPlacements: ['top-start', 'bottom-start'],
-				}),
+				flip({ fallbackStrategy: 'bestFit', padding: this.offset, crossAxis: false }),
 				this.availableHeight == true && size({
 					apply({ availableHeight }) {
 						Object.assign(element.style, {
 							maxHeight: `${Math.max(100, availableHeight)}px`,
+							height: `${Math.max(100, availableHeight)}px`,
 						});
 					},
 					padding: this.offset
@@ -353,8 +355,7 @@ export default class NiceSelect {
 						Object.assign(element.style, {
 							width: `${rects.reference.width}px`
 						});
-					},
-					padding: this.offset
+					}
 				}),
 			]
 		}).then(({ x, y, placement }) => {
@@ -364,20 +365,28 @@ export default class NiceSelect {
 			});
 
 			this.finalPosition = placement;
+			if (/^top/.test(placement)) {
+				this.menu.style.bottom = 0;
+				this.menu.style.top = "";
+			}
+			if (/^bottom/.test(placement)) {
+				this.menu.style.top = 0;
+				this.menu.style.bottom = "";
+			}
 		});
 	}
 
 	hideMenu(e) {
-		if (/^top/.test(this.finalPosition)) {
-			let bottom = getComputedStyle(this.menu).bottom;
-			this.menu.style.bottom = bottom;
-			this.menu.style.top = "";
-		}
-		if (/^bottom/.test(this.finalPosition)) {
-			let top = getComputedStyle(this.menu).top;
-			this.menu.style.top = top;
-			this.menu.style.bottom = "";
-		}
+		// if (/^top/.test(this.finalPosition)) {
+		// 	let bottom = getComputedStyle(this.menu).bottom;
+		// 	this.menu.style.bottom = bottom;
+		// 	this.menu.style.top = "";
+		// }
+		// if (/^bottom/.test(this.finalPosition)) {
+		// 	let top = getComputedStyle(this.menu).top;
+		// 	this.menu.style.top = top;
+		// 	this.menu.style.bottom = "";
+		// }
 		if (this.cleanup) this.cleanup();
 		removeClass(this.dropdown, "open");
 		removeClass(this.menu, "opening");
@@ -385,7 +394,7 @@ export default class NiceSelect {
 		triggerModalClose(this.el);
 		this.menu.style.maxHeight = "0";
 		setTimeout(() => {
-			this.menu.remove();
+			this.float.remove();
 			this.menu.style.top = "";
 			this.menu.style.bottom = "";
 			this.menu.style.maxHeight = "";
@@ -475,9 +484,9 @@ export default class NiceSelect {
 		if (!hasClass(this.dropdown, "open")) {
 			addClass(this.dropdown, "open");
 			triggerModalOpen(this.el);
-			document.body.appendChild(this.menu);
+			document.body.appendChild(this.float);
 			if (search) search.value = "";
-			
+
 			var t = this.menu.querySelector(".focus");
 			removeClass(t, "focus");
 			t = this.menu.querySelector(".selected");
@@ -486,8 +495,8 @@ export default class NiceSelect {
 			this.menu.querySelectorAll("ul li").forEach(function (item) {
 				item.style.display = "";
 			});
-			this.cleanup = autoUpdate(this.dropdown, this.menu, () => {
-				this.positionMenu(this.dropdown, this.menu);
+			this.cleanup = autoUpdate(this.dropdown, this.float, () => {
+				this.positionMenu(this.dropdown, this.float);
 			}
 			);
 			scrollIntoView(this.menu.querySelector(".selected"), {
@@ -579,7 +588,7 @@ export default class NiceSelect {
 
 		if (!isOpen) {
 			// On "Arrow down", "Arrow up", "Space" and "Enter" keys opens the panel
-			if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 32|| e.keyCode === 13) {
+			if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 32 || e.keyCode === 13) {
 				e.preventDefault();
 				triggerClick(this.dropdown);
 			}

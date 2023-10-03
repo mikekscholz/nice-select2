@@ -178,6 +178,14 @@ $arrow-color: #fff;
 	}
 }
 
+.nice-select-float {
+	position: absolute !important;
+	max-height: 0;
+	min-width: max-content;
+	box-sizing: border-box;
+	width: max-content;
+}
+
 .nice-select-dropdown {
 	font-family: $font-family_2 !important;
 	font-size: 14px;
@@ -190,13 +198,14 @@ $arrow-color: #fff;
 	box-sizing: border-box;
 	position: absolute !important;
 	max-height: 0;
+	width: 100%;
 	transition-property: max-height, opacity;
 	transition-duration: 500ms, 200ms;
 	transition-delay: 0ms, 300ms;
 	transition-timing-function: ease;
 	opacity: 0;
 	z-index: 9;
-	width: max-content;
+	min-width: max-content;
 	backdrop-filter: brightness(0.6) blur(6px);
 	
 	.os-scrollbar-vertical {
@@ -234,7 +243,7 @@ $arrow-color: #fff;
 	
 	&.open {
 		opacity: 1;
-		// max-height: unset;
+		max-height: 100%;
 		transition-property: max-height, opacity;
 		transition-duration: 0ms, 200ms;
 		transition-delay: 0ms, 0ms;
