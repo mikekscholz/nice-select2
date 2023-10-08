@@ -131,7 +131,7 @@ $arrow-color: #fff;
 		transform: rotate(-180deg);
 	}
 
-	.nice-select-dropdown {
+	.nice-select-menu {
 		opacity: 1;
 		pointer-events: auto;
 		transform: scale(1) translateY(0);
@@ -147,7 +147,7 @@ $arrow-color: #fff;
 .nice-select.wide {
 	width: 100%;
 
-	.nice-select-dropdown {
+	.nice-select-menu {
 		left: 0 !important;
 		right: 0 !important;
 	}
@@ -156,7 +156,7 @@ $arrow-color: #fff;
 // .nice-select.right {
 // 	float: right;
 
-// 	.nice-select-dropdown {
+// 	.nice-select-menu {
 // 		left: auto;
 // 		right: 0;
 // 	}
@@ -187,7 +187,7 @@ $arrow-color: #fff;
 	width: max-content;
 }
 
-.nice-select-dropdown {
+.nice-select-menu {
 	font-family: $font-family_2 !important;
 	font-size: 14px;
 	color: #fff;
@@ -389,13 +389,13 @@ $arrow-color: #fff;
 
 .no-csspointerevents {
 	.nice-select {
-		.nice-select-dropdown {
+		.nice-select-menu {
 			display: none;
 		}
 	}
 
 	.nice-select.open {
-		.nice-select-dropdown {
+		.nice-select-menu {
 			display: block;
 		}
 	}

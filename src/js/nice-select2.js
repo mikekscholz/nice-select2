@@ -1,4 +1,4 @@
-import "../scss/nice-select2.scss";
+// import "../scss/nice-select2.scss";
 import { autoUpdate, computePosition, flip, offset, size, autoPlacement } from "@floating-ui/dom";
 
 import { OverlayScrollbars } from 'overlayscrollbars';
@@ -44,11 +44,11 @@ function triggerModalClose(el) {
 
 function triggerValidationMessage(el, type) {
 	if (type == 'invalid') {
-		addClass(this.dropdown, 'invalid');
-		removeClass(this.dropdown, 'valid');
+		addClass(this.input, 'invalid');
+		removeClass(this.input, 'valid');
 	} else {
-		addClass(this.dropdown, 'valid');
-		removeClass(this.dropdown, 'invalid');
+		addClass(this.input, 'valid');
+		removeClass(this.input, 'invalid');
 	}
 }
 
@@ -93,7 +93,8 @@ var defaultOptions = {
 	showSelectedItems: false,
 	sameWidth: false,
 	availableHeight: false,
-	offset: 2,
+	offset: 3,
+	padding: 5,
 	placement: "bottom-start"
 };
 
@@ -118,9 +119,10 @@ export default class NiceSelect {
 		this.availableHeight = Bool(this.el.dataset.availableHeight || this.config.availableHeight);
 		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
+		this.padding = Number(this.el.dataset.padding || this.config.padding);
 		this.placement = this.el.dataset.placement || this.config.placement;
 
-		this.dropdown = null;
+		this.input = null;
 		this.multiple = attr(this.el, "multiple");
 		this.disabled = attr(this.el, "disabled");
 
@@ -228,7 +230,7 @@ export default class NiceSelect {
 					</div>`;
 
 		this.menu = document.createElement("div");
-		this.menu.classList.add("nice-select-dropdown");
+		this.menu.classList.add("nice-select-menu");
 		this.menu.innerHTML = `${this.searchable ? searchHtml : ""} <ul class="list"></ul>`;
 		this.menu.OverlayScrollbars = OverlayScrollbars({
 			target: this.menu,
@@ -255,22 +257,22 @@ export default class NiceSelect {
 		
 		this.el.insertAdjacentHTML("afterend", html);
 
-		this.dropdown = this.el.nextElementSibling;
+		this.input = this.el.nextElementSibling;
 		this._renderItems();
 		this._renderSelectedItems();
 
 		if (this.fitContent && !this.el.classList.contains('wide')) {
 			document.body.appendChild(this.float);
-			this.dropdown.style.width = `${this.menu.offsetWidth}px`;
+			this.input.style.width = `${this.menu.offsetWidth}px`;
 			this.float.remove();
 		}
 	}
 
 	_renderSelectedItems() {
 		if (this.multiple) {
-			let multipleOptions = this.dropdown.querySelector(".multiple-options");
+			let multipleOptions = this.input.querySelector(".multiple-options");
 			var selectedHtml = "";
-			if (this.config.showSelectedItems || window.getComputedStyle(this.dropdown).width == 'auto' || this.selectedOptions.length < 2) {
+			if (this.config.showSelectedItems || window.getComputedStyle(this.input).width == 'auto' || this.selectedOptions.length < 2) {
 				this.selectedOptions.forEach(function (item) {
 					selectedHtml += `<span class="current">${item.data.text}</span>`;
 				});
@@ -282,7 +284,7 @@ export default class NiceSelect {
 			this.selectedOptions.length === 0 ? multipleOptions.classList.add('placeholder') : multipleOptions.classList.remove('placeholder');
 			multipleOptions.innerHTML = selectedHtml;
 		} else {
-			let current = this.dropdown.querySelector(".current");
+			let current = this.input.querySelector(".current");
 			let html;
 			if (this.selectedOptions.length > 0 && this.selectedOptions[0].data.value) {
 				current.innerHTML = this.selectedOptions[0].data.text;
@@ -294,7 +296,7 @@ export default class NiceSelect {
 			}
 			// let html = this.selectedOptions.length > 0 ? this.selectedOptions[0].data.text : this.placeholder;
 
-			// this.dropdown.querySelector(".current").innerHTML = html;
+			// this.input.querySelector(".current").innerHTML = html;
 		}
 	}
 
@@ -340,28 +342,28 @@ export default class NiceSelect {
 			placement: this.placement,
 			middleware: [
 				offset(this.offset),
-				flip({ fallbackStrategy: 'initialPlacement', padding: this.offset, crossAxis: false }),
 				this.availableHeight == true && size({
 					apply({ availableHeight }) {
 						Object.assign(element.style, {
-							maxHeight: `${Math.max(100, availableHeight)}px`,
-							height: `${Math.max(100, availableHeight)}px`,
+							maxHeight: `${Math.max(100, roundByDPR(availableHeight))}px`,
+							height: `${Math.max(100, roundByDPR(availableHeight))}px`,
 						});
 					},
-					padding: this.offset
+					padding: this.padding
 				}),
 				this.sameWidth == true && size({
 					apply({ rects }) {
 						Object.assign(element.style, {
-							width: `${rects.reference.width}px`
+							width: `${roundByDPR(rects.reference.width)}px`
 						});
 					}
 				}),
+				flip({ fallbackStrategy: 'initialPlacement', padding: this.padding, crossAxis: false }),
 			]
 		}).then(({ x, y, placement }) => {
 			Object.assign(element.style, {
-				top: `${y}px`,
-				left: `${x}px`
+				top: `${roundByDPR(y)}px`,
+				left: `${roundByDPR(x)}px`
 			});
 
 			this.finalPosition = placement;
@@ -388,28 +390,29 @@ export default class NiceSelect {
 		// 	this.menu.style.bottom = "";
 		// }
 		if (this.cleanup) this.cleanup();
-		removeClass(this.dropdown, "open");
+		removeClass(this.input, "open");
 		removeClass(this.menu, "opening");
 		removeClass(this.menu, "open");
 		triggerModalClose(this.el);
 		this.menu.style.maxHeight = "0";
 		setTimeout(() => {
 			this.float.remove();
+			this.float.style.height = "";
+			this.float.style.maxHeight = "";
 			this.menu.style.top = "";
 			this.menu.style.bottom = "";
-			this.menu.style.maxHeight = "";
 		}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
 	}
 
 	update() {
 		this.extractData();
-		if (this.dropdown) {
-			var open = hasClass(this.dropdown, "open");
-			this.dropdown.remove();
+		if (this.input) {
+			var open = hasClass(this.input, "open");
+			this.input.remove();
 			this.create();
 
 			if (open) {
-				triggerClick(this.dropdown);
+				triggerClick(this.input);
 			}
 		}
 
@@ -424,14 +427,14 @@ export default class NiceSelect {
 	disable() {
 		if (!this.disabled) {
 			this.disabled = true;
-			addClass(this.dropdown, "disabled");
+			addClass(this.input, "disabled");
 		}
 	}
 
 	enable() {
 		if (this.disabled) {
 			this.disabled = false;
-			removeClass(this.dropdown, "disabled");
+			removeClass(this.input, "disabled");
 		}
 	}
 
@@ -445,17 +448,17 @@ export default class NiceSelect {
 	}
 
 	destroy() {
-		if (this.dropdown) {
-			this.dropdown.remove();
+		if (this.input) {
+			this.input.remove();
 			this.el.style.display = "";
 		}
 	}
 
 	bindEvent() {
-		this.dropdown.addEventListener("click", this._onClicked.bind(this));
-		this.dropdown.addEventListener("keydown", this._onKeyPressed.bind(this));
-		this.dropdown.addEventListener("focusin", triggerFocusIn.bind(this, this.el));
-		this.dropdown.addEventListener("focusout", triggerFocusOut.bind(this, this.el));
+		this.input.addEventListener("click", this._onClicked.bind(this));
+		this.input.addEventListener("keydown", this._onKeyPressed.bind(this));
+		this.input.addEventListener("focusin", triggerFocusIn.bind(this, this.el));
+		this.input.addEventListener("focusout", triggerFocusOut.bind(this, this.el));
 		this.el.addEventListener("invalid", triggerValidationMessage.bind(this, this.el, 'invalid'));
 		window.addEventListener("click", this._onClickedOutside.bind(this));
 
@@ -481,8 +484,8 @@ export default class NiceSelect {
 		e.preventDefault();
 		var search = this.menu.querySelector(".nice-select-search");
 		// e.stopImmediatePropagation();
-		if (!hasClass(this.dropdown, "open")) {
-			addClass(this.dropdown, "open");
+		if (!hasClass(this.input, "open")) {
+			addClass(this.input, "open");
 			triggerModalOpen(this.el);
 			document.body.appendChild(this.float);
 			if (search) search.value = "";
@@ -495,8 +498,8 @@ export default class NiceSelect {
 			this.menu.querySelectorAll("ul li").forEach(function (item) {
 				item.style.display = "";
 			});
-			this.cleanup = autoUpdate(this.dropdown, this.float, () => {
-				this.positionMenu(this.dropdown, this.float);
+			this.cleanup = autoUpdate(this.input, this.float, () => {
+				this.positionMenu(this.input, this.float);
 			}
 			);
 			scrollIntoView(this.menu.querySelector(".selected"), {
@@ -511,7 +514,7 @@ export default class NiceSelect {
 			}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
 		} else {
 			this.hideMenu(e);
-			this.dropdown.focus();
+			this.input.focus();
 		}
 	}
 	_onItemClicked(option, e) {
@@ -576,7 +579,7 @@ export default class NiceSelect {
 	}
 
 	_onClickedOutside(e) {
-		if (!this.dropdown.contains(e.target)) {
+		if (!this.input.contains(e.target)) {
 			this.hideMenu(e);
 		}
 	}
@@ -584,13 +587,13 @@ export default class NiceSelect {
 	_onKeyPressed(e) {
 		// Keyboard events
 		let focusedOption = this.menu.querySelector(".focus");
-		let isOpen = hasClass(this.dropdown, "open");
+		let isOpen = hasClass(this.input, "open");
 
 		if (!isOpen) {
 			// On "Arrow down", "Arrow up", "Space" and "Enter" keys opens the panel
 			if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 32 || e.keyCode === 13) {
 				e.preventDefault();
-				triggerClick(this.dropdown);
+				triggerClick(this.input);
 			}
 		} else {
 			switch (e.keyCode) {
@@ -602,7 +605,7 @@ export default class NiceSelect {
 
 				case 27:
 					// On "Escape" closes the panel
-					triggerClick(this.dropdown);
+					triggerClick(this.input);
 					break;
 
 				case 38:
@@ -686,7 +689,7 @@ export default class NiceSelect {
 	}
 
 	_onSearchChanged(e) {
-		var open = hasClass(this.dropdown, "open");
+		var open = hasClass(this.input, "open");
 		var text = e.target.value;
 		text = text.toLowerCase();
 
