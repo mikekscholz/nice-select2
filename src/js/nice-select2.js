@@ -94,7 +94,7 @@ var defaultOptions = {
 	sameWidth: false,
 	availableHeight: false,
 	offset: 3,
-	padding: 5,
+	floatPadding: 5,
 	placement: "bottom-start"
 };
 
@@ -119,7 +119,7 @@ export default class NiceSelect {
 		this.availableHeight = Bool(this.el.dataset.availableHeight || this.config.availableHeight);
 		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
-		this.padding = Number(this.el.dataset.padding || this.config.padding);
+		this.floatPadding = Number(this.el.dataset.floatPadding || this.config.floatPadding);
 		this.placement = this.el.dataset.placement || this.config.placement;
 
 		this.input = null;
@@ -349,7 +349,7 @@ export default class NiceSelect {
 							height: `${Math.max(100, roundByDPR(availableHeight))}px`,
 						});
 					},
-					padding: this.padding
+					padding: this.floatPadding
 				}),
 				this.sameWidth == true && size({
 					apply({ rects }) {
@@ -358,7 +358,7 @@ export default class NiceSelect {
 						});
 					}
 				}),
-				flip({ fallbackStrategy: 'initialPlacement', padding: this.padding, crossAxis: false }),
+				flip({ fallbackStrategy: 'initialPlacement', padding: this.floatPadding, crossAxis: false }),
 			]
 		}).then(({ x, y, placement }) => {
 			Object.assign(element.style, {
