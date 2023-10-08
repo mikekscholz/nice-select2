@@ -13,9 +13,9 @@ module.exports = {
 	  ignored: ['/.git/', '/node_modules/', '/webfonts/'],
 	},
     entry: {
-		"nice-select2": ["./src/js/nice-select2.js", "./src/scss/nice-select2.scss"],
+		"nice-select2": "./src/js/nice-select2.js",
 		// "style": "./src/scss/style.scss",
-		// "nice-select2": ,
+		// "nice-select2": "./src/scss/nice-select2.scss",
 	},
     output: {
 		path: path.resolve(__dirname, 'dist'),
