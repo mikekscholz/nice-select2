@@ -253,6 +253,9 @@ export default class NiceSelect {
 		
 		this.float = document.createElement("div");
 		this.float.classList.add("nice-select-float");
+		if (this.el.classList.length > 0) {
+			this.el.classList.forEach(className => this.float.classList.add(className));
+		}
 		this.float.appendChild(this.menu);
 		
 		this.el.insertAdjacentHTML("afterend", html);
@@ -460,6 +463,7 @@ export default class NiceSelect {
 		this.inputReplacement.addEventListener("focusin", triggerFocusIn.bind(this, this.el));
 		this.inputReplacement.addEventListener("focusout", triggerFocusOut.bind(this, this.el));
 		this.el.addEventListener("invalid", triggerValidationMessage.bind(this, this.el, 'invalid'));
+		this.el.addEventListener("focusin", this._onFocusedNative.bind(this));
 		window.addEventListener("click", this._onClickedOutside.bind(this));
 
 		if (this.searchable) {
@@ -712,6 +716,11 @@ export default class NiceSelect {
 
 		var firstEl = this._findNext(null);
 		addClass(firstEl, "focus");
+	}
+	
+	_onFocusedNative(e) {
+		e.preventDefault();
+		this.inputReplacement.focus();
 	}
 }
 
