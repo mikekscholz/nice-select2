@@ -1,44 +1,41 @@
 // import "../scss/nice-select2.scss";
-import { autoUpdate, computePosition, flip, offset, size, autoPlacement } from "@floating-ui/dom";
-
+import { autoUpdate, computePosition, flip, offset, size } from "@floating-ui/dom";
 import { OverlayScrollbars } from 'overlayscrollbars';
-
 import scrollIntoView from 'scroll-into-view';
 
 // utility functions
 function triggerClick(el) {
-	var event = document.createEvent("MouseEvents");
-	event.initEvent("click", true, false);
+	const event = new MouseEvent("click", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
 	el.dispatchEvent(event);
 }
 
 function triggerChange(el) {
-	var event = document.createEvent("HTMLEvents");
-	event.initEvent("change", true, false);
+	const event = new Event("change", {
+		bubbles: true,
+		cancelable: false
+	});
 	el.dispatchEvent(event);
 }
 
 function triggerFocusIn(el) {
-	var event = document.createEvent("FocusEvent");
-	event.initEvent("focusin", true, false);
+	const event = new focusEvent("focusin", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
 	el.dispatchEvent(event);
 }
 
 function triggerFocusOut(el) {
-	var event = document.createEvent("FocusEvent");
-	event.initEvent("focusout", true, false);
-	el.dispatchEvent(event);
-}
-
-function triggerModalOpen(el) {
-	var event = document.createEvent("UIEvent");
-	event.initEvent("modalopen", true, false);
-	el.dispatchEvent(event);
-}
-
-function triggerModalClose(el) {
-	var event = document.createEvent("UIEvent");
-	event.initEvent("modalclose", true, false);
+	const event = new focusEvent("focusout", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
 	el.dispatchEvent(event);
 }
 
@@ -57,10 +54,6 @@ function attr(el, key) {
 		return el[key];
 	}
 	return el.getAttribute(key);
-}
-
-function data(el, key) {
-	return el.getAttribute("data-" + key);
 }
 
 function hasClass(el, className) {
@@ -97,9 +90,6 @@ var defaultOptions = {
 	floatPadding: 5,
 	placement: "bottom-start"
 };
-
-// var cleanupMenu;
-
 
 export default class NiceSelect {
 	constructor(element, options) {
@@ -214,53 +204,37 @@ export default class NiceSelect {
 	}
 
 	renderDropdown() {
-		var classes = [
-			"nice-select",
-			attr(this.el, "class") || "",
-			this.disabled ? "disabled" : null,
-			this.multiple ? "has-multiple" : null
-		];
 
-		let searchHtml = `<div class="nice-select-search-box">
-							<input type="text" class="nice-select-search" placeholder="${this.searchtext}..." title="search"/>
-						</div>`;
-
-		var html = `<div class="${classes.join(' ')}" tabindex="${this.disabled ? null : 0}">
-						<span class="${this.multiple ? 'multiple-options' : 'current'}"></span>
-					</div>`;
-
+		// Menu list of select options/optgroups.
 		this.menu = document.createElement("div");
 		this.menu.classList.add("nice-select-menu");
-		this.menu.innerHTML = `${this.searchable ? searchHtml : ""} <ul class="list"></ul>`;
-		this.menu.OverlayScrollbars = OverlayScrollbars({
-			target: this.menu,
-			elements: {
-				viewport: this.menu.querySelector('.list'),
-			}
-		},
-		{
-			paddingAbsolute: true,
-			scrollbars: {
-				theme: null,
-				visibility: 'visible',
-				autoHide: 'never',
-				autoHideDelay: 1300,
-				dragScroll: true,
-				clickScroll: true,
-				pointers: ['mouse', 'touch', 'pen'],
-			}
-		});
-		
+		if (this.searchable) {
+			this.searchBox = document.createElement("div");
+			this.searchBox.classList.add('nice-select-search-box');
+			this.searchBox.innerHTML = `<input type="text" class="nice-select-search" placeholder="${this.searchtext}..." title="search"/>`;
+			this.menu.appendChild(this.searchBox);
+		}
+		this.list = document.createElement("ul");
+		this.list.classList.add('list');
+		this.menu.appendChild(this.list);
+		this.menu.OverlayScrollbars = OverlayScrollbars({ target: this.menu, elements: { viewport: this.list } }, { paddingAbsolute: true, scrollbars: { theme: null, visibility: 'visible', autoHide: 'never', autoHideDelay: 1300, dragScroll: true, clickScroll: true, pointers: ['mouse', 'touch', 'pen'] } });
+
+		// Menu wrapper with no css transition props for floating-ui's flip middleware to prevent jumps durring opening animation. 
 		this.float = document.createElement("div");
 		this.float.classList.add("nice-select-float");
-		if (this.el.classList.length > 0) {
-			this.el.classList.forEach(className => this.float.classList.add(className));
-		}
+		if (this.el.classList.length > 0) this.el.classList.forEach(className => this.float.classList.add(className));
 		this.float.appendChild(this.menu);
-		
-		this.el.insertAdjacentHTML("afterend", html);
 
-		this.inputReplacement = this.el.nextElementSibling;
+		this.inputReplacement = document.createElement("div");
+		this.inputReplacement.classList.add('nice-select');
+		this.inputReplacement.tabIndex = this.disabled ? null : 0;
+		this.inputReplacement.innerHTML = `<span class="${this.multiple ? 'multiple-options' : 'current'}"></span>`;
+		if (this.el.classList.length > 0) this.el.classList.forEach(className => this.inputReplacement.classList.add(className));
+		if (this.disabled) this.inputReplacement.classList.add('disabled');
+		if (this.multiple) this.inputReplacement.classList.add('has-multiple');
+
+		this.el.after(this.inputReplacement);
+
 		this._renderItems();
 		this._renderSelectedItems();
 
@@ -297,9 +271,6 @@ export default class NiceSelect {
 				current.innerHTML = this.placeholder;
 				current.classList.add('placeholder');
 			}
-			// let html = this.selectedOptions.length > 0 ? this.selectedOptions[0].data.text : this.placeholder;
-
-			// this.inputReplacement.querySelector(".current").innerHTML = html;
 		}
 	}
 
@@ -319,12 +290,9 @@ export default class NiceSelect {
 			addClass(el, 'optgroup');
 		}
 		else {
-			el.setAttribute("data-value", option.data.value);
+			el.dataset.value = option.data.value;
 			el.addEventListener("click", this._onItemClicked.bind(this, option));
 			el.classList.add("option");
-			// if (option.data.value === this.el.value) {
-			// 	el.classList.add("selected");
-			// }
 			if (option.attributes.selected) {
 				el.classList.add("selected");
 			}
@@ -382,21 +350,10 @@ export default class NiceSelect {
 	}
 
 	hideMenu(e) {
-		// if (/^top/.test(this.finalPosition)) {
-		// 	let bottom = getComputedStyle(this.menu).bottom;
-		// 	this.menu.style.bottom = bottom;
-		// 	this.menu.style.top = "";
-		// }
-		// if (/^bottom/.test(this.finalPosition)) {
-		// 	let top = getComputedStyle(this.menu).top;
-		// 	this.menu.style.top = top;
-		// 	this.menu.style.bottom = "";
-		// }
 		if (this.cleanup) this.cleanup();
 		removeClass(this.inputReplacement, "open");
 		removeClass(this.menu, "opening");
 		removeClass(this.menu, "open");
-		triggerModalClose(this.el);
 		this.menu.style.maxHeight = "0";
 		setTimeout(() => {
 			this.float.remove();
@@ -490,7 +447,6 @@ export default class NiceSelect {
 		// e.stopImmediatePropagation();
 		if (!hasClass(this.inputReplacement, "open")) {
 			addClass(this.inputReplacement, "open");
-			triggerModalOpen(this.el);
 			document.body.appendChild(this.float);
 			if (search) search.value = "";
 
@@ -717,7 +673,7 @@ export default class NiceSelect {
 		var firstEl = this._findNext(null);
 		addClass(firstEl, "focus");
 	}
-	
+
 	_onFocusedNative(e) {
 		e.preventDefault();
 		this.inputReplacement.focus();
