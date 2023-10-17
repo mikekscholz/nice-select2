@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>document</title>
+	<!-- <link rel="stylesheet" href="../node_modules/.pnpm/github.com+mikekscholz+nice-select2@9c8e16aa73db4980dd7d183f4f39734907135823_webpack@5.82.0/node_modules/nice-select2/dist/css/nice-select2.css" /> -->
+	<link rel="stylesheet" href="./dist/css/nice-select2.css" />
+	<style>
+		body {
+			background-color: #333;
+			background: url("./city-night.jpg");
+			background-size: cover;
+			color: #fff;
+		}
+	</style>
+</head>
+
+<body>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div class="form-row">
+		<div class="form-col" style="flex: 1;">
+			<label class="form-label" for="wallpaperSize">Size</label>
+			<select class="form-control" name="wallpaperSize" id="wallpaperSize" placeholder="Size" data-same-width="false" data-available-height="true" data-offset="10">
+				<option value="">Size</option>
+				<option value="auto">Auto</option>
+				<option value="cover">Cover</option>
+				<option value="contain">Contain</option>
+			</select>
+		</div>
+		<div class="form-col" style="flex: 1;">
+			<label class="form-label" for="wallpaperPosition">Position</label>
+			<select class="form-control wide arrow-select wallpaper-props" name="wallpaperPosition" id="wallpaperPosition" placeholder="Position" data-same-width="true" data-available-height="true" data-offset="10" multiple>
+				<option value="">Position</option>
+				<optgroup label="top">
+					<option value="left top" data-display="<symbol>↖</symbol>Left Top">Left Top</option>
+					<option value="center top" data-display="<symbol>↑</symbol>Center Top">Center Top</option>
+					<option value="right top" data-display="<symbol>↗</symbol>Right Top">Right Top</option>
+				</optgroup>
+
+				<option value="left center" data-display="<symbol>←</symbol>Left Center">Left Center</option>
+				<option value="center center" data-display="<symbol>•</symbol>Center Center">Center Center</option>
+				<option value="right center" data-display="<symbol>→</symbol>Right Center">Right Center</option>
+				<option value="left bottom" data-display="<symbol>↙</symbol>Left Bottom">Left Bottom</option>
+				<option value="center bottom" data-display="<symbol>↓</symbol>Center Bottom">Center Bottom</option>
+				<option value="right bottom" data-display="<symbol>↘</symbol>Right Bottom">Right Bottom</option>
+			</select>
+		</div>
+		<div class="form-col" style="flex: 1;">
+			<label class="form-label" for="wallpaperRepeat">Repeat</label>
+			<select class="form-control wide wallpaper-props" name="wallpaperRepeat" id="wallpaperRepeat" placeholder="Repeat" data-same-width="true" data-available-height="true" data-offset="10" data-searchable="true">
+				<option value="">Repeat</option>
+				<option value="no-repeat">No-repeat</option>
+				<option value="repeat">Repeat</option>
+				<option value="repeat-x">Repeat X</option>
+				<option value="repeat-y">Repeat Y</option>
+				<option value="space">Space</option>
+				<option value="round">Round</option>
+			</select>
+		</div>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<script type="module">
+		import NiceSelect from './dist/js/nice-select2.js';
+		document.querySelectorAll("select").forEach(select => {
+			select.NiceSelect = new NiceSelect(select, { searchable: false, showSelectedItems: true, fitContent: true });
+		})
+		
+	</script>
+</body>
+
+</html>
