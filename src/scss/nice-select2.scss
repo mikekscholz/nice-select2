@@ -185,6 +185,9 @@ $arrow-color: #fff;
 	min-width: max-content;
 	box-sizing: border-box;
 	width: max-content;
+	margin: 0 !important;
+	padding: 0 !important;
+	transition: none !important;
 }
 
 .nice-select-menu {
