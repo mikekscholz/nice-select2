@@ -22,7 +22,7 @@ function triggerChange(el) {
 }
 
 function triggerFocusIn(el) {
-	const event = new focusEvent("focusin", {
+	const event = new FocusEvent("focusin", {
 		view: window,
 		bubbles: true,
 		cancelable: false,
@@ -31,7 +31,7 @@ function triggerFocusIn(el) {
 }
 
 function triggerFocusOut(el) {
-	const event = new focusEvent("focusout", {
+	const event = new FocusEvent("focusout", {
 		view: window,
 		bubbles: true,
 		cancelable: false,
