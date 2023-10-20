@@ -219,7 +219,7 @@ export default class NiceSelect {
 		this.menu.appendChild(this.list);
 		this.menu.OverlayScrollbars = OverlayScrollbars({ target: this.menu, elements: { viewport: this.list } }, { paddingAbsolute: true, scrollbars: { theme: null, visibility: 'visible', autoHide: 'never', autoHideDelay: 1300, dragScroll: true, clickScroll: true, pointers: ['mouse', 'touch', 'pen'] } });
 
-		// Menu wrapper with no css transition props for floating-ui's flip middleware to prevent jumps durring opening animation. 
+		// Menu wrapper with no css transition props for floating-ui's flip middleware to prevent jumps during opening animation. 
 		this.float = document.createElement("div");
 		this.float.classList.add("nice-select-float");
 		if (this.el.classList.length > 0) this.el.classList.forEach(className => this.float.classList.add(className));
@@ -505,6 +505,7 @@ export default class NiceSelect {
 			this._renderSelectedItems();
 			this.updateSelectValue();
 		}
+		this.inputReplacement.focus();
 	}
 
 	updateSelectValue() {
