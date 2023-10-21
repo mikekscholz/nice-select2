@@ -86,8 +86,10 @@ var defaultOptions = {
 	showSelectedItems: false,
 	sameWidth: false,
 	availableHeight: false,
-	offset: 3,
-	floatPadding: 5,
+	offset: 1,
+	menuPadding: 5,
+	menuZ: null,
+	menuClass: '',
 	placement: "bottom-start"
 };
 
@@ -109,7 +111,15 @@ export default class NiceSelect {
 		this.availableHeight = Bool(this.el.dataset.availableHeight || this.config.availableHeight);
 		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
-		this.floatPadding = Number(this.el.dataset.floatPadding || this.config.floatPadding);
+		this.menuClass = this.el.dataset.menuClass?.split(' ') || this.config.menuClass?.split(' ');
+		// if (this.menuClass) this.menuClass = this.menuClass.split(' ');
+		
+		console.log(this.menuClass);
+		console.log(typeof this.menuClass);
+		this.menuPadding = Number(this.el.dataset.menuPadding || this.config.menuPadding);
+		this.menuZ = Number(this.el.dataset.menuZ || this.config.menuZ);
+		console.log(this.menuZ);
+		console.log(typeof this.menuZ);
 		this.placement = this.el.dataset.placement || this.config.placement;
 
 		this.inputReplacement = null;
@@ -208,6 +218,8 @@ export default class NiceSelect {
 		// Menu list of select options/optgroups.
 		this.menu = document.createElement("div");
 		this.menu.classList.add("nice-select-menu");
+		// if (this.menuClass) this.menu.classList.add(this.menuClass);
+		if (this.menuClass.length > 0) this.menuClass.forEach(className => className !== '' && this.menu.classList.add(className));
 		if (this.searchable) {
 			this.searchBox = document.createElement("div");
 			this.searchBox.classList.add('nice-select-search-box');
@@ -222,7 +234,17 @@ export default class NiceSelect {
 		// Menu wrapper with no css transition props for floating-ui's flip middleware to prevent jumps during opening animation. 
 		this.float = document.createElement("div");
 		this.float.classList.add("nice-select-float");
-		if (this.el.classList.length > 0) this.el.classList.forEach(className => this.float.classList.add(className));
+		this.float.style.setProperty('position', 'absolute', 'important');
+		this.float.style.setProperty('padding', '0', 'important');
+		this.float.style.setProperty('margin', '0', 'important');
+		this.float.style.setProperty('transition', 'none', 'important');
+		this.float.style.setProperty('border', 'none', 'important');
+		this.float.style.setProperty('box-shadow', 'none', 'important');
+		this.float.style.setProperty('box-sizing', 'border-box', 'important');
+		this.float.style.setProperty('background', 'none', 'important');
+		this.float.style.setProperty('background-color', 'none', 'important');
+		this.float.style.setProperty('outline', 'none', 'important');
+		this.float.style.setProperty('z-index', this.menuZ, 'important');
 		this.float.appendChild(this.menu);
 
 		this.inputReplacement = document.createElement("div");
@@ -482,6 +504,7 @@ export default class NiceSelect {
 
 		if (!hasClass(optionEl, "disabled")) {
 			if (this.multiple) {
+				if (!optionEl.dataset.value) return;
 				if (hasClass(optionEl, "selected")) {
 					removeClass(optionEl, "selected");
 					this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);

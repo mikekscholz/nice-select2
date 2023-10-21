@@ -8,11 +8,34 @@
 	<!-- <link rel="stylesheet" href="../node_modules/.pnpm/github.com+mikekscholz+nice-select2@9c8e16aa73db4980dd7d183f4f39734907135823_webpack@5.82.0/node_modules/nice-select2/dist/css/nice-select2.css" /> -->
 	<link rel="stylesheet" href="./dist/css/nice-select2.css" />
 	<style>
+				@font-face {
+			font-family: 'Nunito';
+			font-weight: 1 999;
+			/* webpackIgnore: true */
+			src: url(./assets/Nunito-VariableFont_wght.ttf) format('truetype-variations');
+		}
+		
 		body {
 			background-color: #333;
 			background: url("./city-night.jpg");
 			background-size: cover;
 			color: #fff;
+			font-family: 'Nunito';
+		}
+		
+		label {
+			font-size: 16px;
+			font-weight: 700;
+		}
+		
+		.form-row {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+		
+		.form-col {
+			position: relative;
 		}
 	</style>
 </head>
@@ -34,7 +57,7 @@
 	<div class="form-row">
 		<div class="form-col" style="flex: 1;">
 			<label class="form-label" for="wallpaperSize">Size</label>
-			<select class="form-control" name="wallpaperSize" id="wallpaperSize" placeholder="Size" data-same-width="false" data-available-height="true" data-offset="10">
+			<select class="form-control" name="wallpaperSize" id="wallpaperSize" placeholder="Size" data-same-width="false" data-available-height="true" data-offset="4">
 				<option value="">Size</option>
 				<option value="auto">Auto</option>
 				<option value="cover">Cover</option>
@@ -43,8 +66,8 @@
 		</div>
 		<div class="form-col" style="flex: 1;">
 			<label class="form-label" for="wallpaperPosition">Position</label>
-			<select class="form-control wide arrow-select wallpaper-props" name="wallpaperPosition" id="wallpaperPosition" placeholder="Position" data-same-width="true" data-available-height="true" data-offset="10" multiple>
-				<option value="">Position</option>
+			<select class="form-control wide arrow-select wallpaper-props" name="wallpaperPosition" id="wallpaperPosition" placeholder="Position" data-same-width="true" data-available-height="true" data-offset="4" multiple data-menu-class="test">
+				<option value="" data-display="------------">Position</option>
 				<optgroup label="top">
 					<option value="left top" data-display="<symbol>↖</symbol>Left Top">Left Top</option>
 					<option value="center top" data-display="<symbol>↑</symbol>Center Top">Center Top</option>
@@ -61,8 +84,8 @@
 		</div>
 		<div class="form-col" style="flex: 1;">
 			<label class="form-label" for="wallpaperRepeat">Repeat</label>
-			<select class="form-control wide wallpaper-props" name="wallpaperRepeat" id="wallpaperRepeat" placeholder="Repeat" data-same-width="true" data-available-height="true" data-offset="10" data-searchable="true">
-				<option value="">Repeat</option>
+			<select class="form-control wide wallpaper-props" name="wallpaperRepeat" id="wallpaperRepeat" placeholder="Repeat" data-same-width="true" data-available-height="true" data-offset="4" data-searchable="true" data-menu-class="menu-class-three menu-two">
+				<option value="" data-display="<i>Default</i>">Wallpaper Repeat</option>
 				<option value="no-repeat">No-repeat</option>
 				<option value="repeat">Repeat</option>
 				<option value="repeat-x">Repeat X</option>

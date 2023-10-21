@@ -1,2 +1,6098 @@
-/*! For license information please see nice-select2.js.LICENSE.txt */
-var t={255:t=>{var e="complete",n="canceled";function i(t,e,n){Math.max(0,e),Math.max(0,n),t.self===t?t.scrollTo(e,n):(t.scrollLeft=e,t.scrollTop=n)}function o(t){var n=t._scrollSettings;if(n){var s=n.maxSynchronousAlignments,r=function(t,e){var n,i,o,s,r,l,a,c=t.align,d=t.target.getBoundingClientRect(),u=c&&null!=c.left?c.left:.5,h=c&&null!=c.top?c.top:.5,f=c&&null!=c.leftOffset?c.leftOffset:0,p=c&&null!=c.topOffset?c.topOffset:0,m=u,g=h;if(t.isWindow(e))l=Math.min(d.width,e.innerWidth),a=Math.min(d.height,e.innerHeight),i=d.left+e.pageXOffset-e.innerWidth*m+l*m,o=d.top+e.pageYOffset-e.innerHeight*g+a*g,i-=f,o-=p,i=t.align.lockX?e.pageXOffset:i,o=t.align.lockY?e.pageYOffset:o,s=i-e.pageXOffset,r=o-e.pageYOffset;else{l=d.width,a=d.height,n=e.getBoundingClientRect();var b=d.left-(n.left-e.scrollLeft),v=d.top-(n.top-e.scrollTop);i=b+l*m-e.clientWidth*m,o=v+a*g-e.clientHeight*g,i-=f,o-=p,i=Math.max(Math.min(i,e.scrollWidth-e.clientWidth),0),o=Math.max(Math.min(o,e.scrollHeight-e.clientHeight),0),i=t.align.lockX?e.scrollLeft:i,o=t.align.lockY?e.scrollTop:o,s=i-e.scrollLeft,r=o-e.scrollTop}return{x:i,y:o,differenceX:s,differenceY:r}}(n,t),l=Date.now()-n.startTime,a=Math.min(1/n.time*l,1);if(n.endIterations>=s)return i(t,r.x,r.y),t._scrollSettings=null,n.end(e);var c=1-n.ease(a);if(i(t,r.x-r.differenceX*c,r.y-r.differenceY*c),l>=n.time)return n.endIterations++,n.scrollAncestor&&o(n.scrollAncestor),void o(t);!function(t){if("requestAnimationFrame"in window)return window.requestAnimationFrame(t);setTimeout(t,16)}(o.bind(null,t))}}function s(t){return t.self===t}function r(t){return"pageXOffset"in t||(t.scrollHeight!==t.clientHeight||t.scrollWidth!==t.clientWidth)&&"hidden"!==getComputedStyle(t).overflow}function l(){return!0}function a(t){if(t.assignedSlot)return a(t.assignedSlot);if(t.parentElement)return"body"===t.parentElement.tagName.toLowerCase()?t.parentElement.ownerDocument.defaultView||t.parentElement.ownerDocument.ownerWindow:t.parentElement;if(t.getRootNode){var e=t.getRootNode();if(11===e.nodeType)return e.host}}t.exports=function(t,i,c){if(t){"function"==typeof i&&(c=i,i=null),i||(i={}),i.time=isNaN(i.time)?1e3:i.time,i.ease=i.ease||function(t){return 1-Math.pow(1-t,t/2)},i.align=i.align||{};var d=a(t),u=1,h=i.validTarget||l,f=i.isScrollable;i.debug&&(console.log("About to scroll to",t),d||console.error("Target did not have a parent, is it mounted in the DOM?"));for(var p=[];d;)if(i.debug&&console.log("Scrolling parent node",d),h(d,u)&&(f?f(d,r):r(d))&&(u++,p.push(d)),!(d=a(d))){m(e);break}return p.reduce(((e,r,l)=>function(t,e,i,r,l){var a,c=!e._scrollSettings,d=e._scrollSettings,u=Date.now(),h={passive:!0};function f(t){e._scrollSettings=null,e.parentElement&&e.parentElement._scrollSettings&&e.parentElement._scrollSettings.end(t),i.debug&&console.log("Scrolling ended with type",t,"for",e),l(t),a&&(e.removeEventListener("touchstart",a,h),e.removeEventListener("wheel",a,h))}d&&d.end(n);var p=i.maxSynchronousAlignments;return null==p&&(p=3),e._scrollSettings={startTime:u,endIterations:0,target:t,time:i.time,ease:i.ease,align:i.align,isWindow:i.isWindow||s,maxSynchronousAlignments:p,end:f,scrollAncestor:r},"cancellable"in i&&!i.cancellable||(a=f.bind(null,n),e.addEventListener("touchstart",a,h),e.addEventListener("wheel",a,h)),c&&o(e),a}(t,r,i,p[l+1],m)),null)}function m(t){--u||c&&c(t)}}}},e={};function n(i){var o=e[i];if(void 0!==o)return o.exports;var s=e[i]={exports:{}};return t[i](s,s.exports,n),s.exports}n.n=t=>{var e=t&&t.__esModule?()=>t.default:()=>t;return n.d(e,{a:e}),e},n.d=(t,e)=>{for(var i in e)n.o(e,i)&&!n.o(t,i)&&Object.defineProperty(t,i,{enumerable:!0,get:e[i]})},n.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e);var i={};(()=>{n.d(i,{a:()=>Qi,Z:()=>Zi});const t=Math.min,e=Math.max,o=Math.round,s=Math.floor,r=t=>({x:t,y:t}),l={left:"right",right:"left",bottom:"top",top:"bottom"},a={start:"end",end:"start"};function c(t,e){return"function"==typeof t?t(e):t}function d(t){return t.split("-")[0]}function u(t){return t.split("-")[1]}function h(t){return"y"===t?"height":"width"}function f(t){return["top","bottom"].includes(d(t))?"y":"x"}function p(t){return"x"===f(t)?"y":"x"}function m(t){return t.replace(/start|end/g,(t=>a[t]))}function g(t){return t.replace(/left|right|bottom|top/g,(t=>l[t]))}function b(t){return{...t,top:t.y,left:t.x,right:t.x+t.width,bottom:t.y+t.height}}function v(t,e,n){let{reference:i,floating:o}=t;const s=f(e),r=p(e),l=h(r),a=d(e),c="y"===s,m=i.x+i.width/2-o.width/2,g=i.y+i.height/2-o.height/2,b=i[l]/2-o[l]/2;let v;switch(a){case"top":v={x:m,y:i.y-o.height};break;case"bottom":v={x:m,y:i.y+i.height};break;case"right":v={x:i.x+i.width,y:g};break;case"left":v={x:i.x-o.width,y:g};break;default:v={x:i.x,y:i.y}}switch(u(e)){case"start":v[r]-=b*(n&&c?-1:1);break;case"end":v[r]+=b*(n&&c?-1:1)}return v}async function y(t,e){var n;void 0===e&&(e={});const{x:i,y:o,platform:s,rects:r,elements:l,strategy:a}=t,{boundary:d="clippingAncestors",rootBoundary:u="viewport",elementContext:h="floating",altBoundary:f=!1,padding:p=0}=c(e,t),m=function(t){return"number"!=typeof t?function(t){return{top:0,right:0,bottom:0,left:0,...t}}(t):{top:t,right:t,bottom:t,left:t}}(p),g=l[f?"floating"===h?"reference":"floating":h],v=b(await s.getClippingRect({element:null==(n=await(null==s.isElement?void 0:s.isElement(g)))||n?g:g.contextElement||await(null==s.getDocumentElement?void 0:s.getDocumentElement(l.floating)),boundary:d,rootBoundary:u,strategy:a})),y="floating"===h?{...r.floating,x:i,y:o}:r.reference,w=await(null==s.getOffsetParent?void 0:s.getOffsetParent(l.floating)),x=await(null==s.isElement?void 0:s.isElement(w))&&await(null==s.getScale?void 0:s.getScale(w))||{x:1,y:1},S=b(s.convertOffsetParentRelativeRectToViewportRelativeRect?await s.convertOffsetParentRelativeRectToViewportRelativeRect({rect:y,offsetParent:w,strategy:a}):y);return{top:(v.top-S.top+m.top)/x.y,bottom:(S.bottom-v.bottom+m.bottom)/x.y,left:(v.left-S.left+m.left)/x.x,right:(S.right-v.right+m.right)/x.x}}const w=function(t){return void 0===t&&(t={}),{name:"flip",options:t,async fn(e){var n;const{placement:i,middlewareData:o,rects:s,initialPlacement:r,platform:l,elements:a}=e,{mainAxis:f=!0,crossAxis:b=!0,fallbackPlacements:v,fallbackStrategy:w="bestFit",fallbackAxisSideDirection:x="none",flipAlignment:S=!0,...E}=c(t,e),L=d(i),O=d(r)===r,R=await(null==l.isRTL?void 0:l.isRTL(a.floating)),$=v||(O||!S?[g(r)]:function(t){const e=g(t);return[m(t),e,m(e)]}(r));v||"none"===x||$.push(...function(t,e,n,i){const o=u(t);let s=function(t,e,n){const i=["left","right"],o=["right","left"],s=["top","bottom"],r=["bottom","top"];switch(t){case"top":case"bottom":return n?e?o:i:e?i:o;case"left":case"right":return e?s:r;default:return[]}}(d(t),"start"===n,i);return o&&(s=s.map((t=>t+"-"+o)),e&&(s=s.concat(s.map(m)))),s}(r,S,x,R));const T=[r,...$],C=await y(e,E),P=[];let A=(null==(n=o.flip)?void 0:n.overflows)||[];if(f&&P.push(C[L]),b){const t=function(t,e,n){void 0===n&&(n=!1);const i=u(t),o=p(t),s=h(o);let r="x"===o?i===(n?"end":"start")?"right":"left":"start"===i?"bottom":"top";return e.reference[s]>e.floating[s]&&(r=g(r)),[r,g(r)]}(i,s,R);P.push(C[t[0]],C[t[1]])}if(A=[...A,{placement:i,overflows:P}],!P.every((t=>t<=0))){var k,M;const t=((null==(k=o.flip)?void 0:k.index)||0)+1,e=T[t];if(e)return{data:{index:t,overflows:A},reset:{placement:e}};let n=null==(M=A.filter((t=>t.overflows[0]<=0)).sort(((t,e)=>t.overflows[1]-e.overflows[1]))[0])?void 0:M.placement;if(!n)switch(w){case"bestFit":{var H;const t=null==(H=A.map((t=>[t.placement,t.overflows.filter((t=>t>0)).reduce(((t,e)=>t+e),0)])).sort(((t,e)=>t[1]-e[1]))[0])?void 0:H[0];t&&(n=t);break}case"initialPlacement":n=r}if(i!==n)return{reset:{placement:n}}}return{}}}},x=function(n){return void 0===n&&(n={}),{name:"size",options:n,async fn(i){const{placement:o,rects:s,platform:r,elements:l}=i,{apply:a=(()=>{}),...h}=c(n,i),p=await y(i,h),m=d(o),g=u(o),b="y"===f(o),{width:v,height:w}=s.floating;let x,S;"top"===m||"bottom"===m?(x=m,S=g===(await(null==r.isRTL?void 0:r.isRTL(l.floating))?"start":"end")?"left":"right"):(S=m,x="end"===g?"top":"bottom");const E=w-p[x],L=v-p[S],O=!i.middlewareData.shift;let R=E,$=L;if(b){const e=v-p.left-p.right;$=g||O?t(L,e):e}else{const e=w-p.top-p.bottom;R=g||O?t(E,e):e}if(O&&!g){const t=e(p.left,0),n=e(p.right,0),i=e(p.top,0),o=e(p.bottom,0);b?$=v-2*(0!==t||0!==n?t+n:e(p.left,p.right)):R=w-2*(0!==i||0!==o?i+o:e(p.top,p.bottom))}await a({...i,availableWidth:$,availableHeight:R});const T=await r.getDimensions(l.floating);return v!==T.width||w!==T.height?{reset:{rects:!0}}:{}}}};function S(t){return O(t)?(t.nodeName||"").toLowerCase():"#document"}function E(t){var e;return(null==t||null==(e=t.ownerDocument)?void 0:e.defaultView)||window}function L(t){var e;return null==(e=(O(t)?t.ownerDocument:t.document)||window.document)?void 0:e.documentElement}function O(t){return t instanceof Node||t instanceof E(t).Node}function R(t){return t instanceof Element||t instanceof E(t).Element}function $(t){return t instanceof HTMLElement||t instanceof E(t).HTMLElement}function T(t){return"undefined"!=typeof ShadowRoot&&(t instanceof ShadowRoot||t instanceof E(t).ShadowRoot)}function C(t){const{overflow:e,overflowX:n,overflowY:i,display:o}=H(t);return/auto|scroll|overlay|hidden|clip/.test(e+i+n)&&!["inline","contents"].includes(o)}function P(t){return["table","td","th"].includes(S(t))}function A(t){const e=k(),n=H(t);return"none"!==n.transform||"none"!==n.perspective||!!n.containerType&&"normal"!==n.containerType||!e&&!!n.backdropFilter&&"none"!==n.backdropFilter||!e&&!!n.filter&&"none"!==n.filter||["transform","perspective","filter"].some((t=>(n.willChange||"").includes(t)))||["paint","layout","strict","content"].some((t=>(n.contain||"").includes(t)))}function k(){return!("undefined"==typeof CSS||!CSS.supports)&&CSS.supports("-webkit-backdrop-filter","none")}function M(t){return["html","body","#document"].includes(S(t))}function H(t){return E(t).getComputedStyle(t)}function _(t){return R(t)?{scrollLeft:t.scrollLeft,scrollTop:t.scrollTop}:{scrollLeft:t.pageXOffset,scrollTop:t.pageYOffset}}function D(t){if("html"===S(t))return t;const e=t.assignedSlot||t.parentNode||T(t)&&t.host||L(t);return T(e)?e.host:e}function I(t){const e=D(t);return M(e)?t.ownerDocument?t.ownerDocument.body:t.body:$(e)&&C(e)?e:I(e)}function F(t,e){var n;void 0===e&&(e=[]);const i=I(t),o=i===(null==(n=t.ownerDocument)?void 0:n.body),s=E(i);return o?e.concat(s,s.visualViewport||[],C(i)?i:[]):e.concat(i,F(i))}function N(t){const e=H(t);let n=parseFloat(e.width)||0,i=parseFloat(e.height)||0;const s=$(t),r=s?t.offsetWidth:n,l=s?t.offsetHeight:i,a=o(n)!==r||o(i)!==l;return a&&(n=r,i=l),{width:n,height:i,$:a}}function W(t){return R(t)?t:t.contextElement}function q(t){const e=W(t);if(!$(e))return r(1);const n=e.getBoundingClientRect(),{width:i,height:s,$:l}=N(e);let a=(l?o(n.width):n.width)/i,c=(l?o(n.height):n.height)/s;return a&&Number.isFinite(a)||(a=1),c&&Number.isFinite(c)||(c=1),{x:a,y:c}}const z=r(0);function B(t){const e=E(t);return k()&&e.visualViewport?{x:e.visualViewport.offsetLeft,y:e.visualViewport.offsetTop}:z}function V(t,e,n,i){void 0===e&&(e=!1),void 0===n&&(n=!1);const o=t.getBoundingClientRect(),s=W(t);let l=r(1);e&&(i?R(i)&&(l=q(i)):l=q(t));const a=function(t,e,n){return void 0===e&&(e=!1),!(!n||e&&n!==E(t))&&e}(s,n,i)?B(s):r(0);let c=(o.left+a.x)/l.x,d=(o.top+a.y)/l.y,u=o.width/l.x,h=o.height/l.y;if(s){const t=E(s),e=i&&R(i)?E(i):i;let n=t.frameElement;for(;n&&i&&e!==t;){const t=q(n),e=n.getBoundingClientRect(),i=H(n),o=e.left+(n.clientLeft+parseFloat(i.paddingLeft))*t.x,s=e.top+(n.clientTop+parseFloat(i.paddingTop))*t.y;c*=t.x,d*=t.y,u*=t.x,h*=t.y,c+=o,d+=s,n=E(n).frameElement}}return b({width:u,height:h,x:c,y:d})}function Y(t){return V(L(t)).left+_(t).scrollLeft}function X(t,n,i){let o;if("viewport"===n)o=function(t,e){const n=E(t),i=L(t),o=n.visualViewport;let s=i.clientWidth,r=i.clientHeight,l=0,a=0;if(o){s=o.width,r=o.height;const t=k();(!t||t&&"fixed"===e)&&(l=o.offsetLeft,a=o.offsetTop)}return{width:s,height:r,x:l,y:a}}(t,i);else if("document"===n)o=function(t){const n=L(t),i=_(t),o=t.ownerDocument.body,s=e(n.scrollWidth,n.clientWidth,o.scrollWidth,o.clientWidth),r=e(n.scrollHeight,n.clientHeight,o.scrollHeight,o.clientHeight);let l=-i.scrollLeft+Y(t);const a=-i.scrollTop;return"rtl"===H(o).direction&&(l+=e(n.clientWidth,o.clientWidth)-s),{width:s,height:r,x:l,y:a}}(L(t));else if(R(n))o=function(t,e){const n=V(t,!0,"fixed"===e),i=n.top+t.clientTop,o=n.left+t.clientLeft,s=$(t)?q(t):r(1);return{width:t.clientWidth*s.x,height:t.clientHeight*s.y,x:o*s.x,y:i*s.y}}(n,i);else{const e=B(t);o={...n,x:n.x-e.x,y:n.y-e.y}}return b(o)}function j(t,e){const n=D(t);return!(n===e||!R(n)||M(n))&&("fixed"===H(n).position||j(n,e))}function U(t,e,n){const i=$(e),o=L(e),s="fixed"===n,l=V(t,!0,s,e);let a={scrollLeft:0,scrollTop:0};const c=r(0);if(i||!i&&!s)if(("body"!==S(e)||C(o))&&(a=_(e)),i){const t=V(e,!0,s,e);c.x=t.x+e.clientLeft,c.y=t.y+e.clientTop}else o&&(c.x=Y(o));return{x:l.left+a.scrollLeft-c.x,y:l.top+a.scrollTop-c.y,width:l.width,height:l.height}}function K(t,e){return $(t)&&"fixed"!==H(t).position?e?e(t):t.offsetParent:null}function G(t,e){const n=E(t);if(!$(t))return n;let i=K(t,e);for(;i&&P(i)&&"static"===H(i).position;)i=K(i,e);return i&&("html"===S(i)||"body"===S(i)&&"static"===H(i).position&&!A(i))?n:i||function(t){let e=D(t);for(;$(e)&&!M(e);){if(A(e))return e;e=D(e)}return null}(t)||n}const J={convertOffsetParentRelativeRectToViewportRelativeRect:function(t){let{rect:e,offsetParent:n,strategy:i}=t;const o=$(n),s=L(n);if(n===s)return e;let l={scrollLeft:0,scrollTop:0},a=r(1);const c=r(0);if((o||!o&&"fixed"!==i)&&(("body"!==S(n)||C(s))&&(l=_(n)),$(n))){const t=V(n);a=q(n),c.x=t.x+n.clientLeft,c.y=t.y+n.clientTop}return{width:e.width*a.x,height:e.height*a.y,x:e.x*a.x-l.scrollLeft*a.x+c.x,y:e.y*a.y-l.scrollTop*a.y+c.y}},getDocumentElement:L,getClippingRect:function(n){let{element:i,boundary:o,rootBoundary:s,strategy:r}=n;const l=[..."clippingAncestors"===o?function(t,e){const n=e.get(t);if(n)return n;let i=F(t).filter((t=>R(t)&&"body"!==S(t))),o=null;const s="fixed"===H(t).position;let r=s?D(t):t;for(;R(r)&&!M(r);){const e=H(r),n=A(r);n||"fixed"!==e.position||(o=null),(s?!n&&!o:!n&&"static"===e.position&&o&&["absolute","fixed"].includes(o.position)||C(r)&&!n&&j(t,r))?i=i.filter((t=>t!==r)):o=e,r=D(r)}return e.set(t,i),i}(i,this._c):[].concat(o),s],a=l[0],c=l.reduce(((n,o)=>{const s=X(i,o,r);return n.top=e(s.top,n.top),n.right=t(s.right,n.right),n.bottom=t(s.bottom,n.bottom),n.left=e(s.left,n.left),n}),X(i,a,r));return{width:c.right-c.left,height:c.bottom-c.top,x:c.left,y:c.top}},getOffsetParent:G,getElementRects:async function(t){let{reference:e,floating:n,strategy:i}=t;const o=this.getOffsetParent||G,s=this.getDimensions;return{reference:U(e,await o(n),i),floating:{x:0,y:0,...await s(n)}}},getClientRects:function(t){return Array.from(t.getClientRects())},getDimensions:function(t){return N(t)},getScale:q,isElement:R,isRTL:function(t){return"rtl"===H(t).direction}};function Z(t,e){if(pt(t))for(let n=0;n<t.length&&!1!==e(t[n],n,t);n++);else t&&Z(Object.keys(t),(n=>e(t[n],n,t)));return t}function Q(t,e){const n=ct(e);if(ht(e)||n){let i=n?"":{};if(t){const o=window.getComputedStyle(t,null);i=n?xe(t,o,e):e.reduce(((e,n)=>(e[n]=xe(t,o,n),e)),i)}return i}t&&Z(Lt(e),(n=>Se(t,n,e[n])))}const tt=(t,e)=>{const{o:n,u:i,_:o}=t;let s,r=n;const l=(t,e)=>{const n=r,l=t,a=e||(i?!i(n,l):n!==l);return(a||o)&&(r=l,s=n),[r,a,s]};return[e?t=>l(e(r,s),t):l,t=>[r,!!t,s]]},et=()=>"undefined"!=typeof window,nt=et()&&Node.ELEMENT_NODE,{toString:it,hasOwnProperty:ot}=Object.prototype,st=t=>void 0===t,rt=t=>null===t,lt=t=>st(t)||rt(t)?`${t}`:it.call(t).replace(/^\[object (.+)\]$/,"$1").toLowerCase(),at=t=>"number"==typeof t,ct=t=>"string"==typeof t,dt=t=>"boolean"==typeof t,ut=t=>"function"==typeof t,ht=t=>Array.isArray(t),ft=t=>"object"==typeof t&&!ht(t)&&!rt(t),pt=t=>{const e=!!t&&t.length,n=at(e)&&e>-1&&e%1==0;return!(!(ht(t)||!ut(t)&&n)||e>0&&ft(t)&&!(e-1 in t))},mt=t=>{if(!t||!ft(t)||"object"!==lt(t))return!1;let e;const n="constructor",i=t[n],o=i&&i.prototype,s=ot.call(t,n),r=o&&ot.call(o,"isPrototypeOf");if(i&&!s&&!r)return!1;for(e in t);return st(e)||ot.call(t,e)},gt=t=>{const e=HTMLElement;return!!t&&(e?t instanceof e:t.nodeType===nt)},bt=t=>{const e=Element;return!!t&&(e?t instanceof e:t.nodeType===nt)},vt=(t,e,n)=>t.indexOf(e,n),yt=(t,e,n)=>(n||ct(e)||!pt(e)?t.push(e):Array.prototype.push.apply(t,e),t),wt=t=>{const e=Array.from,n=[];return e&&t?e(t):(t instanceof Set?t.forEach((t=>{yt(n,t)})):Z(t,(t=>{yt(n,t)})),n)},xt=t=>!!t&&0===t.length,St=(t,e,n)=>{Z(t,(t=>t&&t.apply(void 0,e||[]))),!n&&(t.length=0)},Et=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),Lt=t=>t?Object.keys(t):[],Ot=(t,e,n,i,o,s,r)=>{const l=[e,n,i,o,s,r];return"object"==typeof t&&!rt(t)||ut(t)||(t={}),Z(l,(e=>{Z(Lt(e),(n=>{const i=e[n];if(t===i)return!0;const o=ht(i);if(i&&(mt(i)||o)){const e=t[n];let s=e;o&&!ht(e)?s=[]:o||mt(e)||(s={}),t[n]=Ot(s,i)}else t[n]=i}))})),t},Rt=t=>{for(const e in t)return!1;return!0},$t=(t,e,n,i)=>{if(st(i))return n?n[t]:e;n&&(ct(i)||at(i))&&(n[t]=i)},Tt=(t,e,n)=>{if(st(n))return t?t.getAttribute(e):null;t&&t.setAttribute(e,n)},Ct=(t,e)=>{t&&t.removeAttribute(e)},Pt=(t,e,n,i)=>{if(n){const o=Tt(t,e)||"",s=new Set(o.split(" "));s[i?"add":"delete"](n);const r=wt(s).join(" ").trim();Tt(t,e,r)}},At=(t,e)=>$t("scrollLeft",0,t,e),kt=(t,e)=>$t("scrollTop",0,t,e),Mt=et()&&Element.prototype,Ht=(t,e)=>{const n=[],i=e?bt(e)?e:null:document;return i?yt(n,i.querySelectorAll(t)):n},_t=(t,e)=>!!bt(t)&&(Mt.matches||Mt.msMatchesSelector).call(t,e),Dt=t=>t?wt(t.childNodes):[],It=t=>t?t.parentElement:null,Ft=(t,e)=>{if(bt(t)){const n=Mt.closest;if(n)return n.call(t,e);do{if(_t(t,e))return t;t=It(t)}while(t)}return null},Nt=(t,e,n)=>{if(n&&t){let i,o=e;pt(n)?(i=document.createDocumentFragment(),Z(n,(t=>{t===o&&(o=t.previousSibling),i.appendChild(t)}))):i=n,e&&(o?o!==e&&(o=o.nextSibling):o=t.firstChild),t.insertBefore(i,o||null)}},Wt=(t,e)=>{Nt(t,null,e)},qt=(t,e)=>{Nt(It(t),t&&t.nextSibling,e)},zt=t=>{if(pt(t))Z(wt(t),(t=>zt(t)));else if(t){const e=It(t);e&&e.removeChild(t)}},Bt=t=>{const e=document.createElement("div");return t&&Tt(e,"class",t),e},Vt=t=>{const e=Bt();return e.innerHTML=t.trim(),Z(Dt(e),(t=>zt(t)))},Yt=t=>t.charAt(0).toUpperCase()+t.slice(1),Xt=["-webkit-","-moz-","-o-","-ms-"],jt=["WebKit","Moz","O","MS","webkit","moz","o","ms"],Ut={},Kt={},Gt=t=>{let e=Kt[t];if(Et(Kt,t))return e;const n=Yt(t),i=Bt().style;return Z(Xt,(o=>{const s=o.replace(/-/g,""),r=[t,o+t,s+n,Yt(s)+n];return!(e=r.find((t=>void 0!==i[t])))})),Kt[t]=e||""},Jt=t=>{if(et()){let e=Ut[t]||window[t];return Et(Ut,t)||(Z(jt,(n=>(e=e||window[n+Yt(t)],!e))),Ut[t]=e),e}},Zt=Jt("MutationObserver"),Qt=Jt("IntersectionObserver"),te=Jt("ResizeObserver"),ee=Jt("cancelAnimationFrame"),ne=Jt("requestAnimationFrame"),ie=Jt("ScrollTimeline"),oe=et()&&window.setTimeout,se=et()&&window.clearTimeout,re=/[^\x20\t\r\n\f]+/g,le=(t,e,n)=>{const i=t&&t.classList;let o,s=0,r=!1;if(i&&e&&ct(e)){const t=e.match(re)||[];for(r=t.length>0;o=t[s++];)r=!!n(i,o)&&r}return r},ae=(t,e)=>{le(t,e,((t,e)=>t.remove(e)))},ce=(t,e)=>(le(t,e,((t,e)=>t.add(e))),ae.bind(0,t,e)),{max:de}=Math,ue=(t,e,n,i)=>{if(t&&e){let o=!0;return Z(n,(n=>{(i?i(t[n]):t[n])!==(i?i(e[n]):e[n])&&(o=!1)})),o}return!1},he=(t,e)=>ue(t,e,["w","h"]),fe=(t,e)=>ue(t,e,["x","y"]),pe=(t,e)=>ue(t,e,["t","r","b","l"]),me=(t,e,n)=>ue(t,e,["width","height"],n&&(t=>Math.round(t))),ge=()=>{},be=t=>{let e;const n=t?oe:ne,i=t?se:ee;return[o=>{i(e),e=n(o,ut(t)?t():t)},()=>i(e)]},ve=(t,e)=>{let n,i,o,s=ge;const{g:r,v:l,p:a}=e||{},c=function(e){s(),se(n),n=i=void 0,s=ge,t.apply(this,e)},d=t=>a&&i?a(i,t):t,u=()=>{s!==ge&&c(d(o)||o)},h=function(){const t=wt(arguments),e=ut(r)?r():r,a=at(e)&&e>=0;if(a){const r=ut(l)?l():l,a=at(r)&&r>=0,h=e>0?oe:ne,f=e>0?se:ee,p=d(t)||t,m=c.bind(0,p);s();const g=h(m,e);s=()=>f(g),a&&!n&&(n=oe(u,r)),i=o=p}else c(t)};return h.m=u,h},ye={opacity:1,zIndex:1},we=(t,e)=>{const n=t||"",i=e?parseFloat(n):parseInt(n,10);return i==i?i:0},xe=(t,e,n)=>String((null!=e?e[n]||e.getPropertyValue(n):t.style[n])||""),Se=(t,e,n)=>{try{const{style:i}=t;st(i[e])?i.setProperty(e,n):i[e]=((t,e)=>!ye[t]&&at(e)?`${e}px`:e)(e,n)}catch(t){}},Ee=t=>"rtl"===Q(t,"direction"),Le=(t,e,n)=>{const i=e?`${e}-`:"",o=n?`-${n}`:"",s=`${i}top${o}`,r=`${i}right${o}`,l=`${i}bottom${o}`,a=`${i}left${o}`,c=Q(t,[s,r,l,a]);return{t:we(c[s],!0),r:we(c[r],!0),b:we(c[l],!0),l:we(c[a],!0)}},Oe=(t,e)=>"translate"+(ht(t)?`(${t[0]},${t[1]})`:`${e?"X":"Y"}(${t})`),{round:Re}=Math,$e={w:0,h:0},Te=t=>t?{w:t.offsetWidth,h:t.offsetHeight}:$e,Ce=t=>t?{w:t.clientWidth,h:t.clientHeight}:$e,Pe=t=>t?{w:t.scrollWidth,h:t.scrollHeight}:$e,Ae=t=>{const e=parseFloat(Q(t,"height"))||0,n=parseFloat(Q(t,"width"))||0;return{w:n-Re(n),h:e-Re(e)}},ke=t=>t.getBoundingClientRect(),Me=t=>!(!t||!t.height&&!t.width);let He;const _e=t=>t.split(" "),De=(t,e,n,i)=>{Z(_e(e),(e=>{t.removeEventListener(e,n,i)}))},Ie=(t,e,n,i)=>{var o;const s=(()=>{if(st(He)){He=!1;try{window.addEventListener("test",null,Object.defineProperty({},"passive",{get(){He=!0}}))}catch(t){}}return He})(),r=null!=(o=s&&i&&i.S)?o:s,l=i&&i.$||!1,a=i&&i.C||!1,c=[],d=s?{passive:r,capture:l}:l;return Z(_e(e),(e=>{const i=a?o=>{t.removeEventListener(e,i,l),n&&n(o)}:n;yt(c,De.bind(null,t,e,i,l)),t.addEventListener(e,i,d)})),St.bind(0,c)},Fe=t=>t.stopPropagation(),Ne=t=>t.preventDefault(),We={x:0,y:0},qe=t=>{const e=t?ke(t):0;return e?{x:e.left+window.pageYOffset,y:e.top+window.pageXOffset}:We},ze=(t,e)=>{Z(ht(e)?e:[e],t)},Be=t=>{const e=new Map,n=(t,n)=>{if(t){const i=e.get(t);ze((t=>{i&&i[t?"delete":"clear"](t)}),n)}else e.forEach((t=>{t.clear()})),e.clear()},i=(t,o)=>{if(ct(t)){const i=e.get(t)||new Set;return e.set(t,i),ze((t=>{ut(t)&&i.add(t)}),o),n.bind(0,t,o)}dt(o)&&o&&n();const s=Lt(t),r=[];return Z(s,(e=>{const n=t[e];n&&yt(r,i(e,n))})),St.bind(0,r)};return i(t||{}),[i,n,(t,n)=>{const i=e.get(t);Z(wt(i),(t=>{n&&!xt(n)?t.apply(0,n):t()}))}]},Ve=t=>JSON.stringify(t,((t,e)=>{if(ut(e))throw new Error;return e})),Ye={paddingAbsolute:!1,showNativeOverlaidScrollbars:!1,update:{elementEvents:[["img","load"]],debounce:[0,33],attributes:null,ignoreMutation:null},overflow:{x:"scroll",y:"scroll"},scrollbars:{theme:"os-theme-dark",visibility:"auto",autoHide:"never",autoHideDelay:1300,autoHideSuspend:!1,dragScroll:!0,clickScroll:!1,pointers:["mouse","touch","pen"]}},Xe=(t,e)=>{const n={};return Z(Lt(e).concat(Lt(t)),(i=>{const o=t[i],s=e[i];if(ft(o)&&ft(s))Ot(n[i]={},Xe(o,s)),Rt(n[i])&&delete n[i];else if(Et(e,i)&&s!==o){let t=!0;if(ht(o)||ht(s))try{Ve(o)===Ve(s)&&(t=!1)}catch(t){}t&&(n[i]=s)}})),n},je="data-overlayscrollbars",Ue="os-environment",Ke=`${Ue}-flexbox-glue`,Ge=`${Ke}-max`,Je="os-scrollbar-hidden",Ze=`${je}-initialize`,Qe=je,tn=`${Qe}-overflow-x`,en=`${Qe}-overflow-y`,nn="overflowVisible",on="scrollbarPressed",sn="updating",rn=`${je}-viewport`,ln="arrange",an="scrollbarHidden",cn=nn,dn=`${je}-padding`,un=cn,hn=`${je}-content`,fn="os-size-observer",pn=`${fn}-appear`,mn=`${fn}-listener`,gn="os-scrollbar",bn=`${gn}-rtl`,vn=`${gn}-horizontal`,yn=`${gn}-vertical`,wn=`${gn}-track`,xn=`${gn}-handle`,Sn=`${gn}-visible`,En=`${gn}-cornerless`,Ln=`${gn}-transitionless`,On=`${gn}-interaction`,Rn=`${gn}-unusable`,$n=`${gn}-auto-hide`,Tn=`${$n}-hidden`,Cn=`${gn}-wheel`,Pn=`${wn}-interactive`,An=`${xn}-interactive`,kn={},Mn=()=>kn,{round:Hn,abs:_n}=Math,Dn="__osScrollbarsHidingPlugin";let In;const Fn=(t,e,n,i)=>{Wt(t,e);const o=Ce(e),s=Te(e),r=Ae(n);return i&&zt(e),{x:s.h-o.h+r.h,y:s.w-o.w+r.w}},Nn=(t,e)=>{const n="hidden";Q(t,{overflowX:n,overflowY:n,direction:"rtl"}),At(t,0);const i=qe(t),o=qe(e);At(t,-999);const s=qe(e);return{i:i.x===o.x,n:o.x!==s.x}},Wn=(t,e)=>{const n=ce(t,Ke),i=ke(t),o=ke(e),s=me(o,i,!0),r=ce(t,Ge),l=ke(t),a=ke(e),c=me(a,l,!0);return n(),r(),s&&c},qn=()=>(In||(In=(()=>{const{body:t}=document,e=Vt(`<div class="${Ue}"><div></div></div>`)[0],n=e.firstChild,[i,,o]=Be(),[s,r]=tt({o:Fn(t,e,n),u:fe},Fn.bind(0,t,e,n,!0)),[l]=r(),a=(t=>{let e=!1;const n=ce(t,Je);try{e="none"===Q(t,Gt("scrollbar-width"))||"none"===window.getComputedStyle(t,"::-webkit-scrollbar").getPropertyValue("display")}catch(t){}return n(),e})(e),c={x:0===l.x,y:0===l.y},d={elements:{host:null,padding:!a,viewport:t=>a&&t===t.ownerDocument.body&&t,content:!1},scrollbars:{slot:!0},cancel:{nativeScrollbarsOverlaid:!1,body:null}},u=Ot({},Ye),h=Ot.bind(0,{},u),f=Ot.bind(0,{},d),p={k:l,I:c,A:a,H:"-1"===Q(e,"zIndex"),B:!!ie,V:Nn(e,n),Y:Wn(e,n),j:i.bind(0,"z"),N:i.bind(0,"r"),q:f,F:t=>Ot(d,t)&&f(),G:h,X:t=>Ot(u,t)&&h(),U:Ot({},d),W:Ot({},u)},m=window.addEventListener,g=ve((t=>o(t?"z":"r")),{g:33,v:99});if(Ct(e,"style"),zt(e),m("resize",g.bind(0,!1)),!(a||c.x&&c.y)){let t;m("resize",(()=>{const e=Mn()[Dn];t=t||e&&e.R(),t&&t(p,s,g.bind(0,!0))}))}return p})()),In),zn=(t,e)=>ut(e)?e.apply(0,t):e,Bn=(t,e,n,i)=>{const o=st(i)?n:i;return zn(t,o)||e.apply(0,t)},Vn=(t,e,n,i)=>{const o=st(i)?n:i,s=zn(t,o);return!!s&&(gt(s)?s:e.apply(0,t))},Yn=new WeakMap,Xn=t=>Yn.get(t),jn=(t,e)=>t?e.split(".").reduce(((t,e)=>t&&Et(t,e)?t[e]:void 0),t):void 0,Un=(t,e,n)=>i=>[jn(t,i),n||void 0!==jn(e,i)],Kn=t=>{let e=t;return[()=>e,t=>{e=Ot({},e,t)}]},Gn="tabindex",Jn=Bt.bind(0,""),Zn=t=>{Wt(It(t),Dt(t)),zt(t)},Qn=t=>{const e=qn(),{q:n,A:i}=e,o=Mn()[Dn],s=o&&o.T,{elements:r}=n(),{host:l,padding:a,viewport:c,content:d}=r,u=gt(t),h=u?{}:t,{elements:f}=h,{host:p,padding:m,viewport:g,content:b}=f||{},v=u?t:h.target,y=_t(v,"textarea"),w=v.ownerDocument,x=w.documentElement,S=v===w.body,E=w.defaultView,L=Bn.bind(0,[v]),O=Vn.bind(0,[v]),R=zn.bind(0,[v]),$=L.bind(0,Jn,c),T=O.bind(0,Jn,d),C=$(g),P=C===v,A=P&&S,k=!P&&T(b),M=!P&&gt(C)&&C===k,H=M&&!!R(d),_=H?$():C,D=H?k:T(),I=A?x:M?_:C,F=y?L(Jn,l,p):v,N=A?I:F,W=M?D:k,q=w.activeElement,z=!P&&E.top===E&&q===v,B={Z:v,J:N,K:I,tt:!P&&O(Jn,a,m),nt:W,ot:!P&&!i&&s&&s(e),st:A?x:I,et:A?w:I,ct:E,rt:w,lt:y,it:S,ut:u,ft:P,dt:M,_t:(t,e)=>((t,e,n)=>{const i=Tt(t,e)||"";return new Set(i.split(" ")).has(n)})(I,P?Qe:rn,P?e:t),ht:(t,e,n)=>Pt(I,P?Qe:rn,P?e:t,n)},V=Lt(B).reduce(((t,e)=>{const n=B[e];return yt(t,!(!n||!gt(n)||It(n))&&n)}),[]),Y=t=>t?vt(V,t)>-1:null,{Z:X,J:j,tt:U,K,nt:G,ot:J}=B,Z=[()=>{Ct(j,Qe),Ct(j,Ze),Ct(X,Ze),S&&(Ct(x,Qe),Ct(x,Ze))}],Q=y&&Y(j);let tt=y?X:Dt([G,K,U,j,X].find((t=>!1===Y(t))));const et=A?X:G||K;return[B,()=>{Tt(j,Qe,P?"viewport":"host"),Tt(U,dn,""),Tt(G,hn,""),P||Tt(K,rn,"");const t=S&&!P?ce(It(v),Je):ge;if(Q&&(qt(X,j),yt(Z,(()=>{qt(j,X),zt(j)}))),Wt(et,tt),Wt(j,U),Wt(U||j,!P&&K),Wt(K,G),yt(Z,(()=>{t(),Ct(U,dn),Ct(G,hn),Ct(K,tn),Ct(K,en),Ct(K,rn),Y(G)&&Zn(G),Y(K)&&Zn(K),Y(U)&&Zn(U)})),i&&!P&&(Pt(K,rn,an,!0),yt(Z,Ct.bind(0,K,rn))),J&&(((t,e)=>{Nt(It(t),t,e)})(K,J),yt(Z,zt.bind(0,J))),z){const t=Tt(K,Gn);Tt(K,Gn,"-1"),K.focus();const e=()=>t?Tt(K,Gn,t):Ct(K,Gn),n=Ie(w,"pointerdown keydown",(()=>{e(),n()}));yt(Z,[e,n])}else q&&q.focus&&q.focus();tt=0},St.bind(0,Z)]},ti=(t,e)=>{const{nt:n}=t,[i]=e;return t=>{const{Y:e}=qn(),{gt:o}=i(),{vt:s}=t,r=(n||!e)&&s;return r&&Q(n,{height:o?"":"100%"}),{wt:r,bt:r}}},ei=(t,e)=>{const[n,i]=e,{J:o,tt:s,K:r,ft:l}=t,[a,c]=tt({u:pe,o:Le()},Le.bind(0,o,"padding",""));return(t,e,o)=>{let[d,u]=c(o);const{A:h,Y:f}=qn(),{yt:p}=n(),{wt:m,bt:g,St:b}=t,[v,y]=e("paddingAbsolute");(m||u||!f&&g)&&([d,u]=a(o));const w=!l&&(y||b||u);if(w){const t=!v||!s&&!h,e=d.r+d.l,n=d.t+d.b,o={marginRight:t&&!p?-e:0,marginBottom:t?-n:0,marginLeft:t&&p?-e:0,top:t?-d.t:0,right:t?p?-d.r:"auto":0,left:t?p?"auto":-d.l:0,width:t?`calc(100% + ${e}px)`:""},l={paddingTop:t?d.t:0,paddingRight:t?d.r:0,paddingBottom:t?d.b:0,paddingLeft:t?d.l:0};Q(s||r,o),Q(r,l),i({tt:d,$t:!t,P:s?l:Ot({},o,l)})}return{xt:w}}},{max:ni}=Math,ii=ni.bind(0,0),oi="visible",si="hidden",ri={u:he,o:{w:0,h:0}},li={u:fe,o:{x:si,y:si}},ai=t=>0===t.indexOf(oi),ci=(t,e)=>{const[n,i]=e,{J:o,tt:s,K:r,ot:l,ft:a,ht:c,it:d,ct:u}=t,{k:h,Y:f,A:p,I:m}=qn(),g=Mn()[Dn],b=!a&&!p&&(m.x||m.y),v=d&&a,[y,w]=tt(ri,Ae.bind(0,r)),[x,S]=tt(ri,Pe.bind(0,r)),[E,L]=tt(ri),[O,R]=tt(ri),[$]=tt(li),T=(t,e)=>{if(Q(r,{height:""}),e){const{$t:e,tt:i}=n(),{Ct:s,M:l}=t,a=Ae(o),c=Ce(o),d="content-box"===Q(r,"boxSizing"),u=e||d?i.b+i.t:0,h=!(m.x&&d);Q(r,{height:c.h+a.h+(s.x&&h?l.x:0)-u})}},C=(t,e)=>{const n=p||t?0:42,i=(t,i,o)=>{const s=Q(r,t),l="scroll"===(e?e[t]:s);return[s,l,l&&!p?i?n:o:0,i&&!!n]},[o,s,l,a]=i("overflowX",m.x,h.x),[c,d,u,f]=i("overflowY",m.y,h.y);return{Ot:{x:o,y:c},Ct:{x:s,y:d},M:{x:l,y:u},D:{x:a,y:f}}},P=(t,e,i,o)=>{const{M:s,D:r}=t,{x:l,y:a}=r,{x:c,y:d}=s,{P:u}=n(),h=e?"marginLeft":"marginRight",f=e?"paddingLeft":"paddingRight",p=u[h],m=u.marginBottom,g=u[f],b=u.paddingBottom;o.width=`calc(100% + ${d+-1*p}px)`,o[h]=-d+p,o.marginBottom=-c+m,i&&(o[f]=g+(a?d:0),o.paddingBottom=b+(l?c:0))},[A,k]=g?g.L(b,f,r,l,n,C,P):[()=>b,()=>[ge]];return(t,e,l)=>{const{wt:d,Tt:h,bt:g,xt:b,vt:M,St:H}=t,{gt:_,yt:D}=n(),[I,F]=e("showNativeOverlaidScrollbars"),[N,W]=e("overflow"),q=I&&m.x&&m.y,z=!a&&!f&&(d||g||h||F||M),B=ai(N.x),V=ai(N.y),Y=B||V;let X,j=w(l),U=S(l),K=L(l),G=R(l);if(F&&p&&c(an,"scrollbarHidden",!q),z&&(X=C(q),T(X,_)),d||b||g||H||F){Y&&c(cn,nn,!1);const[t,e]=k(q,D,X),[n,i]=j=y(l),[o,s]=U=x(l),a=Ce(r);let d=o,h=a;t(),(s||i||F)&&e&&!q&&A(e,o,n,D)&&(h=Ce(r),d=Pe(r));const f={w:ii(ni(o.w,d.w)+n.w),h:ii(ni(o.h,d.h)+n.h)},p={w:ii((v?u.innerWidth:h.w+ii(a.w-o.w))+n.w),h:ii((v?u.innerHeight+n.h:h.h+ii(a.h-o.h))+n.h)};G=O(p),K=E(((t,e)=>{const n=window.devicePixelRatio%1!=0?1:0,i={w:ii(t.w-e.w),h:ii(t.h-e.h)};return{w:i.w>n?i.w:0,h:i.h>n?i.h:0}})(f,p),l)}const[J,Z]=G,[tt,et]=K,[nt,it]=U,[ot,st]=j,rt={x:tt.w>0,y:tt.h>0},lt=B&&V&&(rt.x||rt.y)||B&&rt.x&&!rt.y||V&&rt.y&&!rt.x;if(b||H||st||it||Z||et||W||F||z){const t={marginRight:0,marginBottom:0,marginLeft:0,width:"",overflowY:"",overflowX:""},e=((t,e,n,i)=>{const o=(t,e)=>{const n=ai(t),i=e&&n&&t.replace(`${oi}-`,"")||"";return[e&&!n?t:"",ai(i)?"hidden":i]},[s,r]=o(n.x,e.x),[l,a]=o(n.y,e.y);return i.overflowX=r&&l?r:s,i.overflowY=a&&s?a:l,C(t,i)})(q,rt,N,t),n=A(e,nt,ot,D);a||P(e,D,n,t),z&&T(e,_),a?(Tt(o,tn,t.overflowX),Tt(o,en,t.overflowY)):Q(r,t)}Pt(o,Qe,nn,lt),Pt(s,dn,un,lt),a||Pt(r,rn,cn,Y);const[at,ct]=$(C(q).Ot);return i({Ot:at,zt:{x:J.w,y:J.h},Et:{x:tt.w,y:tt.h},At:rt}),{It:ct,Ht:Z,Lt:et}}},di=(t,e,n)=>{const i={},o=e||{};return Z(Lt(t).concat(Lt(o)),(e=>{const s=t[e],r=o[e];i[e]=!!(n||s||r)})),i},ui=(t,e,n,i)=>{let o=!1;const{Mt:s,Dt:r,Rt:l,kt:a,Bt:c,Vt:d}=i||{},u=ve((()=>{o&&n(!0)}),{g:33,v:99}),[h,f]=((t,e,n)=>{let i,o=!1;const s=s=>{if(n){const r=n.reduce(((e,n)=>{if(n){const[i,o]=n,r=o&&i&&(s?s(i):Ht(i,t));r&&r.length&&o&&ct(o)&&yt(e,[r,o.trim()],!0)}return e}),[]);Z(r,(n=>Z(n[0],(s=>{const r=n[1],l=i.get(s)||[];if(t.contains(s)){const t=Ie(s,r,(n=>{o?(t(),i.delete(s)):e(n)}));i.set(s,yt(l,t))}else St(l),i.delete(s)}))))}};return n&&(i=new WeakMap,s()),[()=>{o=!0},s]})(t,u,l),p=r||[],m=(s||[]).concat(p),g=(o,s)=>{const r=c||ge,l=d||ge,u=new Set,h=new Set;let m=!1,g=!1;if(Z(o,(n=>{const{attributeName:o,target:s,type:c,oldValue:d,addedNodes:f,removedNodes:b}=n,v="attributes"===c,y="childList"===c,w=t===s,x=v&&ct(o)?Tt(s,o):0,S=0!==x&&d!==x,E=vt(p,o)>-1&&S;if(e&&(y||!w)){const e=!v,c=v&&S,h=c&&a&&_t(s,a),p=(h?!r(s,o,d,x):e||c)&&!l(n,!!h,t,i);Z(f,(t=>u.add(t))),Z(b,(t=>u.add(t))),g=g||p}!e&&w&&S&&!r(s,o,d,x)&&(h.add(o),m=m||E)})),u.size>0&&f((t=>wt(u).reduce(((e,n)=>(yt(e,Ht(t,n)),_t(n,t)?yt(e,n):e)),[]))),e)return!s&&g&&n(!1),[!1];if(h.size>0||m){const t=[wt(h),m];return!s&&n.apply(0,t),t}},b=new Zt((t=>g(t)));return b.observe(t,{attributes:!0,attributeOldValue:!0,attributeFilter:m,subtree:e,childList:e,characterData:e}),o=!0,[()=>{o&&(h(),b.disconnect(),o=!1)},()=>{if(o){u.m();const t=b.takeRecords();return!xt(t)&&g(t,!0)}}]},hi=3333333,fi=(t,e,n)=>{const{Yt:i=!1,Pt:o=!1}=n||{},s=Mn().__osSizeObserverPlugin,{V:r}=qn(),l=Vt(`<div class="${fn}"><div class="${mn}"></div></div>`)[0],a=l.firstChild,c=Ee.bind(0,t),[d]=tt({o:void 0,_:!0,u:(t,e)=>!(!t||!Me(t)&&Me(e))}),u=t=>{const n=ht(t)&&t.length>0&&ft(t[0]),o=!n&&dt(t[0]);let s=!1,a=!1,c=!0;if(n){const[e,,n]=d(t.pop().contentRect),i=Me(e),o=Me(n);s=!n&&!!o||!i,a=!o&&i,c=!s}else o?[,c]=t:a=!0===t;if(i&&c){const e=o?t[0]:Ee(l);At(l,e?r.n?-hi:r.i?0:hi:hi),kt(l,hi)}s||e({wt:!o,jt:o?t:void 0,Pt:!!a})},h=[];let f=!!o&&u;return[()=>{St(h),zt(l)},()=>{if(te){const t=new te(u);t.observe(a),yt(h,(()=>{t.disconnect()}))}else if(s){const[t,e]=s.O(a,u,o);f=t,yt(h,e)}if(i){const[t]=tt({o:void 0},c);yt(h,Ie(l,"scroll",(e=>{const n=t(),[i,o,s]=n;o&&(ae(a,"ltr rtl"),ce(a,i?"rtl":"ltr"),u([!!i,o,s])),Fe(e)})))}f&&(ce(l,pn),yt(h,Ie(l,"animationstart",f,{C:!!te}))),(te||s)&&Wt(t,l)}]},pi=(t,e)=>{let n;const i=Bt("os-trinsic-observer"),o=[],[s]=tt({o:!1}),r=(t,n)=>{if(t){const i=s((t=>0===t.h||t.isIntersecting||t.intersectionRatio>0)(t)),[,o]=i;if(o)return!n&&e(i),[i]}},l=(t,e)=>{if(t&&t.length>0)return r(t.pop(),e)};return[()=>{St(o),zt(i)},()=>{if(Qt)n=new Qt((t=>l(t)),{root:t}),n.observe(i),yt(o,(()=>{n.disconnect()}));else{const t=()=>{const t=Te(i);r(t)},[e,n]=fi(i,t);yt(o,e),n(),t()}Wt(t,i)},()=>{if(n)return l(n.takeRecords(),!0)}]},mi=`[${Qe}]`,gi=`[${rn}]`,bi=["tabindex"],vi=["wrap","cols","rows"],yi=["id","class","style","open"],wi=(t,e,n)=>{let i,o,s;const{J:r,K:l,nt:a,lt:c,ft:d,_t:u,ht:h}=t,{Y:f}=qn(),[p]=tt({u:he,o:{w:0,h:0}},(()=>{const t=u(cn,nn),e=u(ln,""),n=e&&At(l),i=e&&kt(l);h(cn,nn),h(ln,""),h("",sn,!0);const o=Pe(a),s=Pe(l),r=Ae(l);return h(cn,nn,t),h(ln,"",e),h("",sn),At(l,n),kt(l,i),{w:s.w+o.w+r.w,h:s.h+o.h+r.h}})),m=c?vi:yi.concat(vi),g=ve(n,{g:()=>i,v:()=>o,p(t,e){const[n]=t,[i]=e;return[Lt(n).concat(Lt(i)).reduce(((t,e)=>(t[e]=n[e]||i[e],t)),{})]}}),b=t=>{Z(t||bi,(t=>{if(vt(bi,t)>-1){const e=Tt(r,t);ct(e)?Tt(l,t,e):Ct(l,t)}}))},v=(t,i)=>{const[o,s]=t,r={vt:s};return e({gt:o}),!i&&n(r),r},y=({wt:t,jt:i,Pt:o})=>{const s=!t||o?n:g;let r=!1;if(i){const[t,n]=i;r=n,e({yt:t})}s({wt:t,Pt:o,St:r})},w=(t,e)=>{const[,i]=p(),o={bt:i};return i&&!e&&(t?n:g)(o),o},x=(t,e,n)=>{const i={Tt:e};return e?!n&&g(i):d||b(t),i},[S,E,L]=a||!f?pi(r,v):[ge,ge,ge],[O,R]=d?[ge,ge]:fi(r,y,{Pt:!0,Yt:!0}),[$,T]=ui(r,!1,x,{Dt:yi,Mt:yi.concat(bi)});let C;const P=d&&te&&new te((t=>{const e=t[t.length-1].contentRect,n=Me(e),i=Me(C);y({wt:!0,Pt:!i&&n}),C=e}));return[()=>{S(),O(),s&&s[0](),P&&P.disconnect(),$()},()=>{P&&P.observe(r),b(),R(),E()},()=>{const t={},e=T(),n=L(),i=s&&s[1]();return e&&Ot(t,x.apply(0,yt(e,!0))),n&&Ot(t,v.apply(0,yt(n,!0))),i&&Ot(t,w.apply(0,yt(i,!0))),t},t=>{const[e]=t("update.ignoreMutation"),[n,r]=t("update.attributes"),[c,u]=t("update.elementEvents"),[h,f]=t("update.debounce"),p=t=>ut(e)&&e(t);if((u||r)&&(s&&(s[1](),s[0]()),s=ui(a||l,!0,w,{Mt:m.concat(n||[]),Rt:c,kt:mi,Vt:(t,e)=>{const{target:n,attributeName:i}=t;return!(e||!i||d)&&((t,e,n)=>{const i=t&&Ft(t,e),o=t&&((t,e)=>{const n=e?bt(e)?e:null:document;return n?n.querySelector(t):null})(n,i),s=Ft(o,e)===i;return!(!i||!o)&&(i===t||o===t||s&&Ft(Ft(t,n),e)!==i)})(n,mi,gi)||!!Ft(n,`.${gn}`)||!!p(t)}})),f)if(g.m(),ht(h)){const t=h[0],e=h[1];i=at(t)&&t,o=at(e)&&e}else at(h)?(i=h,o=!1):(i=!1,o=!1)}]},xi={x:0,y:0},{round:Si}=Math,Ei="pointerup pointerleave pointercancel lostpointercapture",Li=(t,e)=>Ie(t,"mousedown",Ie.bind(0,e,"click",Fe,{C:!0,$:!0}),{$:!0}),Oi=(t,e,n,i,o,s,r)=>{const{V:l}=qn(),{Gt:a,Xt:c,Ut:d}=i,u="scroll"+(r?"Left":"Top"),h="client"+(r?"X":"Y"),f=r?"width":"height",p=r?"left":"top",m=r?"w":"h",g=r?"x":"y",b=(t,e)=>n=>{const{Et:i}=s(),h=Te(c)[m]-Te(a)[m],f=e*n/h*i[g],p=Ee(d)&&r?l.n||l.i?1:-1:1;o[u]=t+f*p};return Ie(c,"pointerdown",(i=>{const s=Ft(i.target,`.${xn}`)===a,r=s?a:c;if(Pt(e,Qe,on,!0),((t,e,n)=>{const i=e.scrollbars,{button:o,isPrimary:s,pointerType:r}=t,{pointers:l}=i;return 0===o&&s&&i[n?"dragScroll":"clickScroll"]&&(l||[]).includes(r)})(i,t,s)){const t=!s&&i.shiftKey,l=()=>ke(a),d=()=>ke(c),m=(t,e)=>(t||l())[p]-(e||d())[p],v=b(o[u]||0,1/(t=>{const{width:e,height:n}=ke(t),{w:i,h:o}=Te(t);return{x:Si(e)/i||1,y:Si(n)/o||1}})(o)[g]),y=i[h],w=l(),x=d(),S=w[f],E=m(w,x)+S/2,L=y-x[p],O=s?0:L-E,R=t=>{St($),r.releasePointerCapture(t.pointerId)},$=[Pt.bind(0,e,Qe,on),Ie(n,Ei,R),Ie(n,"selectstart",(t=>Ne(t)),{S:!1}),Ie(c,Ei,R),Ie(c,"pointermove",(e=>{const n=e[h]-y;(s||t)&&v(O+n)}))];if(t)v(O);else if(!s){const t=Mn().__osClickScrollPlugin;t&&yt($,t.O(v,m,O,S,L))}r.setPointerCapture(i.pointerId)}}))},Ri=({Gt:t},e,n)=>{if(!e)return ge;const i=t.animate((t=>({transform:[Oe("0%",t),Oe("-100%",t)],[t?"left":"top"]:["0%","100%"]}))(n),{timeline:e});return()=>{i.cancel()}},{min:$i,max:Ti,abs:Ci,round:Pi}=Math,Ai=(t,e,n,i)=>{if(i){const t=n?"x":"y",{Et:e,zt:o}=i,s=o[t],r=e[t];return Ti(0,$i(1,s/(s+r)))}const o=n?"width":"height",s=ke(t)[o],r=ke(e)[o];return Ti(0,$i(1,s/r))},ki=t=>`${Math.max(0,t-.5)}px`,Mi=(t,e,n,i)=>t.animate({transform:[Oe("0px",i),Oe(ki(n),i)]},{timeline:e,composite:"add"}),Hi=(t,e)=>ie?new ie({source:t,axis:e}):null,_i=(t,e,n)=>{const{q:i,H:o}=qn(),{scrollbars:s}=i(),{slot:r}=s,{rt:l,Z:a,J:c,K:d,ut:u,st:h,it:f,ft:p}=e,{scrollbars:m}=u?{}:t,{slot:g}=m||{},b=new Map,v=Hi(h,"x"),y=Hi(h,"y"),w=Vn([a,c,d],(()=>p&&f?a:c),r,g),x=t=>p&&!f&&It(t)===d,S=()=>{b.forEach((t=>{(t||[]).forEach((t=>{t.cancel()}))}))},E=(t,e,n)=>{const i=n?ce:ae;Z(t,(t=>{i(t.Ut,e)}))},L=(t,e)=>{Z(t,(t=>{const[n,i]=e(t);Q(n,i)}))},O=(t,e,n)=>{L(t,(t=>{const{Gt:i,Xt:o}=t;return[i,{[n?"width":"height"]:`${(100*Ai(i,o,n,e)).toFixed(3)}%`}]}))},R=(t,e,n)=>{y||y||L(t,(t=>{const{Gt:i,Xt:o,Ut:s}=t,r=((t,e,n,i,o,s)=>{const{V:r}=qn(),l=s?"x":"y",a=s?"Left":"Top",{Et:c}=i,d=Pi(c[l]),u=Ci(n[`scroll${a}`]),h=s&&o,f=r.i?u:d-u,p=$i(1,(h?f:u)/d),m=Ai(t,e,s);return 1/m*(1-m)*p})(i,o,h,e,Ee(s),n);return[i,{transform:r==r?Oe(`${(100*r).toFixed(3)}%`,n):""}]}))},$=t=>{const{Ut:e}=t,n=x(e)&&e;return[n,{transform:n?Oe([`${At(h)}px`,`${kt(h)}px`]):""}]},T=[],C=[],P=[],A=(t,e,n)=>{const i=dt(n),o=!i||!n;(!i||n)&&E(C,t,e),o&&E(P,t,e)},k=t=>{const e=t?vn:yn,i=t?C:P,s=xt(i)?Ln:"",r=Bt(`${gn} ${e} ${s}`),a=Bt(wn),d=Bt(xn),u={Ut:r,Xt:a,Gt:d};return o||ce(r,"os-no-css-vars"),Wt(r,a),Wt(a,d),yt(i,u),yt(T,[()=>{S(),b.clear()},zt.bind(0,r),n(u,A,l,c,h,t?v:y,t)]),u},M=k.bind(0,!0),H=k.bind(0,!1);return M(),H(),[{Wt:t=>{O(C,t,!0),O(P,t)},Zt:t=>{R(C,t,!0),R(P,t)},Jt:({Et:t})=>{S(),P.concat(C).forEach((({Ut:e})=>{x(e)&&b.set(e,[Mi(e,v,t.x,!0),Mi(e,y,t.y)])}))},Kt:()=>{y||y||(p&&L(C,$),p&&L(P,$))},Qt:A,tn:{B:v,nn:C,sn:M,en:L.bind(0,C)},cn:{B:y,nn:P,sn:H,en:L.bind(0,P)}},()=>{Wt(w,C[0].Ut),Wt(w,P[0].Ut),oe((()=>{A(Ln)}),300)},St.bind(0,T)]},Di=(t,e,n)=>{ut(t)&&t(e||void 0,n||void 0)},Ii=(t,e,n)=>{const{G:i,q:o,j:s,N:r}=qn(),l=Mn(),a=gt(t),c=a?t:t.target,d=Xn(c);if(e&&!d){let d=!1;const u=t=>{const e=Mn().__osOptionsValidationPlugin,n=e&&e.O;return n?n(t,!0):t},h=Ot({},i(),u(e)),[f,p,m]=Be(n),[g,b,v]=((t,e)=>{const n=Un(e,{}),[i,o,s]=Be(),[r,l,a]=Qn(t),c=Kn((t=>({tt:{t:0,r:0,b:0,l:0},$t:!1,P:{marginRight:0,marginBottom:0,marginLeft:0,paddingTop:0,paddingRight:0,paddingBottom:0,paddingLeft:0},zt:xi,Et:xi,Ot:{x:"hidden",y:"hidden"},At:{x:!1,y:!1},gt:!1,yt:Ee(t.J)}))(r)),[d,u]=c,h=((t,e)=>{const{Z:n,K:i,ht:o,ft:s}=t,{A:r,I:l,Y:a}=qn(),c=!r&&(l.x||l.y),d=[ti(t,e),ei(t,e),ci(t,e)];return(t,e,r)=>{const l=di(Ot({wt:!1,xt:!1,St:!1,vt:!1,Ht:!1,Lt:!1,It:!1,Tt:!1,bt:!1,Pt:!1},e),{},r),u=c||!a,h=u&&At(i),f=u&&kt(i);o("",sn,!0);let p=l;return Z(d,(e=>{p=di(p,e(p,t,!!r)||{},r)})),At(i,h),kt(i,f),o("",sn),s||(At(n,0),kt(n,0)),p}})(r,c),f=(t,e,n)=>{const i=Lt(t).some((e=>!!t[e])),o=i||!Rt(e)||n;return o&&s("u",[t,e,n]),o},[p,m,g,b]=wi(r,u,(t=>f(h(n,t),{},!1))),v=d.bind(0);return v.Nt=t=>i("u",t),v.qt=()=>{const{Z:t,K:e,rt:n,it:i}=r,o=i?n.documentElement:t,s=At(o),a=kt(o);m(),l(),At(e,s),kt(e,a)},v.Ft=r,[(t,n)=>{const i=Un(e,t,n);return b(i),f(h(i,g(),n),t,!!n)},v,()=>{o(),p(),a()}]})(t,h),[y,w,x]=((t,e,n,i)=>{let o,s,r,l,a,c=0;const d=Kn({}),[u]=d,[h,f]=be(),[p,m]=be(),[g,b]=be(100),[v,y]=be(100),[w,x]=be(100),[S,E]=be((()=>c)),[L,O,R]=_i(t,n.Ft,((t,e)=>(n,i,o,s,r,l,a)=>{const{Ut:c}=n,[d,u]=be(333),h=!!r.scrollBy;let f=!0;return St.bind(0,[Ie(c,"pointerenter",(()=>{i(On,!0)})),Ie(c,"pointerleave pointercancel",(()=>{i(On)})),Ie(c,"wheel",(t=>{const{deltaX:e,deltaY:n,deltaMode:o}=t;h&&f&&0===o&&It(c)===s&&r.scrollBy({left:e,top:n,behavior:"smooth"}),f=!1,i(Cn,!0),d((()=>{f=!0,i(Cn)})),Ne(t)}),{S:!1,$:!0}),Li(c,o),Oi(t,s,o,n,r,e,a),Ri(n,l,a),u])})(e,n)),{J:$,et:T,it:C}=n.Ft,{Qt:P,Wt:A,Zt:k,Jt:M,Kt:H}=L,_=t=>{P($n,t,!0),P($n,t,!1)},D=(t,e)=>{if(E(),t)P(Tn);else{const t=()=>P(Tn,!0);c>0&&!e?S(t):t()}},I=()=>{l=s,l&&D(!0)},F=[b,E,y,x,m,f,R,Ie($,"pointerover",I,{C:!0}),Ie($,"pointerenter",I),Ie($,"pointerleave",(()=>{l=!1,s&&D(!1)})),Ie($,"pointermove",(()=>{o&&h((()=>{b(),D(!0),v((()=>{o&&D(!1)}))}))})),Ie(T,"scroll",(t=>{p((()=>{k(n()),r&&D(!0),g((()=>{r&&!l&&D(!1)}))})),i(t),H()}))],N=u.bind(0);return N.Ft=L,N.qt=O,[(t,i,l)=>{const{Ht:d,Lt:u,It:h,St:f,Pt:p}=l,{I:m}=qn(),g=Un(e,t,i),b=n(),{Et:v,Ot:y,yt:x,At:S}=b,[E,L]=g("showNativeOverlaidScrollbars"),[O,R]=g("scrollbars.theme"),[$,I]=g("scrollbars.visibility"),[N,W]=g("scrollbars.autoHide"),[q,z]=g("scrollbars.autoHideSuspend"),[B]=g("scrollbars.autoHideDelay"),[V,Y]=g("scrollbars.dragScroll"),[X,j]=g("scrollbars.clickScroll"),U=p&&!i,K=d||u||f,G=h||I,J=E&&m.x&&m.y,Z=(t,e)=>{const n="visible"===$||"auto"===$&&"scroll"===t;return P(Sn,n,e),n};if(c=B,L&&P("os-theme-none",J),R&&(P(a),P(O,!0),a=O),(z||U)&&(q&&U&&(S.x||S.y)?(_(!1),w((()=>F.push(Ie(T,"scroll",_.bind(0,!0),{C:!0}))))):_(!0)),W&&(o="move"===N,s="leave"===N,r="never"!==N,D(!r,!0)),Y&&P(An,V),j&&P(Pn,X),G){const t=Z(y.x,!0),e=Z(y.y,!1);P(En,!(t&&e))}K&&(A(b),k(b),M(b),H(),P(Rn,!v.x,!0),P(Rn,!v.y,!1),P(bn,x&&!C))},N,St.bind(0,F)]})(t,h,b,(t=>m("scroll",[$,t]))),S=(t,e)=>g(t,!!e),E=S.bind(0,{},!0),L=s(E),O=r(E),R=t=>{(t=>{Yn.delete(t)})(c),L(),O(),x(),v(),d=!0,m("destroyed",[$,!!t]),p()},$={options(t,e){if(t){const n=e?i():{},o=Xe(h,Ot(n,u(t)));Rt(o)||(Ot(h,o),S(o))}return Ot({},h)},on:f,off:(t,e)=>{t&&e&&p(t,e)},state(){const{zt:t,Et:e,Ot:n,At:i,tt:o,$t:s,yt:r}=b();return Ot({},{overflowEdge:t,overflowAmount:e,overflowStyle:n,hasOverflow:i,padding:o,paddingAbsolute:s,directionRTL:r,destroyed:d})},elements(){const{Z:t,J:e,tt:n,K:i,nt:o,st:s,et:r}=b.Ft,{tn:l,cn:a}=w.Ft,c=t=>{const{Gt:e,Xt:n,Ut:i}=t;return{scrollbar:i,track:n,handle:e}},d=t=>{const{nn:e,sn:n}=t,i=c(e[0]);return Ot({},i,{clone:()=>{const t=c(n());return y({},!0,{}),t}})};return Ot({},{target:t,host:e,padding:n||i,viewport:i,content:o||i,scrollOffsetElement:s,scrollEventElement:r,scrollbarHorizontal:d(l),scrollbarVertical:d(a)})},update:t=>S({},t),destroy:R.bind(0)};return b.Nt(((t,e,n)=>{y(e,n,t)})),((t,e)=>{Yn.set(t,e)})(c,$),Z(Lt(l),(t=>Di(l[t],0,$))),((t,e,n)=>{const{nativeScrollbarsOverlaid:i,body:o}=n||{},{I:s,A:r}=qn(),{nativeScrollbarsOverlaid:l,body:a}=e,c=null!=i?i:l,d=st(o)?a:o,u=(s.x||s.y)&&c,h=t&&(rt(d)?!r:d);return!!u||!!h})(b.Ft.it,o().cancel,!a&&t.cancel)?(R(!0),$):(b.qt(),w.qt(),m("initialized",[$]),b.Nt(((t,e,n)=>{const{wt:i,St:o,vt:s,Ht:r,Lt:l,It:a,bt:c,Tt:d}=t;m("updated",[$,{updateHints:{sizeChanged:i,directionChanged:o,heightIntrinsicChanged:s,overflowEdgeChanged:r,overflowAmountChanged:l,overflowStyleChanged:a,contentMutation:c,hostMutation:d},changedOptions:e,force:n}])})),$.update(!0),$)}return d};Ii.plugin=t=>{Z((t=>{const e=[];return Z(ht(t)?t:[t],(t=>{Z(Lt(t),(n=>{yt(e,kn[n]=t[n])}))})),e})(t),(t=>Di(t,Ii)))},Ii.valid=t=>{const e=t&&t.elements,n=ut(e)&&e();return mt(n)&&!!Xn(n.target)},Ii.env=()=>{const{k:t,I:e,A:n,V:i,Y:o,H:s,B:r,U:l,W:a,q:c,F:d,G:u,X:h}=qn();return Ot({},{scrollbarsSize:t,scrollbarsOverlaid:e,scrollbarsHiding:n,rtlScrollBehavior:i,flexboxGlue:o,cssCustomProperties:s,scrollTimeline:r,staticDefaultInitialization:l,staticDefaultOptions:a,getDefaultInitialization:c,setDefaultInitialization:d,getDefaultOptions:u,setDefaultOptions:h})};var Fi=n(255),Ni=n.n(Fi);function Wi(t){const e=new MouseEvent("click",{view:window,bubbles:!0,cancelable:!1});t.dispatchEvent(e)}function qi(t){const e=new Event("change",{bubbles:!0,cancelable:!1});t.dispatchEvent(e)}function zi(t){const e=new FocusEvent("focusin",{view:window,bubbles:!0,cancelable:!1});t.dispatchEvent(e)}function Bi(t){const e=new FocusEvent("focusout",{view:window,bubbles:!0,cancelable:!1});t.dispatchEvent(e)}function Vi(t,e){"invalid"==e?(ji(this.inputReplacement,"invalid"),Ui(this.inputReplacement,"valid")):(ji(this.inputReplacement,"valid"),Ui(this.inputReplacement,"invalid"))}function Yi(t,e){return null!=t[e]?t[e]:t.getAttribute(e)}function Xi(t,e){return!!t&&t.classList.contains(e)}function ji(t,e){if(t)return t.classList.add(e)}function Ui(t,e){if(t)return t.classList.remove(e)}function Ki(t){const e=window.devicePixelRatio||1;return Math.round(t*e)/e}const Gi=t=>"false"!==t&&"undefined"!==t&&"null"!==t&&"0"!==t&&!!t;var Ji={data:null,fitContent:!0,searchable:!1,showSelectedItems:!1,sameWidth:!1,availableHeight:!1,offset:3,floatPadding:5,placement:"bottom-start"};class Zi{constructor(t,e){this.cleanup,this.finalPosition,this.el=t,this.config=Object.assign({},Ji,e||{}),this.data=this.config.data,this.selectedOptions=[],this.placeholder=Yi(this.el,"placeholder")||this.config.placeholder||"Select an option",this.searchtext=Yi(this.el,"searchtext")||this.config.searchtext||"Search",this.selectedtext=Yi(this.el,"selectedtext")||this.config.selectedtext||"selected",this.fitContent=Gi(this.el.dataset.fitContent||this.config.fitContent),this.sameWidth=Gi(this.el.dataset.sameWidth||this.config.sameWidth),this.availableHeight=Gi(this.el.dataset.availableHeight||this.config.availableHeight),this.searchable=Gi(this.el.dataset.searchable||this.config.searchable),this.offset=Number(this.el.dataset.offset||this.config.offset),this.floatPadding=Number(this.el.dataset.floatPadding||this.config.floatPadding),this.placement=this.el.dataset.placement||this.config.placement,this.inputReplacement=null,this.multiple=Yi(this.el,"multiple"),this.disabled=Yi(this.el,"disabled"),this.create()}create(){this.el.style.opacity="0",this.el.style.width="0",this.el.style.padding="0",this.el.style.height="0",this.el.style.border="0",this.el.style.position="absolute",this.el.tabIndex=-1,this.data?this.processData(this.data):this.extractData(),this.renderDropdown(),this.bindEvent()}processData(t){var e=[];t.forEach((t=>{e.push({data:t,attributes:{selected:!!t.selected,disabled:!!t.disabled,optgroup:"optgroup"==t.value}})})),this.options=e}extractData(){var t=this.el.querySelectorAll("option,optgroup"),e=[],n=[],i=[];t.forEach((t=>{if("OPTGROUP"===t.tagName)var i={display:t.label,value:"optgroup"};else{let e=t.innerText,n=e;null!=t.dataset.display&&(n=t.dataset.display),i={text:e,display:n,value:t.value,optgroupOption:"OPTGROUP"===t.parentElement.tagName,selected:t.selected||null!=t.getAttribute("selected"),disabled:t.disabled||null!=t.getAttribute("disabled")}}var o={selected:t.selected||null!=t.getAttribute("selected"),disabled:t.disabled||null!=t.getAttribute("disabled"),optgroupOption:"OPTGROUP"===t.parentElement.tagName,optgroup:"OPTGROUP"===t.tagName};e.push(i),n.push({data:i,attributes:o})})),this.data=e,this.options=n,this.options.forEach((t=>{t.attributes.selected&&i.push(t)})),this.selectedOptions=i}renderDropdown(){this.menu=document.createElement("div"),this.menu.classList.add("nice-select-menu"),this.searchable&&(this.searchBox=document.createElement("div"),this.searchBox.classList.add("nice-select-search-box"),this.searchBox.innerHTML=`<input type="text" class="nice-select-search" placeholder="${this.searchtext}..." title="search"/>`,this.menu.appendChild(this.searchBox)),this.list=document.createElement("ul"),this.list.classList.add("list"),this.menu.appendChild(this.list),this.menu.OverlayScrollbars=Ii({target:this.menu,elements:{viewport:this.list}},{paddingAbsolute:!0,scrollbars:{theme:null,visibility:"visible",autoHide:"never",autoHideDelay:1300,dragScroll:!0,clickScroll:!0,pointers:["mouse","touch","pen"]}}),this.float=document.createElement("div"),this.float.classList.add("nice-select-float"),this.el.classList.length>0&&this.el.classList.forEach((t=>this.float.classList.add(t))),this.float.appendChild(this.menu),this.inputReplacement=document.createElement("div"),this.inputReplacement.classList.add("nice-select"),this.inputReplacement.tabIndex=this.disabled?null:0,this.inputReplacement.innerHTML=`<span class="${this.multiple?"multiple-options":"current"}"></span>`,this.el.classList.length>0&&this.el.classList.forEach((t=>this.inputReplacement.classList.add(t))),this.disabled&&this.inputReplacement.classList.add("disabled"),this.multiple&&this.inputReplacement.classList.add("has-multiple"),this.el.after(this.inputReplacement),this._renderItems(),this._renderSelectedItems(),this.fitContent&&!this.el.classList.contains("wide")&&(document.body.appendChild(this.float),this.inputReplacement.style.width=`${this.menu.offsetWidth}px`,this.float.remove())}_renderSelectedItems(){if(this.multiple){let e=this.inputReplacement.querySelector(".multiple-options");var t="";this.config.showSelectedItems||"auto"==window.getComputedStyle(this.inputReplacement).width||this.selectedOptions.length<2?(this.selectedOptions.forEach((function(e){t+=`<span class="current">${e.data.text}</span>`})),t=""==t?this.placeholder:t):t=this.selectedOptions.length+" "+this.selectedtext,0===this.selectedOptions.length?e.classList.add("placeholder"):e.classList.remove("placeholder"),e.innerHTML=t}else{let t=this.inputReplacement.querySelector(".current");this.selectedOptions.length>0&&this.selectedOptions[0].data.value?(t.innerHTML=this.selectedOptions[0].data.text,t.classList.remove("placeholder")):(t.innerHTML=this.placeholder,t.classList.add("placeholder"))}}_renderItems(){var t=this.menu.querySelector("ul");this.options.forEach((e=>{t.appendChild(this._renderItem(e))}))}_renderItem(t){var e=document.createElement("li");return e.innerHTML=t.data.display,t.attributes.optgroup?ji(e,"optgroup"):(e.dataset.value=t.data.value,e.addEventListener("click",this._onItemClicked.bind(this,t)),e.classList.add("option"),t.attributes.selected&&e.classList.add("selected"),t.attributes.disabled&&e.classList.add("disabled"),t.attributes.optgroupOption&&e.classList.add("optgroup-option")),t.element=e,e}positionMenu(t,e){var n;((t,e,n)=>{const i=new Map,o={platform:J,...n},s={...o.platform,_c:i};return(async(t,e,n)=>{const{placement:i="bottom",strategy:o="absolute",middleware:s=[],platform:r}=n,l=s.filter(Boolean),a=await(null==r.isRTL?void 0:r.isRTL(e));let c=await r.getElementRects({reference:t,floating:e,strategy:o}),{x:d,y:u}=v(c,i,a),h=i,f={},p=0;for(let n=0;n<l.length;n++){const{name:s,fn:m}=l[n],{x:g,y:b,data:y,reset:w}=await m({x:d,y:u,initialPlacement:i,placement:h,strategy:o,middlewareData:f,rects:c,platform:r,elements:{reference:t,floating:e}});d=null!=g?g:d,u=null!=b?b:u,f={...f,[s]:{...f[s],...y}},w&&p<=50&&(p++,"object"==typeof w&&(w.placement&&(h=w.placement),w.rects&&(c=!0===w.rects?await r.getElementRects({reference:t,floating:e,strategy:o}):w.rects),({x:d,y:u}=v(c,h,a))),n=-1)}return{x:d,y:u,placement:h,strategy:o,middlewareData:f}})(t,e,{...o,platform:s})})(t,e,{placement:this.placement,middleware:[(n=this.offset,void 0===n&&(n=0),{name:"offset",options:n,async fn(t){const{x:e,y:i}=t,o=await async function(t,e){const{placement:n,platform:i,elements:o}=t,s=await(null==i.isRTL?void 0:i.isRTL(o.floating)),r=d(n),l=u(n),a="y"===f(n),h=["left","top"].includes(r)?-1:1,p=s&&a?-1:1,m=c(e,t);let{mainAxis:g,crossAxis:b,alignmentAxis:v}="number"==typeof m?{mainAxis:m,crossAxis:0,alignmentAxis:null}:{mainAxis:0,crossAxis:0,alignmentAxis:null,...m};return l&&"number"==typeof v&&(b="end"===l?-1*v:v),a?{x:b*p,y:g*h}:{x:g*h,y:b*p}}(t,n);return{x:e+o.x,y:i+o.y,data:o}}}),1==this.availableHeight&&x({apply({availableHeight:t}){Object.assign(e.style,{maxHeight:`${Math.max(100,Ki(t))}px`,height:`${Math.max(100,Ki(t))}px`})},padding:this.floatPadding}),1==this.sameWidth&&x({apply({rects:t}){Object.assign(e.style,{width:`${Ki(t.reference.width)}px`})}}),w({fallbackStrategy:"initialPlacement",padding:this.floatPadding,crossAxis:!1})]}).then((({x:t,y:n,placement:i})=>{Object.assign(e.style,{top:`${Ki(n)}px`,left:`${Ki(t)}px`}),this.finalPosition=i,/^top/.test(i)&&(this.menu.style.bottom=0,this.menu.style.top=""),/^bottom/.test(i)&&(this.menu.style.top=0,this.menu.style.bottom="")}))}hideMenu(t){this.cleanup&&this.cleanup(),Ui(this.inputReplacement,"open"),Ui(this.menu,"opening"),Ui(this.menu,"open"),this.menu.style.maxHeight="0",setTimeout((()=>{this.float.remove(),this.menu.style.height="",this.menu.style.maxHeight="",this.menu.style.top="",this.menu.style.bottom=""}),1e3*parseFloat(getComputedStyle(this.menu).transitionDuration))}update(){if(this.extractData(),this.inputReplacement){var t=Xi(this.inputReplacement,"open");this.inputReplacement.remove(),this.create(),t&&Wi(this.inputReplacement)}Yi(this.el,"disabled")?this.disable():(this.enable(),this.updateSelectValue())}disable(){this.disabled||(this.disabled=!0,ji(this.inputReplacement,"disabled"))}enable(){this.disabled&&(this.disabled=!1,Ui(this.inputReplacement,"disabled"))}clear(){this.resetSelectValue(),this.selectedOptions=[],this._renderSelectedItems(),this.update(),qi(this.el)}destroy(){this.inputReplacement&&(this.inputReplacement.remove(),this.el.style.display="")}bindEvent(){this.inputReplacement.addEventListener("click",this._onClicked.bind(this)),this.inputReplacement.addEventListener("keydown",this._onKeyPressed.bind(this)),this.inputReplacement.addEventListener("focusin",zi.bind(this,this.el)),this.inputReplacement.addEventListener("focusout",Bi.bind(this,this.el)),this.el.addEventListener("invalid",Vi.bind(this,this.el,"invalid")),this.el.addEventListener("focusin",this._onFocusedNative.bind(this)),window.addEventListener("click",this._onClickedOutside.bind(this)),this.searchable&&this._bindSearchEvent()}_bindSearchEvent(){var t=this.menu.querySelector(".nice-select-search");t&&t.addEventListener("click",(function(t){return t.stopPropagation(),!1})),t.addEventListener("input",this._onSearchChanged.bind(this)),t.addEventListener("keydown",this._onKeyPressed.bind(this))}_onClicked(n){n.preventDefault();var i=this.menu.querySelector(".nice-select-search");if(Xi(this.inputReplacement,"open"))this.hideMenu(n),this.inputReplacement.focus();else{ji(this.inputReplacement,"open"),document.body.appendChild(this.float),i&&(i.value="");var o=this.menu.querySelector(".focus");Ui(o,"focus"),(o=this.menu.querySelector(".selected"))||(o=this.menu.querySelector(".list .option")),ji(o,"focus"),this.menu.querySelectorAll("ul li").forEach((function(t){t.style.display=""})),this.cleanup=function(n,i,o,r){void 0===r&&(r={});const{ancestorScroll:l=!0,ancestorResize:a=!0,elementResize:c="function"==typeof ResizeObserver,layoutShift:d="function"==typeof IntersectionObserver,animationFrame:u=!1}=r,h=W(n),f=l||a?[...h?F(h):[],...F(i)]:[];f.forEach((t=>{l&&t.addEventListener("scroll",o,{passive:!0}),a&&t.addEventListener("resize",o)}));const p=h&&d?function(n,i){let o,r=null;const l=L(n);function a(){clearTimeout(o),r&&r.disconnect(),r=null}return function c(d,u){void 0===d&&(d=!1),void 0===u&&(u=1),a();const{left:h,top:f,width:p,height:m}=n.getBoundingClientRect();if(d||i(),!p||!m)return;const g={rootMargin:-s(f)+"px "+-s(l.clientWidth-(h+p))+"px "+-s(l.clientHeight-(f+m))+"px "+-s(h)+"px",threshold:e(0,t(1,u))||1};let b=!0;function v(t){const e=t[0].intersectionRatio;if(e!==u){if(!b)return c();e?c(!1,e):o=setTimeout((()=>{c(!1,1e-7)}),100)}b=!1}try{r=new IntersectionObserver(v,{...g,root:l.ownerDocument})}catch(t){r=new IntersectionObserver(v,g)}r.observe(n)}(!0),a}(h,o):null;let m,g=-1,b=null;c&&(b=new ResizeObserver((t=>{let[e]=t;e&&e.target===h&&b&&(b.unobserve(i),cancelAnimationFrame(g),g=requestAnimationFrame((()=>{b&&b.observe(i)}))),o()})),h&&!u&&b.observe(h),b.observe(i));let v=u?V(n):null;return u&&function t(){const e=V(n);!v||e.x===v.x&&e.y===v.y&&e.width===v.width&&e.height===v.height||o(),v=e,m=requestAnimationFrame(t)}(),o(),()=>{f.forEach((t=>{l&&t.removeEventListener("scroll",o),a&&t.removeEventListener("resize",o)})),p&&p(),b&&b.disconnect(),b=null,u&&cancelAnimationFrame(m)}}(this.inputReplacement,this.float,(()=>{this.positionMenu(this.inputReplacement,this.float)})),Ni()(this.menu.querySelector(".selected"),{time:100,maxSynchronousAlignments:6,validTarget:function(t,e){return e<2&&t!==window&&t.matches(".list")}}),ji(this.menu,"opening"),setTimeout((()=>{ji(this.menu,"open"),i&&i.focus()}),1e3*parseFloat(getComputedStyle(this.menu).transitionDuration))}}_onItemClicked(t,e){var n=e.target;Xi(n,"disabled")||(this.multiple?Xi(n,"selected")?(Ui(n,"selected"),this.selectedOptions.splice(this.selectedOptions.indexOf(t),1),this.el.querySelector(`option[value="${n.dataset.value}"]`).removeAttribute("selected")):(ji(n,"selected"),this.selectedOptions.push(t)):(this.options.forEach((function(t){Ui(t.element,"selected")})),this.selectedOptions.forEach((function(t){Ui(t.element,"selected")})),ji(n,"selected"),this.selectedOptions=[t]),this._renderSelectedItems(),this.updateSelectValue()),this.inputReplacement.focus()}updateSelectValue(){if(this.multiple){var t=this.el;this.selectedOptions.forEach((function(e){var n=t.querySelector(`option[value="${e.data.value}"]`);n&&n.setAttribute("selected",!0)}))}else this.selectedOptions.length>0&&(this.el.value=this.selectedOptions[0].data.value);qi(this.el)}resetSelectValue(){if(this.multiple){var t=this.el;this.selectedOptions.forEach((function(e){var n=t.querySelector(`option[value="${e.data.value}"]`);n&&n.removeAttribute("selected")}))}else this.selectedOptions.length>0&&(this.el.selectedIndex=-1);qi(this.el)}_onClickedOutside(t){this.inputReplacement.contains(t.target)||this.hideMenu(t)}_onKeyPressed(t){let e=this.menu.querySelector(".focus");if(Xi(this.inputReplacement,"open"))switch(t.keyCode){case 13:case 32:Wi(e);break;case 27:Wi(this.inputReplacement);break;case 38:t.preventDefault(),this._focusPrev(e);break;case 40:t.preventDefault(),this._focusNext(e);break;default:return}else 40!==t.keyCode&&38!==t.keyCode&&32!==t.keyCode&&13!==t.keyCode||(t.preventDefault(),Wi(this.inputReplacement))}_findNext(t){for(t=t?t.nextElementSibling:this.menu.querySelector(".list .option");t;){if(!Xi(t,"optgroup")&&!Xi(t,"disabled")&&"none"!==t.style.display)return t;t=t.nextElementSibling}return null}_findPrev(t){for(t=t?t.previousElementSibling:this.menu.querySelector(".list .option:last-child");t;){if(!Xi(t,"optgroup")&&!Xi(t,"disabled")&&"none"!==t.style.display)return t;t=t.previousElementSibling}return null}_focusNext(t){var e=this._findNext(t);e&&(Ui(this.menu.querySelector(".focus"),"focus"),ji(e,"focus"),Ni()(e,{time:250,validTarget:function(t,e){return e<2&&t!==window&&t.matches(".list")}}))}_focusPrev(t){var e=this._findPrev(t);e&&(Ui(this.menu.querySelector(".focus"),"focus"),ji(e,"focus"),Ni()(e,{time:250,validTarget:function(t,e){return e<2&&t!==window&&t.matches(".list")}}))}_onSearchChanged(t){var e=Xi(this.inputReplacement,"open"),n=t.target.value;if(""===(n=n.toLowerCase()))this.options.forEach((function(t){t.element.style.display=""}));else if(e){var i=new RegExp(n);this.options.forEach((function(t){var e=t.data.text.toLowerCase(),n=i.test(e);t.element.style.display=n?"":"none"}))}this.menu.querySelectorAll(".focus").forEach((function(t){Ui(t,"focus")})),ji(this._findNext(null),"focus")}_onFocusedNative(t){t.preventDefault(),this.inputReplacement.focus()}}function Qi(t,e){return new Zi(t,e)}})();var o=i.a,s=i.Z;export{o as bind,s as default};
+/******/ var __webpack_modules__ = ({
+
+/***/ "./node_modules/scroll-into-view/scrollIntoView.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/scroll-into-view/scrollIntoView.js ***!
+  \*********************************************************/
+/***/ ((module) => {
+
+var COMPLETE = 'complete',
+    CANCELED = 'canceled';
+
+function raf(task){
+    if('requestAnimationFrame' in window){
+        return window.requestAnimationFrame(task);
+    }
+
+    setTimeout(task, 16);
+}
+
+function setElementScroll(element, x, y){
+    Math.max(0, x);
+    Math.max(0, y);
+
+    if(element.self === element){
+        element.scrollTo(x, y);
+    }else{
+        element.scrollLeft = x;
+        element.scrollTop = y;
+    }
+}
+
+function getTargetScrollLocation(scrollSettings, parent){
+    var align = scrollSettings.align,
+        target = scrollSettings.target,
+        targetPosition = target.getBoundingClientRect(),
+        parentPosition,
+        x,
+        y,
+        differenceX,
+        differenceY,
+        targetWidth,
+        targetHeight,
+        leftAlign = align && align.left != null ? align.left : 0.5,
+        topAlign = align && align.top != null ? align.top : 0.5,
+        leftOffset = align && align.leftOffset != null ? align.leftOffset : 0,
+        topOffset = align && align.topOffset != null ? align.topOffset : 0,
+        leftScalar = leftAlign,
+        topScalar = topAlign;
+
+    if(scrollSettings.isWindow(parent)){
+        targetWidth = Math.min(targetPosition.width, parent.innerWidth);
+        targetHeight = Math.min(targetPosition.height, parent.innerHeight);
+        x = targetPosition.left + parent.pageXOffset - parent.innerWidth * leftScalar + targetWidth * leftScalar;
+        y = targetPosition.top + parent.pageYOffset - parent.innerHeight * topScalar + targetHeight * topScalar;
+        x -= leftOffset;
+        y -= topOffset;
+        x = scrollSettings.align.lockX ? parent.pageXOffset : x;
+        y = scrollSettings.align.lockY ? parent.pageYOffset : y;
+        differenceX = x - parent.pageXOffset;
+        differenceY = y - parent.pageYOffset;
+    }else{
+        targetWidth = targetPosition.width;
+        targetHeight = targetPosition.height;
+        parentPosition = parent.getBoundingClientRect();
+        var offsetLeft = targetPosition.left - (parentPosition.left - parent.scrollLeft);
+        var offsetTop = targetPosition.top - (parentPosition.top - parent.scrollTop);
+        x = offsetLeft + (targetWidth * leftScalar) - parent.clientWidth * leftScalar;
+        y = offsetTop + (targetHeight * topScalar) - parent.clientHeight * topScalar;
+        x -= leftOffset;
+        y -= topOffset;
+        x = Math.max(Math.min(x, parent.scrollWidth - parent.clientWidth), 0);
+        y = Math.max(Math.min(y, parent.scrollHeight - parent.clientHeight), 0);
+        x = scrollSettings.align.lockX ? parent.scrollLeft : x;
+        y = scrollSettings.align.lockY ? parent.scrollTop : y;
+        differenceX = x - parent.scrollLeft;
+        differenceY = y - parent.scrollTop;
+    }
+
+    return {
+        x: x,
+        y: y,
+        differenceX: differenceX,
+        differenceY: differenceY
+    };
+}
+
+function animate(parent){
+    var scrollSettings = parent._scrollSettings;
+
+    if(!scrollSettings){
+        return;
+    }
+
+    var maxSynchronousAlignments = scrollSettings.maxSynchronousAlignments;
+
+    var location = getTargetScrollLocation(scrollSettings, parent),
+        time = Date.now() - scrollSettings.startTime,
+        timeValue = Math.min(1 / scrollSettings.time * time, 1);
+
+    if(scrollSettings.endIterations >= maxSynchronousAlignments){
+        setElementScroll(parent, location.x, location.y);
+        parent._scrollSettings = null;
+        return scrollSettings.end(COMPLETE);
+    }
+
+    var easeValue = 1 - scrollSettings.ease(timeValue);
+
+    setElementScroll(parent,
+        location.x - location.differenceX * easeValue,
+        location.y - location.differenceY * easeValue
+    );
+
+    if(time >= scrollSettings.time){
+        scrollSettings.endIterations++;
+        // Align ancestor synchronously
+        scrollSettings.scrollAncestor && animate(scrollSettings.scrollAncestor);
+        animate(parent);
+        return;
+    }
+
+    raf(animate.bind(null, parent));
+}
+
+function defaultIsWindow(target){
+    return target.self === target
+}
+
+function transitionScrollTo(target, parent, settings, scrollAncestor, callback){
+    var idle = !parent._scrollSettings,
+        lastSettings = parent._scrollSettings,
+        now = Date.now(),
+        cancelHandler,
+        passiveOptions = { passive: true };
+
+    if(lastSettings){
+        lastSettings.end(CANCELED);
+    }
+
+    function end(endType){
+        parent._scrollSettings = null;
+
+        if(parent.parentElement && parent.parentElement._scrollSettings){
+            parent.parentElement._scrollSettings.end(endType);
+        }
+
+        if(settings.debug){
+            console.log('Scrolling ended with type', endType, 'for', parent)
+        }
+
+        callback(endType);
+        if(cancelHandler){
+            parent.removeEventListener('touchstart', cancelHandler, passiveOptions);
+            parent.removeEventListener('wheel', cancelHandler, passiveOptions);
+        }
+    }
+
+    var maxSynchronousAlignments = settings.maxSynchronousAlignments;
+
+    if(maxSynchronousAlignments == null){
+        maxSynchronousAlignments = 3;
+    }
+
+    parent._scrollSettings = {
+        startTime: now,
+        endIterations: 0,
+        target: target,
+        time: settings.time,
+        ease: settings.ease,
+        align: settings.align,
+        isWindow: settings.isWindow || defaultIsWindow,
+        maxSynchronousAlignments: maxSynchronousAlignments,
+        end: end,
+        scrollAncestor
+    };
+
+    if(!('cancellable' in settings) || settings.cancellable){
+        cancelHandler = end.bind(null, CANCELED);
+        parent.addEventListener('touchstart', cancelHandler, passiveOptions);
+        parent.addEventListener('wheel', cancelHandler, passiveOptions);
+    }
+
+    if(idle){
+        animate(parent);
+    }
+
+    return cancelHandler
+}
+
+function defaultIsScrollable(element){
+    return (
+        'pageXOffset' in element ||
+        (
+            element.scrollHeight !== element.clientHeight ||
+            element.scrollWidth !== element.clientWidth
+        ) &&
+        getComputedStyle(element).overflow !== 'hidden'
+    );
+}
+
+function defaultValidTarget(){
+    return true;
+}
+
+function findParentElement(el){
+    if (el.assignedSlot) {
+        return findParentElement(el.assignedSlot);
+    }
+
+    if (el.parentElement) {
+        if(el.parentElement.tagName.toLowerCase() === 'body'){
+            return el.parentElement.ownerDocument.defaultView || el.parentElement.ownerDocument.ownerWindow;
+        }
+        return el.parentElement;
+    }
+
+    if (el.getRootNode){
+        var parent = el.getRootNode()
+        if(parent.nodeType === 11) {
+            return parent.host;
+        }
+    }
+}
+
+module.exports = function(target, settings, callback){
+    if(!target){
+        return;
+    }
+
+    if(typeof settings === 'function'){
+        callback = settings;
+        settings = null;
+    }
+
+    if(!settings){
+        settings = {};
+    }
+
+    settings.time = isNaN(settings.time) ? 1000 : settings.time;
+    settings.ease = settings.ease || function(v){return 1 - Math.pow(1 - v, v / 2);};
+    settings.align = settings.align || {};
+
+    var parent = findParentElement(target),
+        parents = 1;
+
+    function done(endType){
+        parents--;
+        if(!parents){
+            callback && callback(endType);
+        }
+    }
+
+    var validTarget = settings.validTarget || defaultValidTarget;
+    var isScrollable = settings.isScrollable;
+
+    if(settings.debug){
+        console.log('About to scroll to', target)
+
+        if(!parent){
+            console.error('Target did not have a parent, is it mounted in the DOM?')
+        }
+    }
+
+    var scrollingElements = [];
+
+    while(parent){
+        if(settings.debug){
+            console.log('Scrolling parent node', parent)
+        }
+
+        if(validTarget(parent, parents) && (isScrollable ? isScrollable(parent, defaultIsScrollable) : defaultIsScrollable(parent))){
+            parents++;
+            scrollingElements.push(parent);
+        }
+
+        parent = findParentElement(parent);
+
+        if(!parent){
+            done(COMPLETE)
+            break;
+        }
+    }
+
+    return scrollingElements.reduce((cancel, parent, index) => transitionScrollTo(target, parent, settings, scrollingElements[index + 1], done), null);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/@floating-ui/core/dist/floating-ui.core.mjs":
+/*!******************************************************************!*\
+  !*** ./node_modules/@floating-ui/core/dist/floating-ui.core.mjs ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "computePosition": () => (/* binding */ computePosition),
+/* harmony export */   "flip": () => (/* binding */ flip),
+/* harmony export */   "offset": () => (/* binding */ offset),
+/* harmony export */   "size": () => (/* binding */ size)
+/* harmony export */ });
+/* unused harmony exports arrow, autoPlacement, detectOverflow, hide, inline, limitShift, shift */
+/* harmony import */ var _floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @floating-ui/utils */ "./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs");
+
+
+
+function computeCoordsFromPlacement(_ref, placement, rtl) {
+  let {
+    reference,
+    floating
+  } = _ref;
+  const sideAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement);
+  const alignmentAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentAxis)(placement);
+  const alignLength = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAxisLength)(alignmentAxis);
+  const side = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement);
+  const isVertical = sideAxis === 'y';
+  const commonX = reference.x + reference.width / 2 - floating.width / 2;
+  const commonY = reference.y + reference.height / 2 - floating.height / 2;
+  const commonAlign = reference[alignLength] / 2 - floating[alignLength] / 2;
+  let coords;
+  switch (side) {
+    case 'top':
+      coords = {
+        x: commonX,
+        y: reference.y - floating.height
+      };
+      break;
+    case 'bottom':
+      coords = {
+        x: commonX,
+        y: reference.y + reference.height
+      };
+      break;
+    case 'right':
+      coords = {
+        x: reference.x + reference.width,
+        y: commonY
+      };
+      break;
+    case 'left':
+      coords = {
+        x: reference.x - floating.width,
+        y: commonY
+      };
+      break;
+    default:
+      coords = {
+        x: reference.x,
+        y: reference.y
+      };
+  }
+  switch ((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement)) {
+    case 'start':
+      coords[alignmentAxis] -= commonAlign * (rtl && isVertical ? -1 : 1);
+      break;
+    case 'end':
+      coords[alignmentAxis] += commonAlign * (rtl && isVertical ? -1 : 1);
+      break;
+  }
+  return coords;
+}
+
+/**
+ * Computes the `x` and `y` coordinates that will place the floating element
+ * next to a reference element when it is given a certain positioning strategy.
+ *
+ * This export does not have any `platform` interface logic. You will need to
+ * write one for the platform you are using Floating UI with.
+ */
+const computePosition = async (reference, floating, config) => {
+  const {
+    placement = 'bottom',
+    strategy = 'absolute',
+    middleware = [],
+    platform
+  } = config;
+  const validMiddleware = middleware.filter(Boolean);
+  const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(floating));
+  let rects = await platform.getElementRects({
+    reference,
+    floating,
+    strategy
+  });
+  let {
+    x,
+    y
+  } = computeCoordsFromPlacement(rects, placement, rtl);
+  let statefulPlacement = placement;
+  let middlewareData = {};
+  let resetCount = 0;
+  for (let i = 0; i < validMiddleware.length; i++) {
+    const {
+      name,
+      fn
+    } = validMiddleware[i];
+    const {
+      x: nextX,
+      y: nextY,
+      data,
+      reset
+    } = await fn({
+      x,
+      y,
+      initialPlacement: placement,
+      placement: statefulPlacement,
+      strategy,
+      middlewareData,
+      rects,
+      platform,
+      elements: {
+        reference,
+        floating
+      }
+    });
+    x = nextX != null ? nextX : x;
+    y = nextY != null ? nextY : y;
+    middlewareData = {
+      ...middlewareData,
+      [name]: {
+        ...middlewareData[name],
+        ...data
+      }
+    };
+    if (reset && resetCount <= 50) {
+      resetCount++;
+      if (typeof reset === 'object') {
+        if (reset.placement) {
+          statefulPlacement = reset.placement;
+        }
+        if (reset.rects) {
+          rects = reset.rects === true ? await platform.getElementRects({
+            reference,
+            floating,
+            strategy
+          }) : reset.rects;
+        }
+        ({
+          x,
+          y
+        } = computeCoordsFromPlacement(rects, statefulPlacement, rtl));
+      }
+      i = -1;
+      continue;
+    }
+  }
+  return {
+    x,
+    y,
+    placement: statefulPlacement,
+    strategy,
+    middlewareData
+  };
+};
+
+/**
+ * Resolves with an object of overflow side offsets that determine how much the
+ * element is overflowing a given clipping boundary on each side.
+ * - positive = overflowing the boundary by that number of pixels
+ * - negative = how many pixels left before it will overflow
+ * - 0 = lies flush with the boundary
+ * @see https://floating-ui.com/docs/detectOverflow
+ */
+async function detectOverflow(state, options) {
+  var _await$platform$isEle;
+  if (options === void 0) {
+    options = {};
+  }
+  const {
+    x,
+    y,
+    platform,
+    rects,
+    elements,
+    strategy
+  } = state;
+  const {
+    boundary = 'clippingAncestors',
+    rootBoundary = 'viewport',
+    elementContext = 'floating',
+    altBoundary = false,
+    padding = 0
+  } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+  const paddingObject = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getPaddingObject)(padding);
+  const altContext = elementContext === 'floating' ? 'reference' : 'floating';
+  const element = elements[altBoundary ? altContext : elementContext];
+  const clippingClientRect = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)(await platform.getClippingRect({
+    element: ((_await$platform$isEle = await (platform.isElement == null ? void 0 : platform.isElement(element))) != null ? _await$platform$isEle : true) ? element : element.contextElement || (await (platform.getDocumentElement == null ? void 0 : platform.getDocumentElement(elements.floating))),
+    boundary,
+    rootBoundary,
+    strategy
+  }));
+  const rect = elementContext === 'floating' ? {
+    ...rects.floating,
+    x,
+    y
+  } : rects.reference;
+  const offsetParent = await (platform.getOffsetParent == null ? void 0 : platform.getOffsetParent(elements.floating));
+  const offsetScale = (await (platform.isElement == null ? void 0 : platform.isElement(offsetParent))) ? (await (platform.getScale == null ? void 0 : platform.getScale(offsetParent))) || {
+    x: 1,
+    y: 1
+  } : {
+    x: 1,
+    y: 1
+  };
+  const elementClientRect = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)(platform.convertOffsetParentRelativeRectToViewportRelativeRect ? await platform.convertOffsetParentRelativeRectToViewportRelativeRect({
+    rect,
+    offsetParent,
+    strategy
+  }) : rect);
+  return {
+    top: (clippingClientRect.top - elementClientRect.top + paddingObject.top) / offsetScale.y,
+    bottom: (elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom) / offsetScale.y,
+    left: (clippingClientRect.left - elementClientRect.left + paddingObject.left) / offsetScale.x,
+    right: (elementClientRect.right - clippingClientRect.right + paddingObject.right) / offsetScale.x
+  };
+}
+
+/**
+ * Provides data to position an inner element of the floating element so that it
+ * appears centered to the reference element.
+ * @see https://floating-ui.com/docs/arrow
+ */
+const arrow = options => ({
+  name: 'arrow',
+  options,
+  async fn(state) {
+    const {
+      x,
+      y,
+      placement,
+      rects,
+      platform,
+      elements
+    } = state;
+    // Since `element` is required, we don't Partial<> the type.
+    const {
+      element,
+      padding = 0
+    } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state) || {};
+    if (element == null) {
+      return {};
+    }
+    const paddingObject = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getPaddingObject)(padding);
+    const coords = {
+      x,
+      y
+    };
+    const axis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentAxis)(placement);
+    const length = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAxisLength)(axis);
+    const arrowDimensions = await platform.getDimensions(element);
+    const isYAxis = axis === 'y';
+    const minProp = isYAxis ? 'top' : 'left';
+    const maxProp = isYAxis ? 'bottom' : 'right';
+    const clientProp = isYAxis ? 'clientHeight' : 'clientWidth';
+    const endDiff = rects.reference[length] + rects.reference[axis] - coords[axis] - rects.floating[length];
+    const startDiff = coords[axis] - rects.reference[axis];
+    const arrowOffsetParent = await (platform.getOffsetParent == null ? void 0 : platform.getOffsetParent(element));
+    let clientSize = arrowOffsetParent ? arrowOffsetParent[clientProp] : 0;
+
+    // DOM platform can return `window` as the `offsetParent`.
+    if (!clientSize || !(await (platform.isElement == null ? void 0 : platform.isElement(arrowOffsetParent)))) {
+      clientSize = elements.floating[clientProp] || rects.floating[length];
+    }
+    const centerToReference = endDiff / 2 - startDiff / 2;
+
+    // If the padding is large enough that it causes the arrow to no longer be
+    // centered, modify the padding so that it is centered.
+    const largestPossiblePadding = clientSize / 2 - arrowDimensions[length] / 2 - 1;
+    const minPadding = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(paddingObject[minProp], largestPossiblePadding);
+    const maxPadding = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(paddingObject[maxProp], largestPossiblePadding);
+
+    // Make sure the arrow doesn't overflow the floating element if the center
+    // point is outside the floating element's bounds.
+    const min$1 = minPadding;
+    const max = clientSize - arrowDimensions[length] - maxPadding;
+    const center = clientSize / 2 - arrowDimensions[length] / 2 + centerToReference;
+    const offset = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min$1, center, max);
+
+    // If the reference is small enough that the arrow's padding causes it to
+    // to point to nothing for an aligned placement, adjust the offset of the
+    // floating element itself. This stops `shift()` from taking action, but can
+    // be worked around by calling it again after the `arrow()` if desired.
+    const shouldAddOffset = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) != null && center != offset && rects.reference[length] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
+    const alignmentOffset = shouldAddOffset ? center < min$1 ? min$1 - center : max - center : 0;
+    return {
+      [axis]: coords[axis] - alignmentOffset,
+      data: {
+        [axis]: offset,
+        centerOffset: center - offset + alignmentOffset
+      }
+    };
+  }
+});
+
+function getPlacementList(alignment, autoAlignment, allowedPlacements) {
+  const allowedPlacementsSortedByAlignment = alignment ? [...allowedPlacements.filter(placement => (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) === alignment), ...allowedPlacements.filter(placement => (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) !== alignment)] : allowedPlacements.filter(placement => (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement) === placement);
+  return allowedPlacementsSortedByAlignment.filter(placement => {
+    if (alignment) {
+      return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement) === alignment || (autoAlignment ? (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositeAlignmentPlacement)(placement) !== placement : false);
+    }
+    return true;
+  });
+}
+/**
+ * Optimizes the visibility of the floating element by choosing the placement
+ * that has the most space available automatically, without needing to specify a
+ * preferred placement. Alternative to `flip`.
+ * @see https://floating-ui.com/docs/autoPlacement
+ */
+const autoPlacement = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'autoPlacement',
+    options,
+    async fn(state) {
+      var _middlewareData$autoP, _middlewareData$autoP2, _placementsThatFitOnE;
+      const {
+        rects,
+        middlewareData,
+        placement,
+        platform,
+        elements
+      } = state;
+      const {
+        crossAxis = false,
+        alignment,
+        allowedPlacements = _floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.placements,
+        autoAlignment = true,
+        ...detectOverflowOptions
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const placements$1 = alignment !== undefined || allowedPlacements === _floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.placements ? getPlacementList(alignment || null, autoAlignment, allowedPlacements) : allowedPlacements;
+      const overflow = await detectOverflow(state, detectOverflowOptions);
+      const currentIndex = ((_middlewareData$autoP = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP.index) || 0;
+      const currentPlacement = placements$1[currentIndex];
+      if (currentPlacement == null) {
+        return {};
+      }
+      const alignmentSides = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentSides)(currentPlacement, rects, await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating)));
+
+      // Make `computeCoords` start from the right place.
+      if (placement !== currentPlacement) {
+        return {
+          reset: {
+            placement: placements$1[0]
+          }
+        };
+      }
+      const currentOverflows = [overflow[(0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(currentPlacement)], overflow[alignmentSides[0]], overflow[alignmentSides[1]]];
+      const allOverflows = [...(((_middlewareData$autoP2 = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP2.overflows) || []), {
+        placement: currentPlacement,
+        overflows: currentOverflows
+      }];
+      const nextPlacement = placements$1[currentIndex + 1];
+
+      // There are more placements to check.
+      if (nextPlacement) {
+        return {
+          data: {
+            index: currentIndex + 1,
+            overflows: allOverflows
+          },
+          reset: {
+            placement: nextPlacement
+          }
+        };
+      }
+      const placementsSortedByMostSpace = allOverflows.map(d => {
+        const alignment = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(d.placement);
+        return [d.placement, alignment && crossAxis ?
+        // Check along the mainAxis and main crossAxis side.
+        d.overflows.slice(0, 2).reduce((acc, v) => acc + v, 0) :
+        // Check only the mainAxis.
+        d.overflows[0], d.overflows];
+      }).sort((a, b) => a[1] - b[1]);
+      const placementsThatFitOnEachSide = placementsSortedByMostSpace.filter(d => d[2].slice(0,
+      // Aligned placements should not check their opposite crossAxis
+      // side.
+      (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(d[0]) ? 2 : 3).every(v => v <= 0));
+      const resetPlacement = ((_placementsThatFitOnE = placementsThatFitOnEachSide[0]) == null ? void 0 : _placementsThatFitOnE[0]) || placementsSortedByMostSpace[0][0];
+      if (resetPlacement !== placement) {
+        return {
+          data: {
+            index: currentIndex + 1,
+            overflows: allOverflows
+          },
+          reset: {
+            placement: resetPlacement
+          }
+        };
+      }
+      return {};
+    }
+  };
+};
+
+/**
+ * Optimizes the visibility of the floating element by flipping the `placement`
+ * in order to keep it in view when the preferred placement(s) will overflow the
+ * clipping boundary. Alternative to `autoPlacement`.
+ * @see https://floating-ui.com/docs/flip
+ */
+const flip = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'flip',
+    options,
+    async fn(state) {
+      var _middlewareData$flip;
+      const {
+        placement,
+        middlewareData,
+        rects,
+        initialPlacement,
+        platform,
+        elements
+      } = state;
+      const {
+        mainAxis: checkMainAxis = true,
+        crossAxis: checkCrossAxis = true,
+        fallbackPlacements: specifiedFallbackPlacements,
+        fallbackStrategy = 'bestFit',
+        fallbackAxisSideDirection = 'none',
+        flipAlignment = true,
+        ...detectOverflowOptions
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const side = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement);
+      const isBasePlacement = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(initialPlacement) === initialPlacement;
+      const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating));
+      const fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipAlignment ? [(0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositePlacement)(initialPlacement)] : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getExpandedPlacements)(initialPlacement));
+      if (!specifiedFallbackPlacements && fallbackAxisSideDirection !== 'none') {
+        fallbackPlacements.push(...(0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositeAxisPlacements)(initialPlacement, flipAlignment, fallbackAxisSideDirection, rtl));
+      }
+      const placements = [initialPlacement, ...fallbackPlacements];
+      const overflow = await detectOverflow(state, detectOverflowOptions);
+      const overflows = [];
+      let overflowsData = ((_middlewareData$flip = middlewareData.flip) == null ? void 0 : _middlewareData$flip.overflows) || [];
+      if (checkMainAxis) {
+        overflows.push(overflow[side]);
+      }
+      if (checkCrossAxis) {
+        const sides = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignmentSides)(placement, rects, rtl);
+        overflows.push(overflow[sides[0]], overflow[sides[1]]);
+      }
+      overflowsData = [...overflowsData, {
+        placement,
+        overflows
+      }];
+
+      // One or more sides is overflowing.
+      if (!overflows.every(side => side <= 0)) {
+        var _middlewareData$flip2, _overflowsData$filter;
+        const nextIndex = (((_middlewareData$flip2 = middlewareData.flip) == null ? void 0 : _middlewareData$flip2.index) || 0) + 1;
+        const nextPlacement = placements[nextIndex];
+        if (nextPlacement) {
+          // Try next placement and re-run the lifecycle.
+          return {
+            data: {
+              index: nextIndex,
+              overflows: overflowsData
+            },
+            reset: {
+              placement: nextPlacement
+            }
+          };
+        }
+
+        // First, find the candidates that fit on the mainAxis side of overflow,
+        // then find the placement that fits the best on the main crossAxis side.
+        let resetPlacement = (_overflowsData$filter = overflowsData.filter(d => d.overflows[0] <= 0).sort((a, b) => a.overflows[1] - b.overflows[1])[0]) == null ? void 0 : _overflowsData$filter.placement;
+
+        // Otherwise fallback.
+        if (!resetPlacement) {
+          switch (fallbackStrategy) {
+            case 'bestFit':
+              {
+                var _overflowsData$map$so;
+                const placement = (_overflowsData$map$so = overflowsData.map(d => [d.placement, d.overflows.filter(overflow => overflow > 0).reduce((acc, overflow) => acc + overflow, 0)]).sort((a, b) => a[1] - b[1])[0]) == null ? void 0 : _overflowsData$map$so[0];
+                if (placement) {
+                  resetPlacement = placement;
+                }
+                break;
+              }
+            case 'initialPlacement':
+              resetPlacement = initialPlacement;
+              break;
+          }
+        }
+        if (placement !== resetPlacement) {
+          return {
+            reset: {
+              placement: resetPlacement
+            }
+          };
+        }
+      }
+      return {};
+    }
+  };
+};
+
+function getSideOffsets(overflow, rect) {
+  return {
+    top: overflow.top - rect.height,
+    right: overflow.right - rect.width,
+    bottom: overflow.bottom - rect.height,
+    left: overflow.left - rect.width
+  };
+}
+function isAnySideFullyClipped(overflow) {
+  return _floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.sides.some(side => overflow[side] >= 0);
+}
+/**
+ * Provides data to hide the floating element in applicable situations, such as
+ * when it is not in the same clipping context as the reference element.
+ * @see https://floating-ui.com/docs/hide
+ */
+const hide = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'hide',
+    options,
+    async fn(state) {
+      const {
+        rects
+      } = state;
+      const {
+        strategy = 'referenceHidden',
+        ...detectOverflowOptions
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      switch (strategy) {
+        case 'referenceHidden':
+          {
+            const overflow = await detectOverflow(state, {
+              ...detectOverflowOptions,
+              elementContext: 'reference'
+            });
+            const offsets = getSideOffsets(overflow, rects.reference);
+            return {
+              data: {
+                referenceHiddenOffsets: offsets,
+                referenceHidden: isAnySideFullyClipped(offsets)
+              }
+            };
+          }
+        case 'escaped':
+          {
+            const overflow = await detectOverflow(state, {
+              ...detectOverflowOptions,
+              altBoundary: true
+            });
+            const offsets = getSideOffsets(overflow, rects.floating);
+            return {
+              data: {
+                escapedOffsets: offsets,
+                escaped: isAnySideFullyClipped(offsets)
+              }
+            };
+          }
+        default:
+          {
+            return {};
+          }
+      }
+    }
+  };
+};
+
+function getBoundingRect(rects) {
+  const minX = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(...rects.map(rect => rect.left));
+  const minY = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(...rects.map(rect => rect.top));
+  const maxX = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(...rects.map(rect => rect.right));
+  const maxY = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(...rects.map(rect => rect.bottom));
+  return {
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY
+  };
+}
+function getRectsByLine(rects) {
+  const sortedRects = rects.slice().sort((a, b) => a.y - b.y);
+  const groups = [];
+  let prevRect = null;
+  for (let i = 0; i < sortedRects.length; i++) {
+    const rect = sortedRects[i];
+    if (!prevRect || rect.y - prevRect.y > prevRect.height / 2) {
+      groups.push([rect]);
+    } else {
+      groups[groups.length - 1].push(rect);
+    }
+    prevRect = rect;
+  }
+  return groups.map(rect => (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)(getBoundingRect(rect)));
+}
+/**
+ * Provides improved positioning for inline reference elements that can span
+ * over multiple lines, such as hyperlinks or range selections.
+ * @see https://floating-ui.com/docs/inline
+ */
+const inline = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'inline',
+    options,
+    async fn(state) {
+      const {
+        placement,
+        elements,
+        rects,
+        platform,
+        strategy
+      } = state;
+      // A MouseEvent's client{X,Y} coords can be up to 2 pixels off a
+      // ClientRect's bounds, despite the event listener being triggered. A
+      // padding of 2 seems to handle this issue.
+      const {
+        padding = 2,
+        x,
+        y
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const nativeClientRects = Array.from((await (platform.getClientRects == null ? void 0 : platform.getClientRects(elements.reference))) || []);
+      const clientRects = getRectsByLine(nativeClientRects);
+      const fallback = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.rectToClientRect)(getBoundingRect(nativeClientRects));
+      const paddingObject = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getPaddingObject)(padding);
+      function getBoundingClientRect() {
+        // There are two rects and they are disjoined.
+        if (clientRects.length === 2 && clientRects[0].left > clientRects[1].right && x != null && y != null) {
+          // Find the first rect in which the point is fully inside.
+          return clientRects.find(rect => x > rect.left - paddingObject.left && x < rect.right + paddingObject.right && y > rect.top - paddingObject.top && y < rect.bottom + paddingObject.bottom) || fallback;
+        }
+
+        // There are 2 or more connected rects.
+        if (clientRects.length >= 2) {
+          if ((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement) === 'y') {
+            const firstRect = clientRects[0];
+            const lastRect = clientRects[clientRects.length - 1];
+            const isTop = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement) === 'top';
+            const top = firstRect.top;
+            const bottom = lastRect.bottom;
+            const left = isTop ? firstRect.left : lastRect.left;
+            const right = isTop ? firstRect.right : lastRect.right;
+            const width = right - left;
+            const height = bottom - top;
+            return {
+              top,
+              bottom,
+              left,
+              right,
+              width,
+              height,
+              x: left,
+              y: top
+            };
+          }
+          const isLeftSide = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement) === 'left';
+          const maxRight = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(...clientRects.map(rect => rect.right));
+          const minLeft = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(...clientRects.map(rect => rect.left));
+          const measureRects = clientRects.filter(rect => isLeftSide ? rect.left === minLeft : rect.right === maxRight);
+          const top = measureRects[0].top;
+          const bottom = measureRects[measureRects.length - 1].bottom;
+          const left = minLeft;
+          const right = maxRight;
+          const width = right - left;
+          const height = bottom - top;
+          return {
+            top,
+            bottom,
+            left,
+            right,
+            width,
+            height,
+            x: left,
+            y: top
+          };
+        }
+        return fallback;
+      }
+      const resetRects = await platform.getElementRects({
+        reference: {
+          getBoundingClientRect
+        },
+        floating: elements.floating,
+        strategy
+      });
+      if (rects.reference.x !== resetRects.reference.x || rects.reference.y !== resetRects.reference.y || rects.reference.width !== resetRects.reference.width || rects.reference.height !== resetRects.reference.height) {
+        return {
+          reset: {
+            rects: resetRects
+          }
+        };
+      }
+      return {};
+    }
+  };
+};
+
+// For type backwards-compatibility, the `OffsetOptions` type was also
+// Derivable.
+async function convertValueToCoords(state, options) {
+  const {
+    placement,
+    platform,
+    elements
+  } = state;
+  const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating));
+  const side = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement);
+  const alignment = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement);
+  const isVertical = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement) === 'y';
+  const mainAxisMulti = ['left', 'top'].includes(side) ? -1 : 1;
+  const crossAxisMulti = rtl && isVertical ? -1 : 1;
+  const rawValue = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+
+  // eslint-disable-next-line prefer-const
+  let {
+    mainAxis,
+    crossAxis,
+    alignmentAxis
+  } = typeof rawValue === 'number' ? {
+    mainAxis: rawValue,
+    crossAxis: 0,
+    alignmentAxis: null
+  } : {
+    mainAxis: 0,
+    crossAxis: 0,
+    alignmentAxis: null,
+    ...rawValue
+  };
+  if (alignment && typeof alignmentAxis === 'number') {
+    crossAxis = alignment === 'end' ? alignmentAxis * -1 : alignmentAxis;
+  }
+  return isVertical ? {
+    x: crossAxis * crossAxisMulti,
+    y: mainAxis * mainAxisMulti
+  } : {
+    x: mainAxis * mainAxisMulti,
+    y: crossAxis * crossAxisMulti
+  };
+}
+
+/**
+ * Modifies the placement by translating the floating element along the
+ * specified axes.
+ * A number (shorthand for `mainAxis` or distance), or an axes configuration
+ * object may be passed.
+ * @see https://floating-ui.com/docs/offset
+ */
+const offset = function (options) {
+  if (options === void 0) {
+    options = 0;
+  }
+  return {
+    name: 'offset',
+    options,
+    async fn(state) {
+      const {
+        x,
+        y
+      } = state;
+      const diffCoords = await convertValueToCoords(state, options);
+      return {
+        x: x + diffCoords.x,
+        y: y + diffCoords.y,
+        data: diffCoords
+      };
+    }
+  };
+};
+
+/**
+ * Optimizes the visibility of the floating element by shifting it in order to
+ * keep it in view when it will overflow the clipping boundary.
+ * @see https://floating-ui.com/docs/shift
+ */
+const shift = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'shift',
+    options,
+    async fn(state) {
+      const {
+        x,
+        y,
+        placement
+      } = state;
+      const {
+        mainAxis: checkMainAxis = true,
+        crossAxis: checkCrossAxis = false,
+        limiter = {
+          fn: _ref => {
+            let {
+              x,
+              y
+            } = _ref;
+            return {
+              x,
+              y
+            };
+          }
+        },
+        ...detectOverflowOptions
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const coords = {
+        x,
+        y
+      };
+      const overflow = await detectOverflow(state, detectOverflowOptions);
+      const crossAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement));
+      const mainAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositeAxis)(crossAxis);
+      let mainAxisCoord = coords[mainAxis];
+      let crossAxisCoord = coords[crossAxis];
+      if (checkMainAxis) {
+        const minSide = mainAxis === 'y' ? 'top' : 'left';
+        const maxSide = mainAxis === 'y' ? 'bottom' : 'right';
+        const min = mainAxisCoord + overflow[minSide];
+        const max = mainAxisCoord - overflow[maxSide];
+        mainAxisCoord = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min, mainAxisCoord, max);
+      }
+      if (checkCrossAxis) {
+        const minSide = crossAxis === 'y' ? 'top' : 'left';
+        const maxSide = crossAxis === 'y' ? 'bottom' : 'right';
+        const min = crossAxisCoord + overflow[minSide];
+        const max = crossAxisCoord - overflow[maxSide];
+        crossAxisCoord = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.clamp)(min, crossAxisCoord, max);
+      }
+      const limitedCoords = limiter.fn({
+        ...state,
+        [mainAxis]: mainAxisCoord,
+        [crossAxis]: crossAxisCoord
+      });
+      return {
+        ...limitedCoords,
+        data: {
+          x: limitedCoords.x - x,
+          y: limitedCoords.y - y
+        }
+      };
+    }
+  };
+};
+/**
+ * Built-in `limiter` that will stop `shift()` at a certain point.
+ */
+const limitShift = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    options,
+    fn(state) {
+      const {
+        x,
+        y,
+        placement,
+        rects,
+        middlewareData
+      } = state;
+      const {
+        offset = 0,
+        mainAxis: checkMainAxis = true,
+        crossAxis: checkCrossAxis = true
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const coords = {
+        x,
+        y
+      };
+      const crossAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement);
+      const mainAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getOppositeAxis)(crossAxis);
+      let mainAxisCoord = coords[mainAxis];
+      let crossAxisCoord = coords[crossAxis];
+      const rawOffset = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(offset, state);
+      const computedOffset = typeof rawOffset === 'number' ? {
+        mainAxis: rawOffset,
+        crossAxis: 0
+      } : {
+        mainAxis: 0,
+        crossAxis: 0,
+        ...rawOffset
+      };
+      if (checkMainAxis) {
+        const len = mainAxis === 'y' ? 'height' : 'width';
+        const limitMin = rects.reference[mainAxis] - rects.floating[len] + computedOffset.mainAxis;
+        const limitMax = rects.reference[mainAxis] + rects.reference[len] - computedOffset.mainAxis;
+        if (mainAxisCoord < limitMin) {
+          mainAxisCoord = limitMin;
+        } else if (mainAxisCoord > limitMax) {
+          mainAxisCoord = limitMax;
+        }
+      }
+      if (checkCrossAxis) {
+        var _middlewareData$offse, _middlewareData$offse2;
+        const len = mainAxis === 'y' ? 'width' : 'height';
+        const isOriginSide = ['top', 'left'].includes((0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement));
+        const limitMin = rects.reference[crossAxis] - rects.floating[len] + (isOriginSide ? ((_middlewareData$offse = middlewareData.offset) == null ? void 0 : _middlewareData$offse[crossAxis]) || 0 : 0) + (isOriginSide ? 0 : computedOffset.crossAxis);
+        const limitMax = rects.reference[crossAxis] + rects.reference[len] + (isOriginSide ? 0 : ((_middlewareData$offse2 = middlewareData.offset) == null ? void 0 : _middlewareData$offse2[crossAxis]) || 0) - (isOriginSide ? computedOffset.crossAxis : 0);
+        if (crossAxisCoord < limitMin) {
+          crossAxisCoord = limitMin;
+        } else if (crossAxisCoord > limitMax) {
+          crossAxisCoord = limitMax;
+        }
+      }
+      return {
+        [mainAxis]: mainAxisCoord,
+        [crossAxis]: crossAxisCoord
+      };
+    }
+  };
+};
+
+/**
+ * Provides data that allows you to change the size of the floating element —
+ * for instance, prevent it from overflowing the clipping boundary or match the
+ * width of the reference element.
+ * @see https://floating-ui.com/docs/size
+ */
+const size = function (options) {
+  if (options === void 0) {
+    options = {};
+  }
+  return {
+    name: 'size',
+    options,
+    async fn(state) {
+      const {
+        placement,
+        rects,
+        platform,
+        elements
+      } = state;
+      const {
+        apply = () => {},
+        ...detectOverflowOptions
+      } = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.evaluate)(options, state);
+      const overflow = await detectOverflow(state, detectOverflowOptions);
+      const side = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSide)(placement);
+      const alignment = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getAlignment)(placement);
+      const isYAxis = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.getSideAxis)(placement) === 'y';
+      const {
+        width,
+        height
+      } = rects.floating;
+      let heightSide;
+      let widthSide;
+      if (side === 'top' || side === 'bottom') {
+        heightSide = side;
+        widthSide = alignment === ((await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating))) ? 'start' : 'end') ? 'left' : 'right';
+      } else {
+        widthSide = side;
+        heightSide = alignment === 'end' ? 'top' : 'bottom';
+      }
+      const overflowAvailableHeight = height - overflow[heightSide];
+      const overflowAvailableWidth = width - overflow[widthSide];
+      const noShift = !state.middlewareData.shift;
+      let availableHeight = overflowAvailableHeight;
+      let availableWidth = overflowAvailableWidth;
+      if (isYAxis) {
+        const maximumClippingWidth = width - overflow.left - overflow.right;
+        availableWidth = alignment || noShift ? (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(overflowAvailableWidth, maximumClippingWidth) : maximumClippingWidth;
+      } else {
+        const maximumClippingHeight = height - overflow.top - overflow.bottom;
+        availableHeight = alignment || noShift ? (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.min)(overflowAvailableHeight, maximumClippingHeight) : maximumClippingHeight;
+      }
+      if (noShift && !alignment) {
+        const xMin = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.left, 0);
+        const xMax = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.right, 0);
+        const yMin = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.top, 0);
+        const yMax = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.bottom, 0);
+        if (isYAxis) {
+          availableWidth = width - 2 * (xMin !== 0 || xMax !== 0 ? xMin + xMax : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.left, overflow.right));
+        } else {
+          availableHeight = height - 2 * (yMin !== 0 || yMax !== 0 ? yMin + yMax : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_0__.max)(overflow.top, overflow.bottom));
+        }
+      }
+      await apply({
+        ...state,
+        availableWidth,
+        availableHeight
+      });
+      const nextDimensions = await platform.getDimensions(elements.floating);
+      if (width !== nextDimensions.width || height !== nextDimensions.height) {
+        return {
+          reset: {
+            rects: true
+          }
+        };
+      }
+      return {};
+    }
+  };
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs":
+/*!****************************************************************!*\
+  !*** ./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "autoUpdate": () => (/* binding */ autoUpdate),
+/* harmony export */   "computePosition": () => (/* binding */ computePosition)
+/* harmony export */ });
+/* unused harmony export platform */
+/* harmony import */ var _floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @floating-ui/utils */ "./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs");
+/* harmony import */ var _floating_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @floating-ui/core */ "./node_modules/@floating-ui/core/dist/floating-ui.core.mjs");
+/* harmony import */ var _floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @floating-ui/utils/dom */ "./node_modules/@floating-ui/utils/dom/dist/floating-ui.utils.dom.mjs");
+
+
+
+
+
+
+function getCssDimensions(element) {
+  const css = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(element);
+  // In testing environments, the `width` and `height` properties are empty
+  // strings for SVG elements, returning NaN. Fallback to `0` in this case.
+  let width = parseFloat(css.width) || 0;
+  let height = parseFloat(css.height) || 0;
+  const hasOffset = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element);
+  const offsetWidth = hasOffset ? element.offsetWidth : width;
+  const offsetHeight = hasOffset ? element.offsetHeight : height;
+  const shouldFallback = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.round)(width) !== offsetWidth || (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.round)(height) !== offsetHeight;
+  if (shouldFallback) {
+    width = offsetWidth;
+    height = offsetHeight;
+  }
+  return {
+    width,
+    height,
+    $: shouldFallback
+  };
+}
+
+function unwrapElement(element) {
+  return !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(element) ? element.contextElement : element;
+}
+
+function getScale(element) {
+  const domElement = unwrapElement(element);
+  if (!(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(domElement)) {
+    return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
+  }
+  const rect = domElement.getBoundingClientRect();
+  const {
+    width,
+    height,
+    $
+  } = getCssDimensions(domElement);
+  let x = ($ ? (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.round)(rect.width) : rect.width) / width;
+  let y = ($ ? (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.round)(rect.height) : rect.height) / height;
+
+  // 0, NaN, or Infinity should always fallback to 1.
+
+  if (!x || !Number.isFinite(x)) {
+    x = 1;
+  }
+  if (!y || !Number.isFinite(y)) {
+    y = 1;
+  }
+  return {
+    x,
+    y
+  };
+}
+
+const noOffsets = /*#__PURE__*/(0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
+function getVisualOffsets(element) {
+  const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(element);
+  if (!(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isWebKit)() || !win.visualViewport) {
+    return noOffsets;
+  }
+  return {
+    x: win.visualViewport.offsetLeft,
+    y: win.visualViewport.offsetTop
+  };
+}
+function shouldAddVisualOffsets(element, isFixed, floatingOffsetParent) {
+  if (isFixed === void 0) {
+    isFixed = false;
+  }
+  if (!floatingOffsetParent || isFixed && floatingOffsetParent !== (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(element)) {
+    return false;
+  }
+  return isFixed;
+}
+
+function getBoundingClientRect(element, includeScale, isFixedStrategy, offsetParent) {
+  if (includeScale === void 0) {
+    includeScale = false;
+  }
+  if (isFixedStrategy === void 0) {
+    isFixedStrategy = false;
+  }
+  const clientRect = element.getBoundingClientRect();
+  const domElement = unwrapElement(element);
+  let scale = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
+  if (includeScale) {
+    if (offsetParent) {
+      if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(offsetParent)) {
+        scale = getScale(offsetParent);
+      }
+    } else {
+      scale = getScale(element);
+    }
+  }
+  const visualOffsets = shouldAddVisualOffsets(domElement, isFixedStrategy, offsetParent) ? getVisualOffsets(domElement) : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
+  let x = (clientRect.left + visualOffsets.x) / scale.x;
+  let y = (clientRect.top + visualOffsets.y) / scale.y;
+  let width = clientRect.width / scale.x;
+  let height = clientRect.height / scale.y;
+  if (domElement) {
+    const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(domElement);
+    const offsetWin = offsetParent && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(offsetParent) ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(offsetParent) : offsetParent;
+    let currentIFrame = win.frameElement;
+    while (currentIFrame && offsetParent && offsetWin !== win) {
+      const iframeScale = getScale(currentIFrame);
+      const iframeRect = currentIFrame.getBoundingClientRect();
+      const css = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(currentIFrame);
+      const left = iframeRect.left + (currentIFrame.clientLeft + parseFloat(css.paddingLeft)) * iframeScale.x;
+      const top = iframeRect.top + (currentIFrame.clientTop + parseFloat(css.paddingTop)) * iframeScale.y;
+      x *= iframeScale.x;
+      y *= iframeScale.y;
+      width *= iframeScale.x;
+      height *= iframeScale.y;
+      x += left;
+      y += top;
+      currentIFrame = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(currentIFrame).frameElement;
+    }
+  }
+  return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.rectToClientRect)({
+    width,
+    height,
+    x,
+    y
+  });
+}
+
+function convertOffsetParentRelativeRectToViewportRelativeRect(_ref) {
+  let {
+    rect,
+    offsetParent,
+    strategy
+  } = _ref;
+  const isOffsetParentAnElement = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent);
+  const documentElement = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(offsetParent);
+  if (offsetParent === documentElement) {
+    return rect;
+  }
+  let scroll = {
+    scrollLeft: 0,
+    scrollTop: 0
+  };
+  let scale = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
+  const offsets = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
+  if (isOffsetParentAnElement || !isOffsetParentAnElement && strategy !== 'fixed') {
+    if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeName)(offsetParent) !== 'body' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isOverflowElement)(documentElement)) {
+      scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(offsetParent);
+    }
+    if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent)) {
+      const offsetRect = getBoundingClientRect(offsetParent);
+      scale = getScale(offsetParent);
+      offsets.x = offsetRect.x + offsetParent.clientLeft;
+      offsets.y = offsetRect.y + offsetParent.clientTop;
+    }
+  }
+  return {
+    width: rect.width * scale.x,
+    height: rect.height * scale.y,
+    x: rect.x * scale.x - scroll.scrollLeft * scale.x + offsets.x,
+    y: rect.y * scale.y - scroll.scrollTop * scale.y + offsets.y
+  };
+}
+
+function getClientRects(element) {
+  return Array.from(element.getClientRects());
+}
+
+function getWindowScrollBarX(element) {
+  // If <html> has a CSS width greater than the viewport, then this will be
+  // incorrect for RTL.
+  return getBoundingClientRect((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element)).left + (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(element).scrollLeft;
+}
+
+// Gets the entire size of the scrollable document area, even extending outside
+// of the `<html>` and `<body>` rect bounds if horizontally scrollable.
+function getDocumentRect(element) {
+  const html = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element);
+  const scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(element);
+  const body = element.ownerDocument.body;
+  const width = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(html.scrollWidth, html.clientWidth, body.scrollWidth, body.clientWidth);
+  const height = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(html.scrollHeight, html.clientHeight, body.scrollHeight, body.clientHeight);
+  let x = -scroll.scrollLeft + getWindowScrollBarX(element);
+  const y = -scroll.scrollTop;
+  if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(body).direction === 'rtl') {
+    x += (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(html.clientWidth, body.clientWidth) - width;
+  }
+  return {
+    width,
+    height,
+    x,
+    y
+  };
+}
+
+function getViewportRect(element, strategy) {
+  const win = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(element);
+  const html = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element);
+  const visualViewport = win.visualViewport;
+  let width = html.clientWidth;
+  let height = html.clientHeight;
+  let x = 0;
+  let y = 0;
+  if (visualViewport) {
+    width = visualViewport.width;
+    height = visualViewport.height;
+    const visualViewportBased = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isWebKit)();
+    if (!visualViewportBased || visualViewportBased && strategy === 'fixed') {
+      x = visualViewport.offsetLeft;
+      y = visualViewport.offsetTop;
+    }
+  }
+  return {
+    width,
+    height,
+    x,
+    y
+  };
+}
+
+// Returns the inner client rect, subtracting scrollbars if present.
+function getInnerBoundingClientRect(element, strategy) {
+  const clientRect = getBoundingClientRect(element, true, strategy === 'fixed');
+  const top = clientRect.top + element.clientTop;
+  const left = clientRect.left + element.clientLeft;
+  const scale = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) ? getScale(element) : (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(1);
+  const width = element.clientWidth * scale.x;
+  const height = element.clientHeight * scale.y;
+  const x = left * scale.x;
+  const y = top * scale.y;
+  return {
+    width,
+    height,
+    x,
+    y
+  };
+}
+function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) {
+  let rect;
+  if (clippingAncestor === 'viewport') {
+    rect = getViewportRect(element, strategy);
+  } else if (clippingAncestor === 'document') {
+    rect = getDocumentRect((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element));
+  } else if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(clippingAncestor)) {
+    rect = getInnerBoundingClientRect(clippingAncestor, strategy);
+  } else {
+    const visualOffsets = getVisualOffsets(element);
+    rect = {
+      ...clippingAncestor,
+      x: clippingAncestor.x - visualOffsets.x,
+      y: clippingAncestor.y - visualOffsets.y
+    };
+  }
+  return (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.rectToClientRect)(rect);
+}
+function hasFixedPositionAncestor(element, stopNode) {
+  const parentNode = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getParentNode)(element);
+  if (parentNode === stopNode || !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(parentNode) || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isLastTraversableNode)(parentNode)) {
+    return false;
+  }
+  return (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(parentNode).position === 'fixed' || hasFixedPositionAncestor(parentNode, stopNode);
+}
+
+// A "clipping ancestor" is an `overflow` element with the characteristic of
+// clipping (or hiding) child elements. This returns all clipping ancestors
+// of the given element up the tree.
+function getClippingElementAncestors(element, cache) {
+  const cachedResult = cache.get(element);
+  if (cachedResult) {
+    return cachedResult;
+  }
+  let result = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getOverflowAncestors)(element).filter(el => (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(el) && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeName)(el) !== 'body');
+  let currentContainingBlockComputedStyle = null;
+  const elementIsFixed = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(element).position === 'fixed';
+  let currentNode = elementIsFixed ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getParentNode)(element) : element;
+
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
+  while ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement)(currentNode) && !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isLastTraversableNode)(currentNode)) {
+    const computedStyle = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(currentNode);
+    const currentNodeIsContaining = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isContainingBlock)(currentNode);
+    if (!currentNodeIsContaining && computedStyle.position === 'fixed') {
+      currentContainingBlockComputedStyle = null;
+    }
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === 'static' && !!currentContainingBlockComputedStyle && ['absolute', 'fixed'].includes(currentContainingBlockComputedStyle.position) || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isOverflowElement)(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
+    if (shouldDropCurrentNode) {
+      // Drop non-containing blocks.
+      result = result.filter(ancestor => ancestor !== currentNode);
+    } else {
+      // Record last containing block for next iteration.
+      currentContainingBlockComputedStyle = computedStyle;
+    }
+    currentNode = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getParentNode)(currentNode);
+  }
+  cache.set(element, result);
+  return result;
+}
+
+// Gets the maximum area that the element is visible in due to any number of
+// clipping ancestors.
+function getClippingRect(_ref) {
+  let {
+    element,
+    boundary,
+    rootBoundary,
+    strategy
+  } = _ref;
+  const elementClippingAncestors = boundary === 'clippingAncestors' ? getClippingElementAncestors(element, this._c) : [].concat(boundary);
+  const clippingAncestors = [...elementClippingAncestors, rootBoundary];
+  const firstClippingAncestor = clippingAncestors[0];
+  const clippingRect = clippingAncestors.reduce((accRect, clippingAncestor) => {
+    const rect = getClientRectFromClippingAncestor(element, clippingAncestor, strategy);
+    accRect.top = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(rect.top, accRect.top);
+    accRect.right = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.min)(rect.right, accRect.right);
+    accRect.bottom = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.min)(rect.bottom, accRect.bottom);
+    accRect.left = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(rect.left, accRect.left);
+    return accRect;
+  }, getClientRectFromClippingAncestor(element, firstClippingAncestor, strategy));
+  return {
+    width: clippingRect.right - clippingRect.left,
+    height: clippingRect.bottom - clippingRect.top,
+    x: clippingRect.left,
+    y: clippingRect.top
+  };
+}
+
+function getDimensions(element) {
+  return getCssDimensions(element);
+}
+
+function getRectRelativeToOffsetParent(element, offsetParent, strategy) {
+  const isOffsetParentAnElement = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(offsetParent);
+  const documentElement = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(offsetParent);
+  const isFixed = strategy === 'fixed';
+  const rect = getBoundingClientRect(element, true, isFixed, offsetParent);
+  let scroll = {
+    scrollLeft: 0,
+    scrollTop: 0
+  };
+  const offsets = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.createCoords)(0);
+  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+    if ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeName)(offsetParent) !== 'body' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isOverflowElement)(documentElement)) {
+      scroll = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeScroll)(offsetParent);
+    }
+    if (isOffsetParentAnElement) {
+      const offsetRect = getBoundingClientRect(offsetParent, true, isFixed, offsetParent);
+      offsets.x = offsetRect.x + offsetParent.clientLeft;
+      offsets.y = offsetRect.y + offsetParent.clientTop;
+    } else if (documentElement) {
+      offsets.x = getWindowScrollBarX(documentElement);
+    }
+  }
+  return {
+    x: rect.left + scroll.scrollLeft - offsets.x,
+    y: rect.top + scroll.scrollTop - offsets.y,
+    width: rect.width,
+    height: rect.height
+  };
+}
+
+function getTrueOffsetParent(element, polyfill) {
+  if (!(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element) || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(element).position === 'fixed') {
+    return null;
+  }
+  if (polyfill) {
+    return polyfill(element);
+  }
+  return element.offsetParent;
+}
+
+// Gets the closest ancestor positioned element. Handles some edge cases,
+// such as table ancestors and cross browser bugs.
+function getOffsetParent(element, polyfill) {
+  const window = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getWindow)(element);
+  if (!(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isHTMLElement)(element)) {
+    return window;
+  }
+  let offsetParent = getTrueOffsetParent(element, polyfill);
+  while (offsetParent && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isTableElement)(offsetParent) && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(offsetParent).position === 'static') {
+    offsetParent = getTrueOffsetParent(offsetParent, polyfill);
+  }
+  if (offsetParent && ((0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeName)(offsetParent) === 'html' || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getNodeName)(offsetParent) === 'body' && (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(offsetParent).position === 'static' && !(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isContainingBlock)(offsetParent))) {
+    return window;
+  }
+  return offsetParent || (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getContainingBlock)(element) || window;
+}
+
+const getElementRects = async function (_ref) {
+  let {
+    reference,
+    floating,
+    strategy
+  } = _ref;
+  const getOffsetParentFn = this.getOffsetParent || getOffsetParent;
+  const getDimensionsFn = this.getDimensions;
+  return {
+    reference: getRectRelativeToOffsetParent(reference, await getOffsetParentFn(floating), strategy),
+    floating: {
+      x: 0,
+      y: 0,
+      ...(await getDimensionsFn(floating))
+    }
+  };
+};
+
+function isRTL(element) {
+  return (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(element).direction === 'rtl';
+}
+
+const platform = {
+  convertOffsetParentRelativeRectToViewportRelativeRect,
+  getDocumentElement: _floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement,
+  getClippingRect,
+  getOffsetParent,
+  getElementRects,
+  getClientRects,
+  getDimensions,
+  getScale,
+  isElement: _floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.isElement,
+  isRTL
+};
+
+// https://samthor.au/2021/observing-dom/
+function observeMove(element, onMove) {
+  let io = null;
+  let timeoutId;
+  const root = (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getDocumentElement)(element);
+  function cleanup() {
+    clearTimeout(timeoutId);
+    io && io.disconnect();
+    io = null;
+  }
+  function refresh(skip, threshold) {
+    if (skip === void 0) {
+      skip = false;
+    }
+    if (threshold === void 0) {
+      threshold = 1;
+    }
+    cleanup();
+    const {
+      left,
+      top,
+      width,
+      height
+    } = element.getBoundingClientRect();
+    if (!skip) {
+      onMove();
+    }
+    if (!width || !height) {
+      return;
+    }
+    const insetTop = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.floor)(top);
+    const insetRight = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.floor)(root.clientWidth - (left + width));
+    const insetBottom = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.floor)(root.clientHeight - (top + height));
+    const insetLeft = (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.floor)(left);
+    const rootMargin = -insetTop + "px " + -insetRight + "px " + -insetBottom + "px " + -insetLeft + "px";
+    const options = {
+      rootMargin,
+      threshold: (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.max)(0, (0,_floating_ui_utils__WEBPACK_IMPORTED_MODULE_1__.min)(1, threshold)) || 1
+    };
+    let isFirstUpdate = true;
+    function handleObserve(entries) {
+      const ratio = entries[0].intersectionRatio;
+      if (ratio !== threshold) {
+        if (!isFirstUpdate) {
+          return refresh();
+        }
+        if (!ratio) {
+          timeoutId = setTimeout(() => {
+            refresh(false, 1e-7);
+          }, 100);
+        } else {
+          refresh(false, ratio);
+        }
+      }
+      isFirstUpdate = false;
+    }
+
+    // Older browsers don't support a `document` as the root and will throw an
+    // error.
+    try {
+      io = new IntersectionObserver(handleObserve, {
+        ...options,
+        // Handle <iframe>s
+        root: root.ownerDocument
+      });
+    } catch (e) {
+      io = new IntersectionObserver(handleObserve, options);
+    }
+    io.observe(element);
+  }
+  refresh(true);
+  return cleanup;
+}
+
+/**
+ * Automatically updates the position of the floating element when necessary.
+ * Should only be called when the floating element is mounted on the DOM or
+ * visible on the screen.
+ * @returns cleanup function that should be invoked when the floating element is
+ * removed from the DOM or hidden from the screen.
+ * @see https://floating-ui.com/docs/autoUpdate
+ */
+function autoUpdate(reference, floating, update, options) {
+  if (options === void 0) {
+    options = {};
+  }
+  const {
+    ancestorScroll = true,
+    ancestorResize = true,
+    elementResize = typeof ResizeObserver === 'function',
+    layoutShift = typeof IntersectionObserver === 'function',
+    animationFrame = false
+  } = options;
+  const referenceEl = unwrapElement(reference);
+  const ancestors = ancestorScroll || ancestorResize ? [...(referenceEl ? (0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getOverflowAncestors)(referenceEl) : []), ...(0,_floating_ui_utils_dom__WEBPACK_IMPORTED_MODULE_0__.getOverflowAncestors)(floating)] : [];
+  ancestors.forEach(ancestor => {
+    ancestorScroll && ancestor.addEventListener('scroll', update, {
+      passive: true
+    });
+    ancestorResize && ancestor.addEventListener('resize', update);
+  });
+  const cleanupIo = referenceEl && layoutShift ? observeMove(referenceEl, update) : null;
+  let reobserveFrame = -1;
+  let resizeObserver = null;
+  if (elementResize) {
+    resizeObserver = new ResizeObserver(_ref => {
+      let [firstEntry] = _ref;
+      if (firstEntry && firstEntry.target === referenceEl && resizeObserver) {
+        // Prevent update loops when using the `size` middleware.
+        // https://github.com/floating-ui/floating-ui/issues/1740
+        resizeObserver.unobserve(floating);
+        cancelAnimationFrame(reobserveFrame);
+        reobserveFrame = requestAnimationFrame(() => {
+          resizeObserver && resizeObserver.observe(floating);
+        });
+      }
+      update();
+    });
+    if (referenceEl && !animationFrame) {
+      resizeObserver.observe(referenceEl);
+    }
+    resizeObserver.observe(floating);
+  }
+  let frameId;
+  let prevRefRect = animationFrame ? getBoundingClientRect(reference) : null;
+  if (animationFrame) {
+    frameLoop();
+  }
+  function frameLoop() {
+    const nextRefRect = getBoundingClientRect(reference);
+    if (prevRefRect && (nextRefRect.x !== prevRefRect.x || nextRefRect.y !== prevRefRect.y || nextRefRect.width !== prevRefRect.width || nextRefRect.height !== prevRefRect.height)) {
+      update();
+    }
+    prevRefRect = nextRefRect;
+    frameId = requestAnimationFrame(frameLoop);
+  }
+  update();
+  return () => {
+    ancestors.forEach(ancestor => {
+      ancestorScroll && ancestor.removeEventListener('scroll', update);
+      ancestorResize && ancestor.removeEventListener('resize', update);
+    });
+    cleanupIo && cleanupIo();
+    resizeObserver && resizeObserver.disconnect();
+    resizeObserver = null;
+    if (animationFrame) {
+      cancelAnimationFrame(frameId);
+    }
+  };
+}
+
+/**
+ * Computes the `x` and `y` coordinates that will place the floating element
+ * next to a reference element when it is given a certain CSS positioning
+ * strategy.
+ */
+const computePosition = (reference, floating, options) => {
+  // This caches the expensive `getClippingElementAncestors` function so that
+  // multiple lifecycle resets re-use the same result. It only lives for a
+  // single call. If other functions become expensive, we can add them as well.
+  const cache = new Map();
+  const mergedOptions = {
+    platform,
+    ...options
+  };
+  const platformWithCache = {
+    ...mergedOptions.platform,
+    _c: cache
+  };
+  return (0,_floating_ui_core__WEBPACK_IMPORTED_MODULE_2__.computePosition)(reference, floating, {
+    ...mergedOptions,
+    platform: platformWithCache
+  });
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs":
+/*!********************************************************************!*\
+  !*** ./node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clamp": () => (/* binding */ clamp),
+/* harmony export */   "createCoords": () => (/* binding */ createCoords),
+/* harmony export */   "evaluate": () => (/* binding */ evaluate),
+/* harmony export */   "floor": () => (/* binding */ floor),
+/* harmony export */   "getAlignment": () => (/* binding */ getAlignment),
+/* harmony export */   "getAlignmentAxis": () => (/* binding */ getAlignmentAxis),
+/* harmony export */   "getAlignmentSides": () => (/* binding */ getAlignmentSides),
+/* harmony export */   "getAxisLength": () => (/* binding */ getAxisLength),
+/* harmony export */   "getExpandedPlacements": () => (/* binding */ getExpandedPlacements),
+/* harmony export */   "getOppositeAlignmentPlacement": () => (/* binding */ getOppositeAlignmentPlacement),
+/* harmony export */   "getOppositeAxis": () => (/* binding */ getOppositeAxis),
+/* harmony export */   "getOppositeAxisPlacements": () => (/* binding */ getOppositeAxisPlacements),
+/* harmony export */   "getOppositePlacement": () => (/* binding */ getOppositePlacement),
+/* harmony export */   "getPaddingObject": () => (/* binding */ getPaddingObject),
+/* harmony export */   "getSide": () => (/* binding */ getSide),
+/* harmony export */   "getSideAxis": () => (/* binding */ getSideAxis),
+/* harmony export */   "max": () => (/* binding */ max),
+/* harmony export */   "min": () => (/* binding */ min),
+/* harmony export */   "placements": () => (/* binding */ placements),
+/* harmony export */   "rectToClientRect": () => (/* binding */ rectToClientRect),
+/* harmony export */   "round": () => (/* binding */ round),
+/* harmony export */   "sides": () => (/* binding */ sides)
+/* harmony export */ });
+/* unused harmony exports alignments, expandPaddingObject */
+const sides = ['top', 'right', 'bottom', 'left'];
+const alignments = ['start', 'end'];
+const placements = /*#__PURE__*/sides.reduce((acc, side) => acc.concat(side, side + "-" + alignments[0], side + "-" + alignments[1]), []);
+const min = Math.min;
+const max = Math.max;
+const round = Math.round;
+const floor = Math.floor;
+const createCoords = v => ({
+  x: v,
+  y: v
+});
+const oppositeSideMap = {
+  left: 'right',
+  right: 'left',
+  bottom: 'top',
+  top: 'bottom'
+};
+const oppositeAlignmentMap = {
+  start: 'end',
+  end: 'start'
+};
+function clamp(start, value, end) {
+  return max(start, min(value, end));
+}
+function evaluate(value, param) {
+  return typeof value === 'function' ? value(param) : value;
+}
+function getSide(placement) {
+  return placement.split('-')[0];
+}
+function getAlignment(placement) {
+  return placement.split('-')[1];
+}
+function getOppositeAxis(axis) {
+  return axis === 'x' ? 'y' : 'x';
+}
+function getAxisLength(axis) {
+  return axis === 'y' ? 'height' : 'width';
+}
+function getSideAxis(placement) {
+  return ['top', 'bottom'].includes(getSide(placement)) ? 'y' : 'x';
+}
+function getAlignmentAxis(placement) {
+  return getOppositeAxis(getSideAxis(placement));
+}
+function getAlignmentSides(placement, rects, rtl) {
+  if (rtl === void 0) {
+    rtl = false;
+  }
+  const alignment = getAlignment(placement);
+  const alignmentAxis = getAlignmentAxis(placement);
+  const length = getAxisLength(alignmentAxis);
+  let mainAlignmentSide = alignmentAxis === 'x' ? alignment === (rtl ? 'end' : 'start') ? 'right' : 'left' : alignment === 'start' ? 'bottom' : 'top';
+  if (rects.reference[length] > rects.floating[length]) {
+    mainAlignmentSide = getOppositePlacement(mainAlignmentSide);
+  }
+  return [mainAlignmentSide, getOppositePlacement(mainAlignmentSide)];
+}
+function getExpandedPlacements(placement) {
+  const oppositePlacement = getOppositePlacement(placement);
+  return [getOppositeAlignmentPlacement(placement), oppositePlacement, getOppositeAlignmentPlacement(oppositePlacement)];
+}
+function getOppositeAlignmentPlacement(placement) {
+  return placement.replace(/start|end/g, alignment => oppositeAlignmentMap[alignment]);
+}
+function getSideList(side, isStart, rtl) {
+  const lr = ['left', 'right'];
+  const rl = ['right', 'left'];
+  const tb = ['top', 'bottom'];
+  const bt = ['bottom', 'top'];
+  switch (side) {
+    case 'top':
+    case 'bottom':
+      if (rtl) return isStart ? rl : lr;
+      return isStart ? lr : rl;
+    case 'left':
+    case 'right':
+      return isStart ? tb : bt;
+    default:
+      return [];
+  }
+}
+function getOppositeAxisPlacements(placement, flipAlignment, direction, rtl) {
+  const alignment = getAlignment(placement);
+  let list = getSideList(getSide(placement), direction === 'start', rtl);
+  if (alignment) {
+    list = list.map(side => side + "-" + alignment);
+    if (flipAlignment) {
+      list = list.concat(list.map(getOppositeAlignmentPlacement));
+    }
+  }
+  return list;
+}
+function getOppositePlacement(placement) {
+  return placement.replace(/left|right|bottom|top/g, side => oppositeSideMap[side]);
+}
+function expandPaddingObject(padding) {
+  return {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    ...padding
+  };
+}
+function getPaddingObject(padding) {
+  return typeof padding !== 'number' ? expandPaddingObject(padding) : {
+    top: padding,
+    right: padding,
+    bottom: padding,
+    left: padding
+  };
+}
+function rectToClientRect(rect) {
+  return {
+    ...rect,
+    top: rect.y,
+    left: rect.x,
+    right: rect.x + rect.width,
+    bottom: rect.y + rect.height
+  };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@floating-ui/utils/dom/dist/floating-ui.utils.dom.mjs":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@floating-ui/utils/dom/dist/floating-ui.utils.dom.mjs ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getComputedStyle": () => (/* binding */ getComputedStyle),
+/* harmony export */   "getContainingBlock": () => (/* binding */ getContainingBlock),
+/* harmony export */   "getDocumentElement": () => (/* binding */ getDocumentElement),
+/* harmony export */   "getNodeName": () => (/* binding */ getNodeName),
+/* harmony export */   "getNodeScroll": () => (/* binding */ getNodeScroll),
+/* harmony export */   "getOverflowAncestors": () => (/* binding */ getOverflowAncestors),
+/* harmony export */   "getParentNode": () => (/* binding */ getParentNode),
+/* harmony export */   "getWindow": () => (/* binding */ getWindow),
+/* harmony export */   "isContainingBlock": () => (/* binding */ isContainingBlock),
+/* harmony export */   "isElement": () => (/* binding */ isElement),
+/* harmony export */   "isHTMLElement": () => (/* binding */ isHTMLElement),
+/* harmony export */   "isLastTraversableNode": () => (/* binding */ isLastTraversableNode),
+/* harmony export */   "isOverflowElement": () => (/* binding */ isOverflowElement),
+/* harmony export */   "isTableElement": () => (/* binding */ isTableElement),
+/* harmony export */   "isWebKit": () => (/* binding */ isWebKit)
+/* harmony export */ });
+/* unused harmony exports getNearestOverflowAncestor, isNode, isShadowRoot */
+function getNodeName(node) {
+  if (isNode(node)) {
+    return (node.nodeName || '').toLowerCase();
+  }
+  // Mocked nodes in testing environments may not be instances of Node. By
+  // returning `#document` an infinite loop won't occur.
+  // https://github.com/floating-ui/floating-ui/issues/2317
+  return '#document';
+}
+function getWindow(node) {
+  var _node$ownerDocument;
+  return (node == null ? void 0 : (_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;
+}
+function getDocumentElement(node) {
+  var _ref;
+  return (_ref = (isNode(node) ? node.ownerDocument : node.document) || window.document) == null ? void 0 : _ref.documentElement;
+}
+function isNode(value) {
+  return value instanceof Node || value instanceof getWindow(value).Node;
+}
+function isElement(value) {
+  return value instanceof Element || value instanceof getWindow(value).Element;
+}
+function isHTMLElement(value) {
+  return value instanceof HTMLElement || value instanceof getWindow(value).HTMLElement;
+}
+function isShadowRoot(value) {
+  // Browsers without `ShadowRoot` support.
+  if (typeof ShadowRoot === 'undefined') {
+    return false;
+  }
+  return value instanceof ShadowRoot || value instanceof getWindow(value).ShadowRoot;
+}
+function isOverflowElement(element) {
+  const {
+    overflow,
+    overflowX,
+    overflowY,
+    display
+  } = getComputedStyle(element);
+  return /auto|scroll|overlay|hidden|clip/.test(overflow + overflowY + overflowX) && !['inline', 'contents'].includes(display);
+}
+function isTableElement(element) {
+  return ['table', 'td', 'th'].includes(getNodeName(element));
+}
+function isContainingBlock(element) {
+  const webkit = isWebKit();
+  const css = getComputedStyle(element);
+
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block
+  return css.transform !== 'none' || css.perspective !== 'none' || (css.containerType ? css.containerType !== 'normal' : false) || !webkit && (css.backdropFilter ? css.backdropFilter !== 'none' : false) || !webkit && (css.filter ? css.filter !== 'none' : false) || ['transform', 'perspective', 'filter'].some(value => (css.willChange || '').includes(value)) || ['paint', 'layout', 'strict', 'content'].some(value => (css.contain || '').includes(value));
+}
+function getContainingBlock(element) {
+  let currentNode = getParentNode(element);
+  while (isHTMLElement(currentNode) && !isLastTraversableNode(currentNode)) {
+    if (isContainingBlock(currentNode)) {
+      return currentNode;
+    } else {
+      currentNode = getParentNode(currentNode);
+    }
+  }
+  return null;
+}
+function isWebKit() {
+  if (typeof CSS === 'undefined' || !CSS.supports) return false;
+  return CSS.supports('-webkit-backdrop-filter', 'none');
+}
+function isLastTraversableNode(node) {
+  return ['html', 'body', '#document'].includes(getNodeName(node));
+}
+function getComputedStyle(element) {
+  return getWindow(element).getComputedStyle(element);
+}
+function getNodeScroll(element) {
+  if (isElement(element)) {
+    return {
+      scrollLeft: element.scrollLeft,
+      scrollTop: element.scrollTop
+    };
+  }
+  return {
+    scrollLeft: element.pageXOffset,
+    scrollTop: element.pageYOffset
+  };
+}
+function getParentNode(node) {
+  if (getNodeName(node) === 'html') {
+    return node;
+  }
+  const result =
+  // Step into the shadow DOM of the parent of a slotted node.
+  node.assignedSlot ||
+  // DOM Element detected.
+  node.parentNode ||
+  // ShadowRoot detected.
+  isShadowRoot(node) && node.host ||
+  // Fallback.
+  getDocumentElement(node);
+  return isShadowRoot(result) ? result.host : result;
+}
+function getNearestOverflowAncestor(node) {
+  const parentNode = getParentNode(node);
+  if (isLastTraversableNode(parentNode)) {
+    return node.ownerDocument ? node.ownerDocument.body : node.body;
+  }
+  if (isHTMLElement(parentNode) && isOverflowElement(parentNode)) {
+    return parentNode;
+  }
+  return getNearestOverflowAncestor(parentNode);
+}
+function getOverflowAncestors(node, list) {
+  var _node$ownerDocument2;
+  if (list === void 0) {
+    list = [];
+  }
+  const scrollableAncestor = getNearestOverflowAncestor(node);
+  const isBody = scrollableAncestor === ((_node$ownerDocument2 = node.ownerDocument) == null ? void 0 : _node$ownerDocument2.body);
+  const win = getWindow(scrollableAncestor);
+  if (isBody) {
+    return list.concat(win, win.visualViewport || [], isOverflowElement(scrollableAncestor) ? scrollableAncestor : []);
+  }
+  return list.concat(scrollableAncestor, getOverflowAncestors(scrollableAncestor));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/overlayscrollbars/overlayscrollbars.mjs":
+/*!**************************************************************!*\
+  !*** ./node_modules/overlayscrollbars/overlayscrollbars.mjs ***!
+  \**************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "OverlayScrollbars": () => (/* binding */ OverlayScrollbars)
+/* harmony export */ });
+/* unused harmony exports ClickScrollPlugin, ScrollbarsHidingPlugin, SizeObserverPlugin */
+/*!
+ * OverlayScrollbars
+ * Version: 2.3.0
+ *
+ * Copyright (c) Rene Haas | KingSora.
+ * https://github.com/KingSora
+ *
+ * Released under the MIT license.
+ */
+
+function each(t, n) {
+  if (isArrayLike(t)) {
+    for (let o = 0; o < t.length; o++) {
+      if (false === n(t[o], o, t)) {
+        break;
+      }
+    }
+  } else if (t) {
+    each(Object.keys(t), (o => n(t[o], o, t)));
+  }
+  return t;
+}
+
+function style(t, n) {
+  const o = isString(n);
+  const s = isArray(n) || o;
+  if (s) {
+    let s = o ? "" : {};
+    if (t) {
+      const e = window.getComputedStyle(t, null);
+      s = o ? getCSSVal(t, e, n) : n.reduce(((n, o) => {
+        n[o] = getCSSVal(t, e, o);
+        return n;
+      }), s);
+    }
+    return s;
+  }
+  t && each(keys(n), (o => setCSSVal(t, o, n[o])));
+}
+
+const createCache = (t, n) => {
+  const {o: o, u: s, _: e} = t;
+  let c = o;
+  let r;
+  const cacheUpdateContextual = (t, n) => {
+    const o = c;
+    const l = t;
+    const i = n || (s ? !s(o, l) : o !== l);
+    if (i || e) {
+      c = l;
+      r = o;
+    }
+    return [ c, i, r ];
+  };
+  const cacheUpdateIsolated = t => cacheUpdateContextual(n(c, r), t);
+  const getCurrentCache = t => [ c, !!t, r ];
+  return [ n ? cacheUpdateIsolated : cacheUpdateContextual, getCurrentCache ];
+};
+
+const isClient = () => "undefined" !== typeof window;
+
+const t = isClient() && Node.ELEMENT_NODE;
+
+const {toString: n, hasOwnProperty: o} = Object.prototype;
+
+const isUndefined = t => void 0 === t;
+
+const isNull = t => null === t;
+
+const type = t => isUndefined(t) || isNull(t) ? `${t}` : n.call(t).replace(/^\[object (.+)\]$/, "$1").toLowerCase();
+
+const isNumber = t => "number" === typeof t;
+
+const isString = t => "string" === typeof t;
+
+const isBoolean = t => "boolean" === typeof t;
+
+const isFunction = t => "function" === typeof t;
+
+const isArray = t => Array.isArray(t);
+
+const isObject = t => "object" === typeof t && !isArray(t) && !isNull(t);
+
+const isArrayLike = t => {
+  const n = !!t && t.length;
+  const o = isNumber(n) && n > -1 && n % 1 == 0;
+  return isArray(t) || !isFunction(t) && o ? n > 0 && isObject(t) ? n - 1 in t : true : false;
+};
+
+const isPlainObject = t => {
+  if (!t || !isObject(t) || "object" !== type(t)) {
+    return false;
+  }
+  let n;
+  const s = "constructor";
+  const e = t[s];
+  const c = e && e.prototype;
+  const r = o.call(t, s);
+  const l = c && o.call(c, "isPrototypeOf");
+  if (e && !r && !l) {
+    return false;
+  }
+  for (n in t) {}
+  return isUndefined(n) || o.call(t, n);
+};
+
+const isHTMLElement = n => {
+  const o = HTMLElement;
+  return n ? o ? n instanceof o : n.nodeType === t : false;
+};
+
+const isElement = n => {
+  const o = Element;
+  return n ? o ? n instanceof o : n.nodeType === t : false;
+};
+
+const indexOf = (t, n, o) => t.indexOf(n, o);
+
+const push = (t, n, o) => {
+  !o && !isString(n) && isArrayLike(n) ? Array.prototype.push.apply(t, n) : t.push(n);
+  return t;
+};
+
+const from = t => {
+  const n = Array.from;
+  const o = [];
+  if (n && t) {
+    return n(t);
+  }
+  if (t instanceof Set) {
+    t.forEach((t => {
+      push(o, t);
+    }));
+  } else {
+    each(t, (t => {
+      push(o, t);
+    }));
+  }
+  return o;
+};
+
+const isEmptyArray = t => !!t && 0 === t.length;
+
+const runEachAndClear = (t, n, o) => {
+  const runFn = t => t && t.apply(void 0, n || []);
+  each(t, runFn);
+  !o && (t.length = 0);
+};
+
+const hasOwnProperty = (t, n) => Object.prototype.hasOwnProperty.call(t, n);
+
+const keys = t => t ? Object.keys(t) : [];
+
+const assignDeep = (t, n, o, s, e, c, r) => {
+  const l = [ n, o, s, e, c, r ];
+  if (("object" !== typeof t || isNull(t)) && !isFunction(t)) {
+    t = {};
+  }
+  each(l, (n => {
+    each(keys(n), (o => {
+      const s = n[o];
+      if (t === s) {
+        return true;
+      }
+      const e = isArray(s);
+      if (s && (isPlainObject(s) || e)) {
+        const n = t[o];
+        let c = n;
+        if (e && !isArray(n)) {
+          c = [];
+        } else if (!e && !isPlainObject(n)) {
+          c = {};
+        }
+        t[o] = assignDeep(c, s);
+      } else {
+        t[o] = s;
+      }
+    }));
+  }));
+  return t;
+};
+
+const isEmptyObject = t => {
+  for (const n in t) {
+    return false;
+  }
+  return true;
+};
+
+const getSetProp = (t, n, o, s) => {
+  if (isUndefined(s)) {
+    return o ? o[t] : n;
+  }
+  o && (isString(s) || isNumber(s)) && (o[t] = s);
+};
+
+const attr = (t, n, o) => {
+  if (isUndefined(o)) {
+    return t ? t.getAttribute(n) : null;
+  }
+  t && t.setAttribute(n, o);
+};
+
+const removeAttr = (t, n) => {
+  t && t.removeAttribute(n);
+};
+
+const attrClass = (t, n, o, s) => {
+  if (o) {
+    const e = attr(t, n) || "";
+    const c = new Set(e.split(" "));
+    c[s ? "add" : "delete"](o);
+    const r = from(c).join(" ").trim();
+    attr(t, n, r);
+  }
+};
+
+const hasAttrClass = (t, n, o) => {
+  const s = attr(t, n) || "";
+  const e = new Set(s.split(" "));
+  return e.has(o);
+};
+
+const scrollLeft = (t, n) => getSetProp("scrollLeft", 0, t, n);
+
+const scrollTop = (t, n) => getSetProp("scrollTop", 0, t, n);
+
+const s = isClient() && Element.prototype;
+
+const find = (t, n) => {
+  const o = [];
+  const s = n ? isElement(n) ? n : null : document;
+  return s ? push(o, s.querySelectorAll(t)) : o;
+};
+
+const findFirst = (t, n) => {
+  const o = n ? isElement(n) ? n : null : document;
+  return o ? o.querySelector(t) : null;
+};
+
+const is = (t, n) => {
+  if (isElement(t)) {
+    const o = s.matches || s.msMatchesSelector;
+    return o.call(t, n);
+  }
+  return false;
+};
+
+const contents = t => t ? from(t.childNodes) : [];
+
+const parent = t => t ? t.parentElement : null;
+
+const closest = (t, n) => {
+  if (isElement(t)) {
+    const o = s.closest;
+    if (o) {
+      return o.call(t, n);
+    }
+    do {
+      if (is(t, n)) {
+        return t;
+      }
+      t = parent(t);
+    } while (t);
+  }
+  return null;
+};
+
+const liesBetween = (t, n, o) => {
+  const s = t && closest(t, n);
+  const e = t && findFirst(o, s);
+  const c = closest(e, n) === s;
+  return s && e ? s === t || e === t || c && closest(closest(t, o), n) !== s : false;
+};
+
+const before = (t, n, o) => {
+  if (o && t) {
+    let s = n;
+    let e;
+    if (isArrayLike(o)) {
+      e = document.createDocumentFragment();
+      each(o, (t => {
+        if (t === s) {
+          s = t.previousSibling;
+        }
+        e.appendChild(t);
+      }));
+    } else {
+      e = o;
+    }
+    if (n) {
+      if (!s) {
+        s = t.firstChild;
+      } else if (s !== n) {
+        s = s.nextSibling;
+      }
+    }
+    t.insertBefore(e, s || null);
+  }
+};
+
+const appendChildren = (t, n) => {
+  before(t, null, n);
+};
+
+const insertBefore = (t, n) => {
+  before(parent(t), t, n);
+};
+
+const insertAfter = (t, n) => {
+  before(parent(t), t && t.nextSibling, n);
+};
+
+const removeElements = t => {
+  if (isArrayLike(t)) {
+    each(from(t), (t => removeElements(t)));
+  } else if (t) {
+    const n = parent(t);
+    if (n) {
+      n.removeChild(t);
+    }
+  }
+};
+
+const createDiv = t => {
+  const n = document.createElement("div");
+  if (t) {
+    attr(n, "class", t);
+  }
+  return n;
+};
+
+const createDOM = t => {
+  const n = createDiv();
+  n.innerHTML = t.trim();
+  return each(contents(n), (t => removeElements(t)));
+};
+
+const firstLetterToUpper = t => t.charAt(0).toUpperCase() + t.slice(1);
+
+const getDummyStyle = () => createDiv().style;
+
+const e = [ "-webkit-", "-moz-", "-o-", "-ms-" ];
+
+const c = [ "WebKit", "Moz", "O", "MS", "webkit", "moz", "o", "ms" ];
+
+const r = {};
+
+const l = {};
+
+const cssProperty = t => {
+  let n = l[t];
+  if (hasOwnProperty(l, t)) {
+    return n;
+  }
+  const o = firstLetterToUpper(t);
+  const s = getDummyStyle();
+  each(e, (e => {
+    const c = e.replace(/-/g, "");
+    const r = [ t, e + t, c + o, firstLetterToUpper(c) + o ];
+    return !(n = r.find((t => void 0 !== s[t])));
+  }));
+  return l[t] = n || "";
+};
+
+const jsAPI = t => {
+  if (isClient()) {
+    let n = r[t] || window[t];
+    if (hasOwnProperty(r, t)) {
+      return n;
+    }
+    each(c, (o => {
+      n = n || window[o + firstLetterToUpper(t)];
+      return !n;
+    }));
+    r[t] = n;
+    return n;
+  }
+};
+
+const i = jsAPI("MutationObserver");
+
+const a = jsAPI("IntersectionObserver");
+
+const u = jsAPI("ResizeObserver");
+
+const f = jsAPI("cancelAnimationFrame");
+
+const d = jsAPI("requestAnimationFrame");
+
+const _ = jsAPI("ScrollTimeline");
+
+const h = isClient() && window.setTimeout;
+
+const g = isClient() && window.clearTimeout;
+
+const v = /[^\x20\t\r\n\f]+/g;
+
+const classListAction = (t, n, o) => {
+  const s = t && t.classList;
+  let e;
+  let c = 0;
+  let r = false;
+  if (s && n && isString(n)) {
+    const t = n.match(v) || [];
+    r = t.length > 0;
+    while (e = t[c++]) {
+      r = !!o(s, e) && r;
+    }
+  }
+  return r;
+};
+
+const removeClass = (t, n) => {
+  classListAction(t, n, ((t, n) => t.remove(n)));
+};
+
+const addClass = (t, n) => {
+  classListAction(t, n, ((t, n) => t.add(n)));
+  return removeClass.bind(0, t, n);
+};
+
+const {max: p} = Math;
+
+const animationCurrentTime = () => performance.now();
+
+const animateNumber = (t, n, o, s, e) => {
+  let c = 0;
+  const r = animationCurrentTime();
+  const l = p(0, o);
+  const frame = o => {
+    const i = animationCurrentTime();
+    const a = i - r;
+    const u = a >= l;
+    const f = o ? 1 : 1 - (p(0, r + l - i) / l || 0);
+    const _ = (n - t) * (isFunction(e) ? e(f, f * l, 0, 1, l) : f) + t;
+    const h = u || 1 === f;
+    s && s(_, f, h);
+    c = h ? 0 : d((() => frame()));
+  };
+  frame();
+  return t => {
+    f(c);
+    t && frame(t);
+  };
+};
+
+const equal = (t, n, o, s) => {
+  if (t && n) {
+    let e = true;
+    each(o, (o => {
+      const c = s ? s(t[o]) : t[o];
+      const r = s ? s(n[o]) : n[o];
+      if (c !== r) {
+        e = false;
+      }
+    }));
+    return e;
+  }
+  return false;
+};
+
+const equalWH = (t, n) => equal(t, n, [ "w", "h" ]);
+
+const equalXY = (t, n) => equal(t, n, [ "x", "y" ]);
+
+const equalTRBL = (t, n) => equal(t, n, [ "t", "r", "b", "l" ]);
+
+const equalBCRWH = (t, n, o) => equal(t, n, [ "width", "height" ], o && (t => Math.round(t)));
+
+const noop = () => {};
+
+const selfClearTimeout = t => {
+  let n;
+  const o = t ? h : d;
+  const s = t ? g : f;
+  return [ e => {
+    s(n);
+    n = o(e, isFunction(t) ? t() : t);
+  }, () => s(n) ];
+};
+
+const debounce = (t, n) => {
+  let o;
+  let s;
+  let e;
+  let c = noop;
+  const {g: r, v: l, p: i} = n || {};
+  const a = function invokeFunctionToDebounce(n) {
+    c();
+    g(o);
+    o = s = void 0;
+    c = noop;
+    t.apply(this, n);
+  };
+  const mergeParms = t => i && s ? i(s, t) : t;
+  const flush = () => {
+    if (c !== noop) {
+      a(mergeParms(e) || e);
+    }
+  };
+  const u = function debouncedFn() {
+    const t = from(arguments);
+    const n = isFunction(r) ? r() : r;
+    const i = isNumber(n) && n >= 0;
+    if (i) {
+      const r = isFunction(l) ? l() : l;
+      const i = isNumber(r) && r >= 0;
+      const u = n > 0 ? h : d;
+      const _ = n > 0 ? g : f;
+      const v = mergeParms(t);
+      const p = v || t;
+      const w = a.bind(0, p);
+      c();
+      const b = u(w, n);
+      c = () => _(b);
+      if (i && !o) {
+        o = h(flush, r);
+      }
+      s = e = p;
+    } else {
+      a(t);
+    }
+  };
+  u.m = flush;
+  return u;
+};
+
+const w = {
+  opacity: 1,
+  zIndex: 1
+};
+
+const parseToZeroOrNumber = (t, n) => {
+  const o = t || "";
+  const s = n ? parseFloat(o) : parseInt(o, 10);
+  return s === s ? s : 0;
+};
+
+const adaptCSSVal = (t, n) => !w[t] && isNumber(n) ? `${n}px` : n;
+
+const getCSSVal = (t, n, o) => String((null != n ? n[o] || n.getPropertyValue(o) : t.style[o]) || "");
+
+const setCSSVal = (t, n, o) => {
+  try {
+    const {style: s} = t;
+    if (!isUndefined(s[n])) {
+      s[n] = adaptCSSVal(n, o);
+    } else {
+      s.setProperty(n, o);
+    }
+  } catch (s) {}
+};
+
+const directionIsRTL = t => "rtl" === style(t, "direction");
+
+const topRightBottomLeft = (t, n, o) => {
+  const s = n ? `${n}-` : "";
+  const e = o ? `-${o}` : "";
+  const c = `${s}top${e}`;
+  const r = `${s}right${e}`;
+  const l = `${s}bottom${e}`;
+  const i = `${s}left${e}`;
+  const a = style(t, [ c, r, l, i ]);
+  return {
+    t: parseToZeroOrNumber(a[c], true),
+    r: parseToZeroOrNumber(a[r], true),
+    b: parseToZeroOrNumber(a[l], true),
+    l: parseToZeroOrNumber(a[i], true)
+  };
+};
+
+const getTrasformTranslateValue = (t, n) => `translate${isArray(t) ? `(${t[0]},${t[1]})` : `${n ? "X" : "Y"}(${t})`}`;
+
+const {round: b} = Math;
+
+const m = {
+  w: 0,
+  h: 0
+};
+
+const windowSize = () => ({
+  w: window.innerWidth,
+  h: window.innerHeight
+});
+
+const offsetSize = t => t ? {
+  w: t.offsetWidth,
+  h: t.offsetHeight
+} : m;
+
+const clientSize = t => t ? {
+  w: t.clientWidth,
+  h: t.clientHeight
+} : m;
+
+const scrollSize = t => t ? {
+  w: t.scrollWidth,
+  h: t.scrollHeight
+} : m;
+
+const fractionalSize = t => {
+  const n = parseFloat(style(t, "height")) || 0;
+  const o = parseFloat(style(t, "width")) || 0;
+  return {
+    w: o - b(o),
+    h: n - b(n)
+  };
+};
+
+const getBoundingClientRect = t => t.getBoundingClientRect();
+
+const domRectHasDimensions = t => !!(t && (t.height || t.width));
+
+let y;
+
+const supportPassiveEvents = () => {
+  if (isUndefined(y)) {
+    y = false;
+    try {
+      window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+        get() {
+          y = true;
+        }
+      }));
+    } catch (t) {}
+  }
+  return y;
+};
+
+const splitEventNames = t => t.split(" ");
+
+const off = (t, n, o, s) => {
+  each(splitEventNames(n), (n => {
+    t.removeEventListener(n, o, s);
+  }));
+};
+
+const on = (t, n, o, s) => {
+  var e;
+  const c = supportPassiveEvents();
+  const r = null != (e = c && s && s.S) ? e : c;
+  const l = s && s.$ || false;
+  const i = s && s.C || false;
+  const a = [];
+  const u = c ? {
+    passive: r,
+    capture: l
+  } : l;
+  each(splitEventNames(n), (n => {
+    const s = i ? e => {
+      t.removeEventListener(n, s, l);
+      o && o(e);
+    } : o;
+    push(a, off.bind(null, t, n, s, l));
+    t.addEventListener(n, s, u);
+  }));
+  return runEachAndClear.bind(0, a);
+};
+
+const stopPropagation = t => t.stopPropagation();
+
+const preventDefault = t => t.preventDefault();
+
+const S = {
+  x: 0,
+  y: 0
+};
+
+const absoluteCoordinates = t => {
+  const n = t ? getBoundingClientRect(t) : 0;
+  return n ? {
+    x: n.left + window.pageYOffset,
+    y: n.top + window.pageXOffset
+  } : S;
+};
+
+const manageListener = (t, n) => {
+  each(isArray(n) ? n : [ n ], t);
+};
+
+const createEventListenerHub = t => {
+  const n = new Map;
+  const removeEvent = (t, o) => {
+    if (t) {
+      const s = n.get(t);
+      manageListener((t => {
+        if (s) {
+          s[t ? "delete" : "clear"](t);
+        }
+      }), o);
+    } else {
+      n.forEach((t => {
+        t.clear();
+      }));
+      n.clear();
+    }
+  };
+  const addEvent = (t, o) => {
+    if (isString(t)) {
+      const s = n.get(t) || new Set;
+      n.set(t, s);
+      manageListener((t => {
+        isFunction(t) && s.add(t);
+      }), o);
+      return removeEvent.bind(0, t, o);
+    }
+    if (isBoolean(o) && o) {
+      removeEvent();
+    }
+    const s = keys(t);
+    const e = [];
+    each(s, (n => {
+      const o = t[n];
+      o && push(e, addEvent(n, o));
+    }));
+    return runEachAndClear.bind(0, e);
+  };
+  const triggerEvent = (t, o) => {
+    const s = n.get(t);
+    each(from(s), (t => {
+      if (o && !isEmptyArray(o)) {
+        t.apply(0, o);
+      } else {
+        t();
+      }
+    }));
+  };
+  addEvent(t || {});
+  return [ addEvent, removeEvent, triggerEvent ];
+};
+
+const opsStringify = t => JSON.stringify(t, ((t, n) => {
+  if (isFunction(n)) {
+    throw new Error;
+  }
+  return n;
+}));
+
+const $ = {
+  paddingAbsolute: false,
+  showNativeOverlaidScrollbars: false,
+  update: {
+    elementEvents: [ [ "img", "load" ] ],
+    debounce: [ 0, 33 ],
+    attributes: null,
+    ignoreMutation: null
+  },
+  overflow: {
+    x: "scroll",
+    y: "scroll"
+  },
+  scrollbars: {
+    theme: "os-theme-dark",
+    visibility: "auto",
+    autoHide: "never",
+    autoHideDelay: 1300,
+    autoHideSuspend: false,
+    dragScroll: true,
+    clickScroll: false,
+    pointers: [ "mouse", "touch", "pen" ]
+  }
+};
+
+const getOptionsDiff = (t, n) => {
+  const o = {};
+  const s = keys(n).concat(keys(t));
+  each(s, (s => {
+    const e = t[s];
+    const c = n[s];
+    if (isObject(e) && isObject(c)) {
+      assignDeep(o[s] = {}, getOptionsDiff(e, c));
+      if (isEmptyObject(o[s])) {
+        delete o[s];
+      }
+    } else if (hasOwnProperty(n, s) && c !== e) {
+      let t = true;
+      if (isArray(e) || isArray(c)) {
+        try {
+          if (opsStringify(e) === opsStringify(c)) {
+            t = false;
+          }
+        } catch (r) {}
+      }
+      if (t) {
+        o[s] = c;
+      }
+    }
+  }));
+  return o;
+};
+
+const x = `data-overlayscrollbars`;
+
+const C = "os-environment";
+
+const O = `${C}-flexbox-glue`;
+
+const T = `${O}-max`;
+
+const z = `os-scrollbar-hidden`;
+
+const E = `${x}-initialize`;
+
+const A = x;
+
+const I = `${A}-overflow-x`;
+
+const H = `${A}-overflow-y`;
+
+const L = "overflowVisible";
+
+const P = "scrollbarHidden";
+
+const M = "scrollbarPressed";
+
+const D = "updating";
+
+const R = `${x}-viewport`;
+
+const k = "arrange";
+
+const B = "scrollbarHidden";
+
+const V = L;
+
+const Y = `${x}-padding`;
+
+const j = V;
+
+const N = `${x}-content`;
+
+const q = "os-size-observer";
+
+const F = `${q}-appear`;
+
+const G = `${q}-listener`;
+
+const X = `${G}-scroll`;
+
+const U = `${G}-item`;
+
+const W = `${U}-final`;
+
+const Z = "os-trinsic-observer";
+
+const J = "os-no-css-vars";
+
+const K = "os-theme-none";
+
+const Q = "os-scrollbar";
+
+const tt = `${Q}-rtl`;
+
+const nt = `${Q}-horizontal`;
+
+const ot = `${Q}-vertical`;
+
+const st = `${Q}-track`;
+
+const et = `${Q}-handle`;
+
+const ct = `${Q}-visible`;
+
+const rt = `${Q}-cornerless`;
+
+const lt = `${Q}-transitionless`;
+
+const it = `${Q}-interaction`;
+
+const at = `${Q}-unusable`;
+
+const ut = `${Q}-auto-hide`;
+
+const ft = `${ut}-hidden`;
+
+const dt = `${Q}-wheel`;
+
+const _t = `${st}-interactive`;
+
+const ht = `${et}-interactive`;
+
+const gt = {};
+
+const getPlugins = () => gt;
+
+const addPlugin = t => {
+  const n = [];
+  each(isArray(t) ? t : [ t ], (t => {
+    const o = keys(t);
+    each(o, (o => {
+      push(n, gt[o] = t[o]);
+    }));
+  }));
+  return n;
+};
+
+const vt = {
+  boolean: "__TPL_boolean_TYPE__",
+  number: "__TPL_number_TYPE__",
+  string: "__TPL_string_TYPE__",
+  array: "__TPL_array_TYPE__",
+  object: "__TPL_object_TYPE__",
+  function: "__TPL_function_TYPE__",
+  null: "__TPL_null_TYPE__"
+};
+
+const pt = vt.number;
+
+const wt = vt.boolean;
+
+const bt = [ vt.array, vt.null ];
+
+const mt = "hidden scroll visible visible-hidden";
+
+const yt = "visible hidden auto";
+
+const St = "never scroll leavemove";
+
+({
+  paddingAbsolute: wt,
+  showNativeOverlaidScrollbars: wt,
+  update: {
+    elementEvents: bt,
+    attributes: bt,
+    debounce: [ vt.number, vt.array, vt.null ],
+    ignoreMutation: [ vt.function, vt.null ]
+  },
+  overflow: {
+    x: mt,
+    y: mt
+  },
+  scrollbars: {
+    theme: [ vt.string, vt.null ],
+    visibility: yt,
+    autoHide: St,
+    autoHideDelay: pt,
+    autoHideSuspend: wt,
+    dragScroll: wt,
+    clickScroll: wt,
+    pointers: [ vt.array, vt.null ]
+  }
+});
+
+const $t = "__osOptionsValidationPlugin";
+
+const xt = 3333333;
+
+const Ct = "scroll";
+
+const Ot = "__osSizeObserverPlugin";
+
+const Tt = /* @__PURE__ */ (() => ({
+  [Ot]: {
+    O: (t, n, o) => {
+      const s = createDOM(`<div class="${U}" dir="ltr"><div class="${U}"><div class="${W}"></div></div><div class="${U}"><div class="${W}" style="width: 200%; height: 200%"></div></div></div>`);
+      appendChildren(t, s);
+      addClass(t, X);
+      const e = s[0];
+      const c = e.lastChild;
+      const r = e.firstChild;
+      const l = null == r ? void 0 : r.firstChild;
+      let i = offsetSize(e);
+      let a = i;
+      let u = false;
+      let _;
+      const reset = () => {
+        scrollLeft(r, xt);
+        scrollTop(r, xt);
+        scrollLeft(c, xt);
+        scrollTop(c, xt);
+      };
+      const onResized = t => {
+        _ = 0;
+        if (u) {
+          i = a;
+          n(true === t);
+        }
+      };
+      const onScroll = t => {
+        a = offsetSize(e);
+        u = !t || !equalWH(a, i);
+        if (t) {
+          stopPropagation(t);
+          if (u && !_) {
+            f(_);
+            _ = d(onResized);
+          }
+        } else {
+          onResized(false === t);
+        }
+        reset();
+      };
+      const h = push([], [ on(r, Ct, onScroll), on(c, Ct, onScroll) ]);
+      style(l, {
+        width: xt,
+        height: xt
+      });
+      d(reset);
+      return [ o ? onScroll.bind(0, false) : reset, h ];
+    }
+  }
+}))();
+
+let zt = 0;
+
+const {round: Et, abs: At} = Math;
+
+const getWindowDPR = () => {
+  const t = window.screen.deviceXDPI || 0;
+  const n = window.screen.logicalXDPI || 1;
+  return window.devicePixelRatio || t / n;
+};
+
+const diffBiggerThanOne = (t, n) => {
+  const o = At(t);
+  const s = At(n);
+  return !(o === s || o + 1 === s || o - 1 === s);
+};
+
+const It = "__osScrollbarsHidingPlugin";
+
+const Ht = /* @__PURE__ */ (() => ({
+  [It]: {
+    T: t => {
+      const {A: n, I: o, H: s} = t;
+      const e = !s && !n && (o.x || o.y);
+      const c = e ? document.createElement("style") : false;
+      if (c) {
+        attr(c, "id", `${R}-${k}-${zt}`);
+        zt++;
+      }
+      return c;
+    },
+    L: (t, n, o, s, e, c, r) => {
+      const arrangeViewport = (n, c, r, l) => {
+        if (t) {
+          const {P: t} = e();
+          const {M: i, D: a} = n;
+          const {x: u, y: f} = a;
+          const {x: d, y: _} = i;
+          const h = l ? "paddingRight" : "paddingLeft";
+          const g = t[h];
+          const v = t.paddingTop;
+          const p = c.w + r.w;
+          const w = c.h + r.h;
+          const b = {
+            w: _ && f ? `${_ + p - g}px` : "",
+            h: d && u ? `${d + w - v}px` : ""
+          };
+          if (s) {
+            const {sheet: t} = s;
+            if (t) {
+              const {cssRules: n} = t;
+              if (n) {
+                if (!n.length) {
+                  t.insertRule(`#${attr(s, "id")} + [${R}~='${k}']::before {}`, 0);
+                }
+                const o = n[0].style;
+                o.width = b.w;
+                o.height = b.h;
+              }
+            }
+          } else {
+            style(o, {
+              "--os-vaw": b.w,
+              "--os-vah": b.h
+            });
+          }
+        }
+        return t;
+      };
+      const undoViewportArrange = (s, l, i) => {
+        if (t) {
+          const a = i || c(s);
+          const {P: u} = e();
+          const {D: f} = a;
+          const {x: d, y: _} = f;
+          const h = {};
+          const assignProps = t => each(t.split(" "), (t => {
+            h[t] = u[t];
+          }));
+          if (d) {
+            assignProps("marginBottom paddingTop paddingBottom");
+          }
+          if (_) {
+            assignProps("marginLeft marginRight paddingLeft paddingRight");
+          }
+          const g = style(o, keys(h));
+          attrClass(o, R, k);
+          if (!n) {
+            h.height = "";
+          }
+          style(o, h);
+          return [ () => {
+            r(a, l, t, g);
+            style(o, g);
+            attrClass(o, R, k, true);
+          }, a ];
+        }
+        return [ noop ];
+      };
+      return [ arrangeViewport, undoViewportArrange ];
+    },
+    R: () => {
+      let t = {
+        w: 0,
+        h: 0
+      };
+      let n = 0;
+      return (o, s, e) => {
+        const c = windowSize();
+        const r = {
+          w: c.w - t.w,
+          h: c.h - t.h
+        };
+        if (0 === r.w && 0 === r.h) {
+          return;
+        }
+        const l = {
+          w: At(r.w),
+          h: At(r.h)
+        };
+        const i = {
+          w: At(Et(c.w / (t.w / 100))),
+          h: At(Et(c.h / (t.h / 100)))
+        };
+        const a = getWindowDPR();
+        const u = l.w > 2 && l.h > 2;
+        const f = !diffBiggerThanOne(i.w, i.h);
+        const d = a !== n && a > 0;
+        const _ = u && f && d;
+        if (_) {
+          const [t, n] = s();
+          assignDeep(o.k, t);
+          if (n) {
+            e();
+          }
+        }
+        t = c;
+        n = a;
+      };
+    }
+  }
+}))();
+
+const Lt = "__osClickScrollPlugin";
+
+const Pt = /* @__PURE__ */ (() => ({
+  [Lt]: {
+    O: (t, n, o, s, e) => {
+      let c = 0;
+      let r = noop;
+      const animateClickScroll = l => {
+        r = animateNumber(l, l + s * Math.sign(o), 133, ((o, l, i) => {
+          t(o);
+          const a = n();
+          const u = a + s;
+          const f = e >= a && e <= u;
+          if (i && !f) {
+            if (c) {
+              animateClickScroll(o);
+            } else {
+              const t = setTimeout((() => {
+                animateClickScroll(o);
+              }), 222);
+              r = () => {
+                clearTimeout(t);
+              };
+            }
+            c++;
+          }
+        }));
+      };
+      animateClickScroll(0);
+      return () => r();
+    }
+  }
+}))();
+
+let Mt;
+
+const getNativeScrollbarSize = (t, n, o, s) => {
+  appendChildren(t, n);
+  const e = clientSize(n);
+  const c = offsetSize(n);
+  const r = fractionalSize(o);
+  s && removeElements(n);
+  return {
+    x: c.h - e.h + r.h,
+    y: c.w - e.w + r.w
+  };
+};
+
+const getNativeScrollbarsHiding = t => {
+  let n = false;
+  const o = addClass(t, z);
+  try {
+    n = "none" === style(t, cssProperty("scrollbar-width")) || "none" === window.getComputedStyle(t, "::-webkit-scrollbar").getPropertyValue("display");
+  } catch (s) {}
+  o();
+  return n;
+};
+
+const getRtlScrollBehavior = (t, n) => {
+  const o = "hidden";
+  style(t, {
+    overflowX: o,
+    overflowY: o,
+    direction: "rtl"
+  });
+  scrollLeft(t, 0);
+  const s = absoluteCoordinates(t);
+  const e = absoluteCoordinates(n);
+  scrollLeft(t, -999);
+  const c = absoluteCoordinates(n);
+  return {
+    i: s.x === e.x,
+    n: e.x !== c.x
+  };
+};
+
+const getFlexboxGlue = (t, n) => {
+  const o = addClass(t, O);
+  const s = getBoundingClientRect(t);
+  const e = getBoundingClientRect(n);
+  const c = equalBCRWH(e, s, true);
+  const r = addClass(t, T);
+  const l = getBoundingClientRect(t);
+  const i = getBoundingClientRect(n);
+  const a = equalBCRWH(i, l, true);
+  o();
+  r();
+  return c && a;
+};
+
+const createEnvironment = () => {
+  const {body: t} = document;
+  const n = createDOM(`<div class="${C}"><div></div></div>`);
+  const o = n[0];
+  const s = o.firstChild;
+  const [e, , c] = createEventListenerHub();
+  const [r, l] = createCache({
+    o: getNativeScrollbarSize(t, o, s),
+    u: equalXY
+  }, getNativeScrollbarSize.bind(0, t, o, s, true));
+  const [i] = l();
+  const a = getNativeScrollbarsHiding(o);
+  const u = {
+    x: 0 === i.x,
+    y: 0 === i.y
+  };
+  const f = {
+    elements: {
+      host: null,
+      padding: !a,
+      viewport: t => a && t === t.ownerDocument.body && t,
+      content: false
+    },
+    scrollbars: {
+      slot: true
+    },
+    cancel: {
+      nativeScrollbarsOverlaid: false,
+      body: null
+    }
+  };
+  const d = assignDeep({}, $);
+  const h = assignDeep.bind(0, {}, d);
+  const g = assignDeep.bind(0, {}, f);
+  const v = {
+    k: i,
+    I: u,
+    A: a,
+    H: "-1" === style(o, "zIndex"),
+    B: !!_,
+    V: getRtlScrollBehavior(o, s),
+    Y: getFlexboxGlue(o, s),
+    j: e.bind(0, "z"),
+    N: e.bind(0, "r"),
+    q: g,
+    F: t => assignDeep(f, t) && g(),
+    G: h,
+    X: t => assignDeep(d, t) && h(),
+    U: assignDeep({}, f),
+    W: assignDeep({}, d)
+  };
+  const p = window.addEventListener;
+  const w = debounce((t => c(t ? "z" : "r")), {
+    g: 33,
+    v: 99
+  });
+  removeAttr(o, "style");
+  removeElements(o);
+  p("resize", w.bind(0, false));
+  if (!a && (!u.x || !u.y)) {
+    let t;
+    p("resize", (() => {
+      const n = getPlugins()[It];
+      t = t || n && n.R();
+      t && t(v, r, w.bind(0, true));
+    }));
+  }
+  return v;
+};
+
+const getEnvironment = () => {
+  if (!Mt) {
+    Mt = createEnvironment();
+  }
+  return Mt;
+};
+
+const resolveInitialization = (t, n) => isFunction(n) ? n.apply(0, t) : n;
+
+const staticInitializationElement = (t, n, o, s) => {
+  const e = isUndefined(s) ? o : s;
+  const c = resolveInitialization(t, e);
+  return c || n.apply(0, t);
+};
+
+const dynamicInitializationElement = (t, n, o, s) => {
+  const e = isUndefined(s) ? o : s;
+  const c = resolveInitialization(t, e);
+  return !!c && (isHTMLElement(c) ? c : n.apply(0, t));
+};
+
+const cancelInitialization = (t, n, o) => {
+  const {nativeScrollbarsOverlaid: s, body: e} = o || {};
+  const {I: c, A: r} = getEnvironment();
+  const {nativeScrollbarsOverlaid: l, body: i} = n;
+  const a = null != s ? s : l;
+  const u = isUndefined(e) ? i : e;
+  const f = (c.x || c.y) && a;
+  const d = t && (isNull(u) ? !r : u);
+  return !!f || !!d;
+};
+
+const Dt = new WeakMap;
+
+const addInstance = (t, n) => {
+  Dt.set(t, n);
+};
+
+const removeInstance = t => {
+  Dt.delete(t);
+};
+
+const getInstance = t => Dt.get(t);
+
+const getPropByPath = (t, n) => t ? n.split(".").reduce(((t, n) => t && hasOwnProperty(t, n) ? t[n] : void 0), t) : void 0;
+
+const createOptionCheck = (t, n, o) => s => [ getPropByPath(t, s), o || void 0 !== getPropByPath(n, s) ];
+
+const createState = t => {
+  let n = t;
+  return [ () => n, t => {
+    n = assignDeep({}, n, t);
+  } ];
+};
+
+const Rt = "tabindex";
+
+const kt = createDiv.bind(0, "");
+
+const unwrap = t => {
+  appendChildren(parent(t), contents(t));
+  removeElements(t);
+};
+
+const createStructureSetupElements = t => {
+  const n = getEnvironment();
+  const {q: o, A: s} = n;
+  const e = getPlugins()[It];
+  const c = e && e.T;
+  const {elements: r} = o();
+  const {host: l, padding: i, viewport: a, content: u} = r;
+  const f = isHTMLElement(t);
+  const d = f ? {} : t;
+  const {elements: _} = d;
+  const {host: h, padding: g, viewport: v, content: p} = _ || {};
+  const w = f ? t : d.target;
+  const b = is(w, "textarea");
+  const m = w.ownerDocument;
+  const y = m.documentElement;
+  const S = w === m.body;
+  const $ = m.defaultView;
+  const x = staticInitializationElement.bind(0, [ w ]);
+  const C = dynamicInitializationElement.bind(0, [ w ]);
+  const O = resolveInitialization.bind(0, [ w ]);
+  const T = x.bind(0, kt, a);
+  const L = C.bind(0, kt, u);
+  const P = T(v);
+  const M = P === w;
+  const D = M && S;
+  const k = !M && L(p);
+  const V = !M && isHTMLElement(P) && P === k;
+  const j = V && !!O(u);
+  const q = j ? T() : P;
+  const F = j ? k : L();
+  const G = V ? q : P;
+  const X = D ? y : G;
+  const U = b ? x(kt, l, h) : w;
+  const W = D ? X : U;
+  const Z = V ? F : k;
+  const J = m.activeElement;
+  const K = !M && $.top === $ && J === w;
+  const Q = {
+    Z: w,
+    J: W,
+    K: X,
+    tt: !M && C(kt, i, g),
+    nt: Z,
+    ot: !M && !s && c && c(n),
+    st: D ? y : X,
+    et: D ? m : X,
+    ct: $,
+    rt: m,
+    lt: b,
+    it: S,
+    ut: f,
+    ft: M,
+    dt: V,
+    _t: (t, n) => hasAttrClass(X, M ? A : R, M ? n : t),
+    ht: (t, n, o) => attrClass(X, M ? A : R, M ? n : t, o)
+  };
+  const tt = keys(Q).reduce(((t, n) => {
+    const o = Q[n];
+    return push(t, o && isHTMLElement(o) && !parent(o) ? o : false);
+  }), []);
+  const elementIsGenerated = t => t ? indexOf(tt, t) > -1 : null;
+  const {Z: nt, J: ot, tt: st, K: et, nt: ct, ot: rt} = Q;
+  const lt = [ () => {
+    removeAttr(ot, A);
+    removeAttr(ot, E);
+    removeAttr(nt, E);
+    if (S) {
+      removeAttr(y, A);
+      removeAttr(y, E);
+    }
+  } ];
+  const it = b && elementIsGenerated(ot);
+  let at = b ? nt : contents([ ct, et, st, ot, nt ].find((t => false === elementIsGenerated(t))));
+  const ut = D ? nt : ct || et;
+  const appendElements = () => {
+    attr(ot, A, M ? "viewport" : "host");
+    attr(st, Y, "");
+    attr(ct, N, "");
+    if (!M) {
+      attr(et, R, "");
+    }
+    const t = S && !M ? addClass(parent(w), z) : noop;
+    if (it) {
+      insertAfter(nt, ot);
+      push(lt, (() => {
+        insertAfter(ot, nt);
+        removeElements(ot);
+      }));
+    }
+    appendChildren(ut, at);
+    appendChildren(ot, st);
+    appendChildren(st || ot, !M && et);
+    appendChildren(et, ct);
+    push(lt, (() => {
+      t();
+      removeAttr(st, Y);
+      removeAttr(ct, N);
+      removeAttr(et, I);
+      removeAttr(et, H);
+      removeAttr(et, R);
+      if (elementIsGenerated(ct)) {
+        unwrap(ct);
+      }
+      if (elementIsGenerated(et)) {
+        unwrap(et);
+      }
+      if (elementIsGenerated(st)) {
+        unwrap(st);
+      }
+    }));
+    if (s && !M) {
+      attrClass(et, R, B, true);
+      push(lt, removeAttr.bind(0, et, R));
+    }
+    if (rt) {
+      insertBefore(et, rt);
+      push(lt, removeElements.bind(0, rt));
+    }
+    if (K) {
+      const t = attr(et, Rt);
+      attr(et, Rt, "-1");
+      et.focus();
+      const revertViewportTabIndex = () => t ? attr(et, Rt, t) : removeAttr(et, Rt);
+      const n = on(m, "pointerdown keydown", (() => {
+        revertViewportTabIndex();
+        n();
+      }));
+      push(lt, [ revertViewportTabIndex, n ]);
+    } else if (J && J.focus) {
+      J.focus();
+    }
+    at = 0;
+  };
+  return [ Q, appendElements, runEachAndClear.bind(0, lt) ];
+};
+
+const createTrinsicUpdateSegment = (t, n) => {
+  const {nt: o} = t;
+  const [s] = n;
+  return t => {
+    const {Y: n} = getEnvironment();
+    const {gt: e} = s();
+    const {vt: c} = t;
+    const r = (o || !n) && c;
+    if (r) {
+      style(o, {
+        height: e ? "" : "100%"
+      });
+    }
+    return {
+      wt: r,
+      bt: r
+    };
+  };
+};
+
+const createPaddingUpdateSegment = (t, n) => {
+  const [o, s] = n;
+  const {J: e, tt: c, K: r, ft: l} = t;
+  const [i, a] = createCache({
+    u: equalTRBL,
+    o: topRightBottomLeft()
+  }, topRightBottomLeft.bind(0, e, "padding", ""));
+  return (t, n, e) => {
+    let [u, f] = a(e);
+    const {A: d, Y: _} = getEnvironment();
+    const {yt: h} = o();
+    const {wt: g, bt: v, St: p} = t;
+    const [w, b] = n("paddingAbsolute");
+    const m = !_ && v;
+    if (g || f || m) {
+      [u, f] = i(e);
+    }
+    const y = !l && (b || p || f);
+    if (y) {
+      const t = !w || !c && !d;
+      const n = u.r + u.l;
+      const o = u.t + u.b;
+      const e = {
+        marginRight: t && !h ? -n : 0,
+        marginBottom: t ? -o : 0,
+        marginLeft: t && h ? -n : 0,
+        top: t ? -u.t : 0,
+        right: t ? h ? -u.r : "auto" : 0,
+        left: t ? h ? "auto" : -u.l : 0,
+        width: t ? `calc(100% + ${n}px)` : ""
+      };
+      const l = {
+        paddingTop: t ? u.t : 0,
+        paddingRight: t ? u.r : 0,
+        paddingBottom: t ? u.b : 0,
+        paddingLeft: t ? u.l : 0
+      };
+      style(c || r, e);
+      style(r, l);
+      s({
+        tt: u,
+        $t: !t,
+        P: c ? l : assignDeep({}, e, l)
+      });
+    }
+    return {
+      xt: y
+    };
+  };
+};
+
+const {max: Bt} = Math;
+
+const Vt = Bt.bind(0, 0);
+
+const Yt = "visible";
+
+const jt = "hidden";
+
+const Nt = 42;
+
+const qt = {
+  u: equalWH,
+  o: {
+    w: 0,
+    h: 0
+  }
+};
+
+const Ft = {
+  u: equalXY,
+  o: {
+    x: jt,
+    y: jt
+  }
+};
+
+const getOverflowAmount = (t, n) => {
+  const o = window.devicePixelRatio % 1 !== 0 ? 1 : 0;
+  const s = {
+    w: Vt(t.w - n.w),
+    h: Vt(t.h - n.h)
+  };
+  return {
+    w: s.w > o ? s.w : 0,
+    h: s.h > o ? s.h : 0
+  };
+};
+
+const overflowIsVisible = t => 0 === t.indexOf(Yt);
+
+const createOverflowUpdateSegment = (t, n) => {
+  const [o, s] = n;
+  const {J: e, tt: c, K: r, ot: l, ft: i, ht: a, it: u, ct: f} = t;
+  const {k: d, Y: _, A: h, I: g} = getEnvironment();
+  const v = getPlugins()[It];
+  const p = !i && !h && (g.x || g.y);
+  const w = u && i;
+  const [b, m] = createCache(qt, fractionalSize.bind(0, r));
+  const [y, S] = createCache(qt, scrollSize.bind(0, r));
+  const [$, x] = createCache(qt);
+  const [C, O] = createCache(qt);
+  const [T] = createCache(Ft);
+  const fixFlexboxGlue = (t, n) => {
+    style(r, {
+      height: ""
+    });
+    if (n) {
+      const {$t: n, tt: s} = o();
+      const {Ct: c, M: l} = t;
+      const i = fractionalSize(e);
+      const a = clientSize(e);
+      const u = "content-box" === style(r, "boxSizing");
+      const f = n || u ? s.b + s.t : 0;
+      const d = !(g.x && u);
+      style(r, {
+        height: a.h + i.h + (c.x && d ? l.x : 0) - f
+      });
+    }
+  };
+  const getViewportOverflowState = (t, n) => {
+    const o = !h && !t ? Nt : 0;
+    const getStatePerAxis = (t, s, e) => {
+      const c = style(r, t);
+      const l = n ? n[t] : c;
+      const i = "scroll" === l;
+      const a = s ? o : e;
+      const u = i && !h ? a : 0;
+      const f = s && !!o;
+      return [ c, i, u, f ];
+    };
+    const [s, e, c, l] = getStatePerAxis("overflowX", g.x, d.x);
+    const [i, a, u, f] = getStatePerAxis("overflowY", g.y, d.y);
+    return {
+      Ot: {
+        x: s,
+        y: i
+      },
+      Ct: {
+        x: e,
+        y: a
+      },
+      M: {
+        x: c,
+        y: u
+      },
+      D: {
+        x: l,
+        y: f
+      }
+    };
+  };
+  const setViewportOverflowState = (t, n, o, s) => {
+    const setAxisOverflowStyle = (t, n) => {
+      const o = overflowIsVisible(t);
+      const s = n && o && t.replace(`${Yt}-`, "") || "";
+      return [ n && !o ? t : "", overflowIsVisible(s) ? "hidden" : s ];
+    };
+    const [e, c] = setAxisOverflowStyle(o.x, n.x);
+    const [r, l] = setAxisOverflowStyle(o.y, n.y);
+    s.overflowX = c && r ? c : e;
+    s.overflowY = l && e ? l : r;
+    return getViewportOverflowState(t, s);
+  };
+  const hideNativeScrollbars = (t, n, s, e) => {
+    const {M: c, D: r} = t;
+    const {x: l, y: i} = r;
+    const {x: a, y: u} = c;
+    const {P: f} = o();
+    const d = n ? "marginLeft" : "marginRight";
+    const _ = n ? "paddingLeft" : "paddingRight";
+    const h = f[d];
+    const g = f.marginBottom;
+    const v = f[_];
+    const p = f.paddingBottom;
+    e.width = `calc(100% + ${u + -1 * h}px)`;
+    e[d] = -u + h;
+    e.marginBottom = -a + g;
+    if (s) {
+      e[_] = v + (i ? u : 0);
+      e.paddingBottom = p + (l ? a : 0);
+    }
+  };
+  const [z, E] = v ? v.L(p, _, r, l, o, getViewportOverflowState, hideNativeScrollbars) : [ () => p, () => [ noop ] ];
+  return (t, n, l) => {
+    const {wt: u, Tt: d, bt: v, xt: p, vt: M, St: D} = t;
+    const {gt: k, yt: N} = o();
+    const [q, F] = n("showNativeOverlaidScrollbars");
+    const [G, X] = n("overflow");
+    const U = q && g.x && g.y;
+    const W = !i && !_ && (u || v || d || F || M);
+    const Z = overflowIsVisible(G.x);
+    const J = overflowIsVisible(G.y);
+    const K = Z || J;
+    let Q = m(l);
+    let tt = S(l);
+    let nt = x(l);
+    let ot = O(l);
+    let st;
+    if (F && h) {
+      a(B, P, !U);
+    }
+    if (W) {
+      st = getViewportOverflowState(U);
+      fixFlexboxGlue(st, k);
+    }
+    if (u || p || v || D || F) {
+      if (K) {
+        a(V, L, false);
+      }
+      const [t, n] = E(U, N, st);
+      const [o, s] = Q = b(l);
+      const [e, c] = tt = y(l);
+      const i = clientSize(r);
+      let u = e;
+      let d = i;
+      t();
+      if ((c || s || F) && n && !U && z(n, e, o, N)) {
+        d = clientSize(r);
+        u = scrollSize(r);
+      }
+      const _ = {
+        w: Vt(Bt(e.w, u.w) + o.w),
+        h: Vt(Bt(e.h, u.h) + o.h)
+      };
+      const h = {
+        w: Vt((w ? f.innerWidth : d.w + Vt(i.w - e.w)) + o.w),
+        h: Vt((w ? f.innerHeight + o.h : d.h + Vt(i.h - e.h)) + o.h)
+      };
+      ot = C(h);
+      nt = $(getOverflowAmount(_, h), l);
+    }
+    const [et, ct] = ot;
+    const [rt, lt] = nt;
+    const [it, at] = tt;
+    const [ut, ft] = Q;
+    const dt = {
+      x: rt.w > 0,
+      y: rt.h > 0
+    };
+    const _t = Z && J && (dt.x || dt.y) || Z && dt.x && !dt.y || J && dt.y && !dt.x;
+    if (p || D || ft || at || ct || lt || X || F || W) {
+      const t = {
+        marginRight: 0,
+        marginBottom: 0,
+        marginLeft: 0,
+        width: "",
+        overflowY: "",
+        overflowX: ""
+      };
+      const n = setViewportOverflowState(U, dt, G, t);
+      const o = z(n, it, ut, N);
+      if (!i) {
+        hideNativeScrollbars(n, N, o, t);
+      }
+      if (W) {
+        fixFlexboxGlue(n, k);
+      }
+      if (i) {
+        attr(e, I, t.overflowX);
+        attr(e, H, t.overflowY);
+      } else {
+        style(r, t);
+      }
+    }
+    attrClass(e, A, L, _t);
+    attrClass(c, Y, j, _t);
+    if (!i) {
+      attrClass(r, R, V, K);
+    }
+    const [ht, gt] = T(getViewportOverflowState(U).Ot);
+    s({
+      Ot: ht,
+      zt: {
+        x: et.w,
+        y: et.h
+      },
+      Et: {
+        x: rt.w,
+        y: rt.h
+      },
+      At: dt
+    });
+    return {
+      It: gt,
+      Ht: ct,
+      Lt: lt
+    };
+  };
+};
+
+const prepareUpdateHints = (t, n, o) => {
+  const s = {};
+  const e = n || {};
+  const c = keys(t).concat(keys(e));
+  each(c, (n => {
+    const c = t[n];
+    const r = e[n];
+    s[n] = !!(o || c || r);
+  }));
+  return s;
+};
+
+const createStructureSetupUpdate = (t, n) => {
+  const {Z: o, K: s, ht: e, ft: c} = t;
+  const {A: r, I: l, Y: i} = getEnvironment();
+  const a = !r && (l.x || l.y);
+  const u = [ createTrinsicUpdateSegment(t, n), createPaddingUpdateSegment(t, n), createOverflowUpdateSegment(t, n) ];
+  return (t, n, r) => {
+    const l = prepareUpdateHints(assignDeep({
+      wt: false,
+      xt: false,
+      St: false,
+      vt: false,
+      Ht: false,
+      Lt: false,
+      It: false,
+      Tt: false,
+      bt: false,
+      Pt: false
+    }, n), {}, r);
+    const f = a || !i;
+    const d = f && scrollLeft(s);
+    const _ = f && scrollTop(s);
+    e("", D, true);
+    let h = l;
+    each(u, (n => {
+      h = prepareUpdateHints(h, n(h, t, !!r) || {}, r);
+    }));
+    scrollLeft(s, d);
+    scrollTop(s, _);
+    e("", D);
+    if (!c) {
+      scrollLeft(o, 0);
+      scrollTop(o, 0);
+    }
+    return h;
+  };
+};
+
+const createEventContentChange = (t, n, o) => {
+  let s;
+  let e = false;
+  const destroy = () => {
+    e = true;
+  };
+  const updateElements = c => {
+    if (o) {
+      const r = o.reduce(((n, o) => {
+        if (o) {
+          const [s, e] = o;
+          const r = e && s && (c ? c(s) : find(s, t));
+          if (r && r.length && e && isString(e)) {
+            push(n, [ r, e.trim() ], true);
+          }
+        }
+        return n;
+      }), []);
+      each(r, (o => each(o[0], (c => {
+        const r = o[1];
+        const l = s.get(c) || [];
+        const i = t.contains(c);
+        if (i) {
+          const t = on(c, r, (o => {
+            if (e) {
+              t();
+              s.delete(c);
+            } else {
+              n(o);
+            }
+          }));
+          s.set(c, push(l, t));
+        } else {
+          runEachAndClear(l);
+          s.delete(c);
+        }
+      }))));
+    }
+  };
+  if (o) {
+    s = new WeakMap;
+    updateElements();
+  }
+  return [ destroy, updateElements ];
+};
+
+const createDOMObserver = (t, n, o, s) => {
+  let e = false;
+  const {Mt: c, Dt: r, Rt: l, kt: a, Bt: u, Vt: f} = s || {};
+  const d = debounce((() => {
+    if (e) {
+      o(true);
+    }
+  }), {
+    g: 33,
+    v: 99
+  });
+  const [_, h] = createEventContentChange(t, d, l);
+  const g = c || [];
+  const v = r || [];
+  const p = g.concat(v);
+  const observerCallback = (e, c) => {
+    const r = u || noop;
+    const l = f || noop;
+    const i = new Set;
+    const d = new Set;
+    let _ = false;
+    let g = false;
+    each(e, (o => {
+      const {attributeName: e, target: c, type: u, oldValue: f, addedNodes: h, removedNodes: p} = o;
+      const w = "attributes" === u;
+      const b = "childList" === u;
+      const m = t === c;
+      const y = w && isString(e) ? attr(c, e) : 0;
+      const S = 0 !== y && f !== y;
+      const $ = indexOf(v, e) > -1 && S;
+      if (n && (b || !m)) {
+        const n = !w;
+        const u = w && S;
+        const d = u && a && is(c, a);
+        const _ = d ? !r(c, e, f, y) : n || u;
+        const v = _ && !l(o, !!d, t, s);
+        each(h, (t => i.add(t)));
+        each(p, (t => i.add(t)));
+        g = g || v;
+      }
+      if (!n && m && S && !r(c, e, f, y)) {
+        d.add(e);
+        _ = _ || $;
+      }
+    }));
+    if (i.size > 0) {
+      h((t => from(i).reduce(((n, o) => {
+        push(n, find(t, o));
+        return is(o, t) ? push(n, o) : n;
+      }), [])));
+    }
+    if (n) {
+      !c && g && o(false);
+      return [ false ];
+    }
+    if (d.size > 0 || _) {
+      const t = [ from(d), _ ];
+      !c && o.apply(0, t);
+      return t;
+    }
+  };
+  const w = new i((t => observerCallback(t)));
+  w.observe(t, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: p,
+    subtree: n,
+    childList: n,
+    characterData: n
+  });
+  e = true;
+  return [ () => {
+    if (e) {
+      _();
+      w.disconnect();
+      e = false;
+    }
+  }, () => {
+    if (e) {
+      d.m();
+      const t = w.takeRecords();
+      return !isEmptyArray(t) && observerCallback(t, true);
+    }
+  } ];
+};
+
+const Gt = 3333333;
+
+const createSizeObserver = (t, n, o) => {
+  const {Yt: s = false, Pt: e = false} = o || {};
+  const c = getPlugins()[Ot];
+  const {V: r} = getEnvironment();
+  const l = createDOM(`<div class="${q}"><div class="${G}"></div></div>`);
+  const i = l[0];
+  const a = i.firstChild;
+  const f = directionIsRTL.bind(0, t);
+  const [d] = createCache({
+    o: void 0,
+    _: true,
+    u: (t, n) => !(!t || !domRectHasDimensions(t) && domRectHasDimensions(n))
+  });
+  const onSizeChangedCallbackProxy = t => {
+    const o = isArray(t) && t.length > 0 && isObject(t[0]);
+    const e = !o && isBoolean(t[0]);
+    let c = false;
+    let l = false;
+    let a = true;
+    if (o) {
+      const [n, , o] = d(t.pop().contentRect);
+      const s = domRectHasDimensions(n);
+      const e = domRectHasDimensions(o);
+      const r = !o;
+      c = r && !!e || !s;
+      l = !e && s;
+      a = !c;
+    } else if (e) {
+      [, a] = t;
+    } else {
+      l = true === t;
+    }
+    if (s && a) {
+      const n = e ? t[0] : directionIsRTL(i);
+      scrollLeft(i, n ? r.n ? -Gt : r.i ? 0 : Gt : Gt);
+      scrollTop(i, Gt);
+    }
+    if (!c) {
+      n({
+        wt: !e,
+        jt: e ? t : void 0,
+        Pt: !!l
+      });
+    }
+  };
+  const _ = [];
+  let h = e ? onSizeChangedCallbackProxy : false;
+  return [ () => {
+    runEachAndClear(_);
+    removeElements(i);
+  }, () => {
+    if (u) {
+      const t = new u(onSizeChangedCallbackProxy);
+      t.observe(a);
+      push(_, (() => {
+        t.disconnect();
+      }));
+    } else if (c) {
+      const [t, n] = c.O(a, onSizeChangedCallbackProxy, e);
+      h = t;
+      push(_, n);
+    }
+    if (s) {
+      const [t] = createCache({
+        o: void 0
+      }, f);
+      push(_, on(i, "scroll", (n => {
+        const o = t();
+        const [s, e, c] = o;
+        if (e) {
+          removeClass(a, "ltr rtl");
+          if (s) {
+            addClass(a, "rtl");
+          } else {
+            addClass(a, "ltr");
+          }
+          onSizeChangedCallbackProxy([ !!s, e, c ]);
+        }
+        stopPropagation(n);
+      })));
+    }
+    if (h) {
+      addClass(i, F);
+      push(_, on(i, "animationstart", h, {
+        C: !!u
+      }));
+    }
+    if (u || c) {
+      appendChildren(t, i);
+    }
+  } ];
+};
+
+const isHeightIntrinsic = t => 0 === t.h || t.isIntersecting || t.intersectionRatio > 0;
+
+const createTrinsicObserver = (t, n) => {
+  let o;
+  const s = createDiv(Z);
+  const e = [];
+  const [c] = createCache({
+    o: false
+  });
+  const triggerOnTrinsicChangedCallback = (t, o) => {
+    if (t) {
+      const s = c(isHeightIntrinsic(t));
+      const [, e] = s;
+      if (e) {
+        !o && n(s);
+        return [ s ];
+      }
+    }
+  };
+  const intersectionObserverCallback = (t, n) => {
+    if (t && t.length > 0) {
+      return triggerOnTrinsicChangedCallback(t.pop(), n);
+    }
+  };
+  return [ () => {
+    runEachAndClear(e);
+    removeElements(s);
+  }, () => {
+    if (a) {
+      o = new a((t => intersectionObserverCallback(t)), {
+        root: t
+      });
+      o.observe(s);
+      push(e, (() => {
+        o.disconnect();
+      }));
+    } else {
+      const onSizeChanged = () => {
+        const t = offsetSize(s);
+        triggerOnTrinsicChangedCallback(t);
+      };
+      const [t, n] = createSizeObserver(s, onSizeChanged);
+      push(e, t);
+      n();
+      onSizeChanged();
+    }
+    appendChildren(t, s);
+  }, () => {
+    if (o) {
+      return intersectionObserverCallback(o.takeRecords(), true);
+    }
+  } ];
+};
+
+const Xt = `[${A}]`;
+
+const Ut = `[${R}]`;
+
+const Wt = [ "tabindex" ];
+
+const Zt = [ "wrap", "cols", "rows" ];
+
+const Jt = [ "id", "class", "style", "open" ];
+
+const createStructureSetupObservers = (t, n, o) => {
+  let s;
+  let e;
+  let c;
+  const {J: r, K: l, nt: i, lt: a, ft: f, _t: d, ht: _} = t;
+  const {Y: h} = getEnvironment();
+  const [g] = createCache({
+    u: equalWH,
+    o: {
+      w: 0,
+      h: 0
+    }
+  }, (() => {
+    const t = d(V, L);
+    const n = d(k, "");
+    const o = n && scrollLeft(l);
+    const s = n && scrollTop(l);
+    _(V, L);
+    _(k, "");
+    _("", D, true);
+    const e = scrollSize(i);
+    const c = scrollSize(l);
+    const r = fractionalSize(l);
+    _(V, L, t);
+    _(k, "", n);
+    _("", D);
+    scrollLeft(l, o);
+    scrollTop(l, s);
+    return {
+      w: c.w + e.w + r.w,
+      h: c.h + e.h + r.h
+    };
+  }));
+  const v = a ? Zt : Jt.concat(Zt);
+  const p = debounce(o, {
+    g: () => s,
+    v: () => e,
+    p(t, n) {
+      const [o] = t;
+      const [s] = n;
+      return [ keys(o).concat(keys(s)).reduce(((t, n) => {
+        t[n] = o[n] || s[n];
+        return t;
+      }), {}) ];
+    }
+  });
+  const updateViewportAttrsFromHost = t => {
+    each(t || Wt, (t => {
+      if (indexOf(Wt, t) > -1) {
+        const n = attr(r, t);
+        if (isString(n)) {
+          attr(l, t, n);
+        } else {
+          removeAttr(l, t);
+        }
+      }
+    }));
+  };
+  const onTrinsicChanged = (t, s) => {
+    const [e, c] = t;
+    const r = {
+      vt: c
+    };
+    n({
+      gt: e
+    });
+    !s && o(r);
+    return r;
+  };
+  const onSizeChanged = ({wt: t, jt: s, Pt: e}) => {
+    const c = !t || e ? o : p;
+    let r = false;
+    if (s) {
+      const [t, o] = s;
+      r = o;
+      n({
+        yt: t
+      });
+    }
+    c({
+      wt: t,
+      Pt: e,
+      St: r
+    });
+  };
+  const onContentMutation = (t, n) => {
+    const [, s] = g();
+    const e = {
+      bt: s
+    };
+    const c = t ? o : p;
+    if (s) {
+      !n && c(e);
+    }
+    return e;
+  };
+  const onHostMutation = (t, n, o) => {
+    const s = {
+      Tt: n
+    };
+    if (n) {
+      !o && p(s);
+    } else if (!f) {
+      updateViewportAttrsFromHost(t);
+    }
+    return s;
+  };
+  const [w, b, m] = i || !h ? createTrinsicObserver(r, onTrinsicChanged) : [ noop, noop, noop ];
+  const [y, S] = !f ? createSizeObserver(r, onSizeChanged, {
+    Pt: true,
+    Yt: true
+  }) : [ noop, noop ];
+  const [$, x] = createDOMObserver(r, false, onHostMutation, {
+    Dt: Jt,
+    Mt: Jt.concat(Wt)
+  });
+  let C;
+  const O = f && u && new u((t => {
+    const n = t[t.length - 1].contentRect;
+    const o = domRectHasDimensions(n);
+    const s = domRectHasDimensions(C);
+    const e = !s && o;
+    onSizeChanged({
+      wt: true,
+      Pt: e
+    });
+    C = n;
+  }));
+  return [ () => {
+    w();
+    y();
+    c && c[0]();
+    O && O.disconnect();
+    $();
+  }, () => {
+    O && O.observe(r);
+    updateViewportAttrsFromHost();
+    S();
+    b();
+  }, () => {
+    const t = {};
+    const n = x();
+    const o = m();
+    const s = c && c[1]();
+    if (n) {
+      assignDeep(t, onHostMutation.apply(0, push(n, true)));
+    }
+    if (o) {
+      assignDeep(t, onTrinsicChanged.apply(0, push(o, true)));
+    }
+    if (s) {
+      assignDeep(t, onContentMutation.apply(0, push(s, true)));
+    }
+    return t;
+  }, t => {
+    const [n] = t("update.ignoreMutation");
+    const [o, r] = t("update.attributes");
+    const [a, u] = t("update.elementEvents");
+    const [d, _] = t("update.debounce");
+    const h = u || r;
+    const ignoreMutationFromOptions = t => isFunction(n) && n(t);
+    if (h) {
+      if (c) {
+        c[1]();
+        c[0]();
+      }
+      c = createDOMObserver(i || l, true, onContentMutation, {
+        Mt: v.concat(o || []),
+        Rt: a,
+        kt: Xt,
+        Vt: (t, n) => {
+          const {target: o, attributeName: s} = t;
+          const e = !n && s && !f ? liesBetween(o, Xt, Ut) : false;
+          return e || !!closest(o, `.${Q}`) || !!ignoreMutationFromOptions(t);
+        }
+      });
+    }
+    if (_) {
+      p.m();
+      if (isArray(d)) {
+        const t = d[0];
+        const n = d[1];
+        s = isNumber(t) && t;
+        e = isNumber(n) && n;
+      } else if (isNumber(d)) {
+        s = d;
+        e = false;
+      } else {
+        s = false;
+        e = false;
+      }
+    }
+  } ];
+};
+
+const Kt = {
+  x: 0,
+  y: 0
+};
+
+const createInitialStructureSetupUpdateState = t => ({
+  tt: {
+    t: 0,
+    r: 0,
+    b: 0,
+    l: 0
+  },
+  $t: false,
+  P: {
+    marginRight: 0,
+    marginBottom: 0,
+    marginLeft: 0,
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0,
+    paddingLeft: 0
+  },
+  zt: Kt,
+  Et: Kt,
+  Ot: {
+    x: "hidden",
+    y: "hidden"
+  },
+  At: {
+    x: false,
+    y: false
+  },
+  gt: false,
+  yt: directionIsRTL(t.J)
+});
+
+const createStructureSetup = (t, n) => {
+  const o = createOptionCheck(n, {});
+  const [s, e, c] = createEventListenerHub();
+  const [r, l, i] = createStructureSetupElements(t);
+  const a = createState(createInitialStructureSetupUpdateState(r));
+  const [u, f] = a;
+  const d = createStructureSetupUpdate(r, a);
+  const triggerUpdateEvent = (t, n, o) => {
+    const s = keys(t).some((n => !!t[n]));
+    const e = s || !isEmptyObject(n) || o;
+    if (e) {
+      c("u", [ t, n, o ]);
+    }
+    return e;
+  };
+  const [_, h, g, v] = createStructureSetupObservers(r, f, (t => triggerUpdateEvent(d(o, t), {}, false)));
+  const p = u.bind(0);
+  p.Nt = t => s("u", t);
+  p.qt = () => {
+    const {Z: t, K: n, rt: o, it: s} = r;
+    const e = s ? o.documentElement : t;
+    const c = scrollLeft(e);
+    const i = scrollTop(e);
+    h();
+    l();
+    scrollLeft(n, c);
+    scrollTop(n, i);
+  };
+  p.Ft = r;
+  return [ (t, o) => {
+    const s = createOptionCheck(n, t, o);
+    v(s);
+    return triggerUpdateEvent(d(s, g(), o), t, !!o);
+  }, p, () => {
+    e();
+    _();
+    i();
+  } ];
+};
+
+const {round: Qt} = Math;
+
+const getScale = t => {
+  const {width: n, height: o} = getBoundingClientRect(t);
+  const {w: s, h: e} = offsetSize(t);
+  return {
+    x: Qt(n) / s || 1,
+    y: Qt(o) / e || 1
+  };
+};
+
+const continuePointerDown = (t, n, o) => {
+  const s = n.scrollbars;
+  const {button: e, isPrimary: c, pointerType: r} = t;
+  const {pointers: l} = s;
+  return 0 === e && c && s[o ? "dragScroll" : "clickScroll"] && (l || []).includes(r);
+};
+
+const tn = "pointerup pointerleave pointercancel lostpointercapture";
+
+const getScrollTimelineAnimation = t => ({
+  transform: [ getTrasformTranslateValue(`0%`, t), getTrasformTranslateValue("-100%", t) ],
+  [t ? "left" : "top"]: [ "0%", "100%" ]
+});
+
+const createRootClickStopPropagationEvents = (t, n) => on(t, "mousedown", on.bind(0, n, "click", stopPropagation, {
+  C: true,
+  $: true
+}), {
+  $: true
+});
+
+const createInteractiveScrollEvents = (t, n, o, s, e, c, r) => {
+  const {V: l} = getEnvironment();
+  const {Gt: i, Xt: a, Ut: u} = s;
+  const f = `scroll${r ? "Left" : "Top"}`;
+  const d = `client${r ? "X" : "Y"}`;
+  const _ = r ? "width" : "height";
+  const h = r ? "left" : "top";
+  const g = r ? "w" : "h";
+  const v = r ? "x" : "y";
+  const createRelativeHandleMove = (t, n) => o => {
+    const {Et: s} = c();
+    const d = offsetSize(a)[g] - offsetSize(i)[g];
+    const _ = n * o / d;
+    const h = _ * s[v];
+    const p = directionIsRTL(u);
+    const w = p && r ? l.n || l.i ? 1 : -1 : 1;
+    e[f] = t + h * w;
+  };
+  return on(a, "pointerdown", (s => {
+    const c = closest(s.target, `.${et}`) === i;
+    const r = c ? i : a;
+    attrClass(n, A, M, true);
+    if (continuePointerDown(s, t, c)) {
+      const t = !c && s.shiftKey;
+      const getHandleRect = () => getBoundingClientRect(i);
+      const getTrackRect = () => getBoundingClientRect(a);
+      const getHandleOffset = (t, n) => (t || getHandleRect())[h] - (n || getTrackRect())[h];
+      const l = createRelativeHandleMove(e[f] || 0, 1 / getScale(e)[v]);
+      const u = s[d];
+      const g = getHandleRect();
+      const p = getTrackRect();
+      const w = g[_];
+      const b = getHandleOffset(g, p) + w / 2;
+      const m = u - p[h];
+      const y = c ? 0 : m - b;
+      const releasePointerCapture = t => {
+        runEachAndClear(S);
+        r.releasePointerCapture(t.pointerId);
+      };
+      const S = [ attrClass.bind(0, n, A, M), on(o, tn, releasePointerCapture), on(o, "selectstart", (t => preventDefault(t)), {
+        S: false
+      }), on(a, tn, releasePointerCapture), on(a, "pointermove", (n => {
+        const o = n[d] - u;
+        if (c || t) {
+          l(y + o);
+        }
+      })) ];
+      if (t) {
+        l(y);
+      } else if (!c) {
+        const t = getPlugins()[Lt];
+        if (t) {
+          push(S, t.O(l, getHandleOffset, y, w, m));
+        }
+      }
+      r.setPointerCapture(s.pointerId);
+    }
+  }));
+};
+
+const createScrollTimelineEvents = ({Gt: t}, n, o) => {
+  if (!n) {
+    return noop;
+  }
+  const s = t.animate(getScrollTimelineAnimation(o), {
+    timeline: n
+  });
+  return () => {
+    s.cancel();
+  };
+};
+
+const createScrollbarsSetupEvents = (t, n) => (o, s, e, c, r, l, i) => {
+  const {Ut: a} = o;
+  const [u, f] = selfClearTimeout(333);
+  const d = !!r.scrollBy;
+  let _ = true;
+  return runEachAndClear.bind(0, [ on(a, "pointerenter", (() => {
+    s(it, true);
+  })), on(a, "pointerleave pointercancel", (() => {
+    s(it);
+  })), on(a, "wheel", (t => {
+    const {deltaX: n, deltaY: o, deltaMode: e} = t;
+    if (d && _ && 0 === e && parent(a) === c) {
+      r.scrollBy({
+        left: n,
+        top: o,
+        behavior: "smooth"
+      });
+    }
+    _ = false;
+    s(dt, true);
+    u((() => {
+      _ = true;
+      s(dt);
+    }));
+    preventDefault(t);
+  }), {
+    S: false,
+    $: true
+  }), createRootClickStopPropagationEvents(a, e), createInteractiveScrollEvents(t, c, e, o, r, n, i), createScrollTimelineEvents(o, l, i), f ]);
+};
+
+const {min: nn, max: sn, abs: en, round: cn} = Math;
+
+const getScrollbarHandleLengthRatio = (t, n, o, s) => {
+  if (s) {
+    const t = o ? "x" : "y";
+    const {Et: n, zt: e} = s;
+    const c = e[t];
+    const r = n[t];
+    return sn(0, nn(1, c / (c + r)));
+  }
+  const e = o ? "width" : "height";
+  const c = getBoundingClientRect(t)[e];
+  const r = getBoundingClientRect(n)[e];
+  return sn(0, nn(1, c / r));
+};
+
+const getScrollbarHandleOffsetRatio = (t, n, o, s, e, c) => {
+  const {V: r} = getEnvironment();
+  const l = c ? "x" : "y";
+  const i = c ? "Left" : "Top";
+  const {Et: a} = s;
+  const u = cn(a[l]);
+  const f = en(o[`scroll${i}`]);
+  const d = c && e;
+  const _ = r.i ? f : u - f;
+  const h = d ? _ : f;
+  const g = nn(1, h / u);
+  const v = getScrollbarHandleLengthRatio(t, n, c);
+  return 1 / v * (1 - v) * g;
+};
+
+const maxAnimationKeyFrameValue = t => `${Math.max(0, t - .5)}px`;
+
+const animateScrollbar = (t, n, o, s) => t.animate({
+  transform: [ getTrasformTranslateValue(`0px`, s), getTrasformTranslateValue(maxAnimationKeyFrameValue(o), s) ]
+}, {
+  timeline: n,
+  composite: "add"
+});
+
+const initScrollTimeline = (t, n) => _ ? new _({
+  source: t,
+  axis: n
+}) : null;
+
+const createScrollbarsSetupElements = (t, n, o) => {
+  const {q: s, H: e} = getEnvironment();
+  const {scrollbars: c} = s();
+  const {slot: r} = c;
+  const {rt: l, Z: i, J: a, K: u, ut: f, st: d, it: _, ft: g} = n;
+  const {scrollbars: v} = f ? {} : t;
+  const {slot: p} = v || {};
+  const w = new Map;
+  const b = initScrollTimeline(d, "x");
+  const m = initScrollTimeline(d, "y");
+  const y = dynamicInitializationElement([ i, a, u ], (() => g && _ ? i : a), r, p);
+  const doRefreshScrollbarOffset = t => g && !_ && parent(t) === u;
+  const cancelScrollbarsOffsetAnimations = () => {
+    w.forEach((t => {
+      (t || []).forEach((t => {
+        t.cancel();
+      }));
+    }));
+  };
+  const scrollbarStructureAddRemoveClass = (t, n, o) => {
+    const s = o ? addClass : removeClass;
+    each(t, (t => {
+      s(t.Ut, n);
+    }));
+  };
+  const scrollbarStyle = (t, n) => {
+    each(t, (t => {
+      const [o, s] = n(t);
+      style(o, s);
+    }));
+  };
+  const scrollbarStructureRefreshHandleLength = (t, n, o) => {
+    scrollbarStyle(t, (t => {
+      const {Gt: s, Xt: e} = t;
+      return [ s, {
+        [o ? "width" : "height"]: `${(100 * getScrollbarHandleLengthRatio(s, e, o, n)).toFixed(3)}%`
+      } ];
+    }));
+  };
+  const scrollbarStructureRefreshHandleOffset = (t, n, o) => {
+    if (!m && !m) {
+      scrollbarStyle(t, (t => {
+        const {Gt: s, Xt: e, Ut: c} = t;
+        const r = getScrollbarHandleOffsetRatio(s, e, d, n, directionIsRTL(c), o);
+        const l = r === r;
+        return [ s, {
+          transform: l ? getTrasformTranslateValue(`${(100 * r).toFixed(3)}%`, o) : ""
+        } ];
+      }));
+    }
+  };
+  const styleScrollbarPosition = t => {
+    const {Ut: n} = t;
+    const o = doRefreshScrollbarOffset(n) && n;
+    return [ o, {
+      transform: o ? getTrasformTranslateValue([ `${scrollLeft(d)}px`, `${scrollTop(d)}px` ]) : ""
+    } ];
+  };
+  const S = [];
+  const $ = [];
+  const x = [];
+  const scrollbarsAddRemoveClass = (t, n, o) => {
+    const s = isBoolean(o);
+    const e = s ? o : true;
+    const c = s ? !o : true;
+    e && scrollbarStructureAddRemoveClass($, t, n);
+    c && scrollbarStructureAddRemoveClass(x, t, n);
+  };
+  const refreshScrollbarsHandleLength = t => {
+    scrollbarStructureRefreshHandleLength($, t, true);
+    scrollbarStructureRefreshHandleLength(x, t);
+  };
+  const refreshScrollbarsHandleOffset = t => {
+    scrollbarStructureRefreshHandleOffset($, t, true);
+    scrollbarStructureRefreshHandleOffset(x, t);
+  };
+  const refreshScrollbarsScrollbarOffset = () => {
+    if (!m && !m) {
+      g && scrollbarStyle($, styleScrollbarPosition);
+      g && scrollbarStyle(x, styleScrollbarPosition);
+    }
+  };
+  const refreshScrollbarsScrollbarOffsetTimeline = ({Et: t}) => {
+    cancelScrollbarsOffsetAnimations();
+    x.concat($).forEach((({Ut: n}) => {
+      if (doRefreshScrollbarOffset(n)) {
+        w.set(n, [ animateScrollbar(n, b, t.x, true), animateScrollbar(n, m, t.y) ]);
+      }
+    }));
+  };
+  const generateScrollbarDOM = t => {
+    const n = t ? nt : ot;
+    const s = t ? $ : x;
+    const c = isEmptyArray(s) ? lt : "";
+    const r = createDiv(`${Q} ${n} ${c}`);
+    const i = createDiv(st);
+    const u = createDiv(et);
+    const f = {
+      Ut: r,
+      Xt: i,
+      Gt: u
+    };
+    if (!e) {
+      addClass(r, J);
+    }
+    appendChildren(r, i);
+    appendChildren(i, u);
+    push(s, f);
+    push(S, [ () => {
+      cancelScrollbarsOffsetAnimations();
+      w.clear();
+    }, removeElements.bind(0, r), o(f, scrollbarsAddRemoveClass, l, a, d, t ? b : m, t) ]);
+    return f;
+  };
+  const C = generateScrollbarDOM.bind(0, true);
+  const O = generateScrollbarDOM.bind(0, false);
+  const appendElements = () => {
+    appendChildren(y, $[0].Ut);
+    appendChildren(y, x[0].Ut);
+    h((() => {
+      scrollbarsAddRemoveClass(lt);
+    }), 300);
+  };
+  C();
+  O();
+  return [ {
+    Wt: refreshScrollbarsHandleLength,
+    Zt: refreshScrollbarsHandleOffset,
+    Jt: refreshScrollbarsScrollbarOffsetTimeline,
+    Kt: refreshScrollbarsScrollbarOffset,
+    Qt: scrollbarsAddRemoveClass,
+    tn: {
+      B: b,
+      nn: $,
+      sn: C,
+      en: scrollbarStyle.bind(0, $)
+    },
+    cn: {
+      B: m,
+      nn: x,
+      sn: O,
+      en: scrollbarStyle.bind(0, x)
+    }
+  }, appendElements, runEachAndClear.bind(0, S) ];
+};
+
+const createScrollbarsSetup = (t, n, o, s) => {
+  let e;
+  let c;
+  let r;
+  let l;
+  let i;
+  let a = 0;
+  const u = createState({});
+  const [f] = u;
+  const [d, _] = selfClearTimeout();
+  const [h, g] = selfClearTimeout();
+  const [v, p] = selfClearTimeout(100);
+  const [w, b] = selfClearTimeout(100);
+  const [m, y] = selfClearTimeout(100);
+  const [S, $] = selfClearTimeout((() => a));
+  const [x, C, O] = createScrollbarsSetupElements(t, o.Ft, createScrollbarsSetupEvents(n, o));
+  const {J: T, et: z, it: E} = o.Ft;
+  const {Qt: A, Wt: I, Zt: H, Jt: L, Kt: P} = x;
+  const manageAutoHideSuspension = t => {
+    A(ut, t, true);
+    A(ut, t, false);
+  };
+  const manageScrollbarsAutoHide = (t, n) => {
+    $();
+    if (t) {
+      A(ft);
+    } else {
+      const hide = () => A(ft, true);
+      if (a > 0 && !n) {
+        S(hide);
+      } else {
+        hide();
+      }
+    }
+  };
+  const onHostMouseEnter = () => {
+    l = c;
+    l && manageScrollbarsAutoHide(true);
+  };
+  const M = [ p, $, b, y, g, _, O, on(T, "pointerover", onHostMouseEnter, {
+    C: true
+  }), on(T, "pointerenter", onHostMouseEnter), on(T, "pointerleave", (() => {
+    l = false;
+    c && manageScrollbarsAutoHide(false);
+  })), on(T, "pointermove", (() => {
+    e && d((() => {
+      p();
+      manageScrollbarsAutoHide(true);
+      w((() => {
+        e && manageScrollbarsAutoHide(false);
+      }));
+    }));
+  })), on(z, "scroll", (t => {
+    h((() => {
+      H(o());
+      r && manageScrollbarsAutoHide(true);
+      v((() => {
+        r && !l && manageScrollbarsAutoHide(false);
+      }));
+    }));
+    s(t);
+    P();
+  })) ];
+  const D = f.bind(0);
+  D.Ft = x;
+  D.qt = C;
+  return [ (t, s, l) => {
+    const {Ht: u, Lt: f, It: d, St: _, Pt: h} = l;
+    const {I: g} = getEnvironment();
+    const v = createOptionCheck(n, t, s);
+    const p = o();
+    const {Et: w, Ot: b, yt: y, At: S} = p;
+    const [$, x] = v("showNativeOverlaidScrollbars");
+    const [C, O] = v("scrollbars.theme");
+    const [T, D] = v("scrollbars.visibility");
+    const [R, k] = v("scrollbars.autoHide");
+    const [B, V] = v("scrollbars.autoHideSuspend");
+    const [Y] = v("scrollbars.autoHideDelay");
+    const [j, N] = v("scrollbars.dragScroll");
+    const [q, F] = v("scrollbars.clickScroll");
+    const G = h && !s;
+    const X = u || f || _;
+    const U = d || D;
+    const W = $ && g.x && g.y;
+    const setScrollbarVisibility = (t, n) => {
+      const o = "visible" === T || "auto" === T && "scroll" === t;
+      A(ct, o, n);
+      return o;
+    };
+    a = Y;
+    if (x) {
+      A(K, W);
+    }
+    if (O) {
+      A(i);
+      A(C, true);
+      i = C;
+    }
+    if (V || G) {
+      if (B && G && (S.x || S.y)) {
+        manageAutoHideSuspension(false);
+        m((() => M.push(on(z, "scroll", manageAutoHideSuspension.bind(0, true), {
+          C: true
+        }))));
+      } else {
+        manageAutoHideSuspension(true);
+      }
+    }
+    if (k) {
+      e = "move" === R;
+      c = "leave" === R;
+      r = "never" !== R;
+      manageScrollbarsAutoHide(!r, true);
+    }
+    if (N) {
+      A(ht, j);
+    }
+    if (F) {
+      A(_t, q);
+    }
+    if (U) {
+      const t = setScrollbarVisibility(b.x, true);
+      const n = setScrollbarVisibility(b.y, false);
+      const o = t && n;
+      A(rt, !o);
+    }
+    if (X) {
+      I(p);
+      H(p);
+      L(p);
+      P();
+      A(at, !w.x, true);
+      A(at, !w.y, false);
+      A(tt, y && !E);
+    }
+  }, D, runEachAndClear.bind(0, M) ];
+};
+
+const invokePluginInstance = (t, n, o) => {
+  if (isFunction(t)) {
+    t(n || void 0, o || void 0);
+  }
+};
+
+const OverlayScrollbars = (t, n, o) => {
+  const {G: s, q: e, j: c, N: r} = getEnvironment();
+  const l = getPlugins();
+  const i = isHTMLElement(t);
+  const a = i ? t : t.target;
+  const u = getInstance(a);
+  if (n && !u) {
+    let u = false;
+    const validateOptions = t => {
+      const n = getPlugins()[$t];
+      const o = n && n.O;
+      return o ? o(t, true) : t;
+    };
+    const f = assignDeep({}, s(), validateOptions(n));
+    const [d, _, h] = createEventListenerHub(o);
+    const [g, v, p] = createStructureSetup(t, f);
+    const [w, b, m] = createScrollbarsSetup(t, f, v, (t => h("scroll", [ x, t ])));
+    const update = (t, n) => g(t, !!n);
+    const y = update.bind(0, {}, true);
+    const S = c(y);
+    const $ = r(y);
+    const destroy = t => {
+      removeInstance(a);
+      S();
+      $();
+      m();
+      p();
+      u = true;
+      h("destroyed", [ x, !!t ]);
+      _();
+    };
+    const x = {
+      options(t, n) {
+        if (t) {
+          const o = n ? s() : {};
+          const e = getOptionsDiff(f, assignDeep(o, validateOptions(t)));
+          if (!isEmptyObject(e)) {
+            assignDeep(f, e);
+            update(e);
+          }
+        }
+        return assignDeep({}, f);
+      },
+      on: d,
+      off: (t, n) => {
+        t && n && _(t, n);
+      },
+      state() {
+        const {zt: t, Et: n, Ot: o, At: s, tt: e, $t: c, yt: r} = v();
+        return assignDeep({}, {
+          overflowEdge: t,
+          overflowAmount: n,
+          overflowStyle: o,
+          hasOverflow: s,
+          padding: e,
+          paddingAbsolute: c,
+          directionRTL: r,
+          destroyed: u
+        });
+      },
+      elements() {
+        const {Z: t, J: n, tt: o, K: s, nt: e, st: c, et: r} = v.Ft;
+        const {tn: l, cn: i} = b.Ft;
+        const translateScrollbarStructure = t => {
+          const {Gt: n, Xt: o, Ut: s} = t;
+          return {
+            scrollbar: s,
+            track: o,
+            handle: n
+          };
+        };
+        const translateScrollbarsSetupElement = t => {
+          const {nn: n, sn: o} = t;
+          const s = translateScrollbarStructure(n[0]);
+          return assignDeep({}, s, {
+            clone: () => {
+              const t = translateScrollbarStructure(o());
+              w({}, true, {});
+              return t;
+            }
+          });
+        };
+        return assignDeep({}, {
+          target: t,
+          host: n,
+          padding: o || s,
+          viewport: s,
+          content: e || s,
+          scrollOffsetElement: c,
+          scrollEventElement: r,
+          scrollbarHorizontal: translateScrollbarsSetupElement(l),
+          scrollbarVertical: translateScrollbarsSetupElement(i)
+        });
+      },
+      update: t => update({}, t),
+      destroy: destroy.bind(0)
+    };
+    v.Nt(((t, n, o) => {
+      w(n, o, t);
+    }));
+    addInstance(a, x);
+    each(keys(l), (t => invokePluginInstance(l[t], 0, x)));
+    if (cancelInitialization(v.Ft.it, e().cancel, !i && t.cancel)) {
+      destroy(true);
+      return x;
+    }
+    v.qt();
+    b.qt();
+    h("initialized", [ x ]);
+    v.Nt(((t, n, o) => {
+      const {wt: s, St: e, vt: c, Ht: r, Lt: l, It: i, bt: a, Tt: u} = t;
+      h("updated", [ x, {
+        updateHints: {
+          sizeChanged: s,
+          directionChanged: e,
+          heightIntrinsicChanged: c,
+          overflowEdgeChanged: r,
+          overflowAmountChanged: l,
+          overflowStyleChanged: i,
+          contentMutation: a,
+          hostMutation: u
+        },
+        changedOptions: n,
+        force: o
+      } ]);
+    }));
+    x.update(true);
+    return x;
+  }
+  return u;
+};
+
+OverlayScrollbars.plugin = t => {
+  each(addPlugin(t), (t => invokePluginInstance(t, OverlayScrollbars)));
+};
+
+OverlayScrollbars.valid = t => {
+  const n = t && t.elements;
+  const o = isFunction(n) && n();
+  return isPlainObject(o) && !!getInstance(o.target);
+};
+
+OverlayScrollbars.env = () => {
+  const {k: t, I: n, A: o, V: s, Y: e, H: c, B: r, U: l, W: i, q: a, F: u, G: f, X: d} = getEnvironment();
+  return assignDeep({}, {
+    scrollbarsSize: t,
+    scrollbarsOverlaid: n,
+    scrollbarsHiding: o,
+    rtlScrollBehavior: s,
+    flexboxGlue: e,
+    cssCustomProperties: c,
+    scrollTimeline: r,
+    staticDefaultInitialization: l,
+    staticDefaultOptions: i,
+    getDefaultInitialization: a,
+    setDefaultInitialization: u,
+    getDefaultOptions: f,
+    setDefaultOptions: d
+  });
+};
+
+
+//# sourceMappingURL=overlayscrollbars.mjs.map
+
+
+/***/ })
+
+/******/ });
+/************************************************************************/
+/******/ // The module cache
+/******/ var __webpack_module_cache__ = {};
+/******/ 
+/******/ // The require function
+/******/ function __webpack_require__(moduleId) {
+/******/ 	// Check if module is in cache
+/******/ 	var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 	if (cachedModule !== undefined) {
+/******/ 		return cachedModule.exports;
+/******/ 	}
+/******/ 	// Create a new module (and put it into the cache)
+/******/ 	var module = __webpack_module_cache__[moduleId] = {
+/******/ 		// no module.id needed
+/******/ 		// no module.loaded needed
+/******/ 		exports: {}
+/******/ 	};
+/******/ 
+/******/ 	// Execute the module function
+/******/ 	__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 
+/******/ 	// Return the exports of the module
+/******/ 	return module.exports;
+/******/ }
+/******/ 
+/************************************************************************/
+/******/ /* webpack/runtime/compat get default export */
+/******/ (() => {
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/define property getters */
+/******/ (() => {
+/******/ 	// define getter functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/hasOwnProperty shorthand */
+/******/ (() => {
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ })();
+/******/ 
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!********************************!*\
+  !*** ./src/js/nice-select2.js ***!
+  \********************************/
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "bind": () => (/* binding */ bind),
+/* harmony export */   "default": () => (/* binding */ NiceSelect)
+/* harmony export */ });
+/* harmony import */ var _floating_ui_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @floating-ui/dom */ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs");
+/* harmony import */ var _floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @floating-ui/dom */ "./node_modules/@floating-ui/core/dist/floating-ui.core.mjs");
+/* harmony import */ var overlayscrollbars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! overlayscrollbars */ "./node_modules/overlayscrollbars/overlayscrollbars.mjs");
+/* harmony import */ var scroll_into_view__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! scroll-into-view */ "./node_modules/scroll-into-view/scrollIntoView.js");
+/* harmony import */ var scroll_into_view__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(scroll_into_view__WEBPACK_IMPORTED_MODULE_0__);
+// import "../scss/nice-select2.scss";
+
+
+
+
+// utility functions
+function triggerClick(el) {
+	const event = new MouseEvent("click", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
+	el.dispatchEvent(event);
+}
+
+function triggerChange(el) {
+	const event = new Event("change", {
+		bubbles: true,
+		cancelable: false
+	});
+	el.dispatchEvent(event);
+}
+
+function triggerFocusIn(el) {
+	const event = new FocusEvent("focusin", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
+	el.dispatchEvent(event);
+}
+
+function triggerFocusOut(el) {
+	const event = new FocusEvent("focusout", {
+		view: window,
+		bubbles: true,
+		cancelable: false,
+	});
+	el.dispatchEvent(event);
+}
+
+function triggerValidationMessage(el, type) {
+	if (type == 'invalid') {
+		addClass(this.inputReplacement, 'invalid');
+		removeClass(this.inputReplacement, 'valid');
+	} else {
+		addClass(this.inputReplacement, 'valid');
+		removeClass(this.inputReplacement, 'invalid');
+	}
+}
+
+function attr(el, key) {
+	if (el[key] != undefined) {
+		return el[key];
+	}
+	return el.getAttribute(key);
+}
+
+function hasClass(el, className) {
+	if (el) {
+		return el.classList.contains(className);
+	} else {
+		return false;
+	}
+}
+
+function addClass(el, className) {
+	if (el) return el.classList.add(className);
+}
+
+function removeClass(el, className) {
+	if (el) return el.classList.remove(className);
+}
+
+function roundByDPR(value) {
+	const dpr = window.devicePixelRatio || 1;
+	return Math.round(value * dpr) / dpr;
+}
+
+const Bool = (string) => string === 'false' || string === 'undefined' || string === 'null' || string === '0' ? false : !!string;
+
+var defaultOptions = {
+	data: null,
+	fitContent: true,
+	searchable: false,
+	showSelectedItems: false,
+	sameWidth: false,
+	availableHeight: false,
+	offset: 1,
+	menuPadding: 5,
+	menuZ: null,
+	menuClass: '',
+	placement: "bottom-start"
+};
+
+class NiceSelect {
+	constructor(element, options) {
+		this.cleanup;
+		this.finalPosition;
+		this.el = element;
+		this.config = Object.assign({}, defaultOptions, options || {});
+		this.data = this.config.data;
+		this.selectedOptions = [];
+
+		this.placeholder = attr(this.el, "placeholder") || this.config.placeholder || "Select an option";
+		this.searchtext = attr(this.el, "searchtext") || this.config.searchtext || "Search";
+		this.selectedtext = attr(this.el, "selectedtext") || this.config.selectedtext || "selected";
+
+		this.fitContent = Bool(this.el.dataset.fitContent || this.config.fitContent);
+		this.sameWidth = Bool(this.el.dataset.sameWidth || this.config.sameWidth);
+		this.availableHeight = Bool(this.el.dataset.availableHeight || this.config.availableHeight);
+		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
+		this.offset = Number(this.el.dataset.offset || this.config.offset);
+		this.menuClass = this.el.dataset.menuClass?.split(' ') || this.config.menuClass?.split(' ');
+		// if (this.menuClass) this.menuClass = this.menuClass.split(' ');
+		
+		console.log(this.menuClass);
+		console.log(typeof this.menuClass);
+		this.menuPadding = Number(this.el.dataset.menuPadding || this.config.menuPadding);
+		this.menuZ = Number(this.el.dataset.menuZ || this.config.menuZ);
+		console.log(this.menuZ);
+		console.log(typeof this.menuZ);
+		this.placement = this.el.dataset.placement || this.config.placement;
+
+		this.inputReplacement = null;
+		this.multiple = attr(this.el, "multiple");
+		this.disabled = attr(this.el, "disabled");
+
+		this.create();
+	}
+
+	create() {
+		this.el.style.opacity = "0";
+		this.el.style.width = "0";
+		this.el.style.padding = "0";
+		this.el.style.height = "0";
+		this.el.style.border = "0";
+		this.el.style.position = "absolute";
+		this.el.tabIndex = -1;
+		if (this.data) {
+			this.processData(this.data);
+		} else {
+			this.extractData();
+		}
+
+		this.renderDropdown();
+		this.bindEvent();
+	}
+
+	processData(data) {
+		var options = [];
+		data.forEach(item => {
+			options.push({
+				data: item,
+				attributes: {
+					selected: !!item.selected,
+					disabled: !!item.disabled,
+					optgroup: item.value == 'optgroup'
+				}
+			});
+		});
+		this.options = options;
+	}
+
+	extractData() {
+		var options = this.el.querySelectorAll("option,optgroup");
+		var data = [];
+		var allOptions = [];
+		var selectedOptions = [];
+
+		options.forEach(item => {
+			if (item.tagName === 'OPTGROUP') {
+				var itemData = {
+					display: item.label,
+					value: 'optgroup'
+				};
+			} else {
+				let text = item.innerText;
+				let display = text;
+				if (item.dataset.display != undefined) {
+					display = item.dataset.display;
+				}
+
+				var itemData = {
+					text: text,
+					display: display,
+					value: item.value,
+					optgroupOption: item.parentElement.tagName === 'OPTGROUP',
+					selected: item.selected || item.getAttribute("selected") != null,
+					disabled: item.disabled || item.getAttribute("disabled") != null
+				};
+			}
+
+			var attributes = {
+				selected: item.selected || item.getAttribute("selected") != null,
+				disabled: item.disabled || item.getAttribute("disabled") != null,
+				optgroupOption: item.parentElement.tagName === 'OPTGROUP',
+				optgroup: item.tagName === 'OPTGROUP'
+			};
+
+			data.push(itemData);
+			allOptions.push({ data: itemData, attributes: attributes });
+		});
+
+		this.data = data;
+		this.options = allOptions;
+		this.options.forEach(item => {
+			if (item.attributes.selected) {
+				selectedOptions.push(item);
+			}
+		});
+
+		this.selectedOptions = selectedOptions;
+	}
+
+	renderDropdown() {
+
+		// Menu list of select options/optgroups.
+		this.menu = document.createElement("div");
+		this.menu.classList.add("nice-select-menu");
+		// if (this.menuClass) this.menu.classList.add(this.menuClass);
+		if (this.menuClass.length > 0) this.menuClass.forEach(className => className !== '' && this.menu.classList.add(className));
+		if (this.searchable) {
+			this.searchBox = document.createElement("div");
+			this.searchBox.classList.add('nice-select-search-box');
+			this.searchBox.innerHTML = `<input type="text" class="nice-select-search" placeholder="${this.searchtext}..." title="search"/>`;
+			this.menu.appendChild(this.searchBox);
+		}
+		this.list = document.createElement("ul");
+		this.list.classList.add('list');
+		this.menu.appendChild(this.list);
+		this.menu.OverlayScrollbars = (0,overlayscrollbars__WEBPACK_IMPORTED_MODULE_1__.OverlayScrollbars)({ target: this.menu, elements: { viewport: this.list } }, { paddingAbsolute: true, scrollbars: { theme: null, visibility: 'visible', autoHide: 'never', autoHideDelay: 1300, dragScroll: true, clickScroll: true, pointers: ['mouse', 'touch', 'pen'] } });
+
+		// Menu wrapper with no css transition props for floating-ui's flip middleware to prevent jumps during opening animation. 
+		this.float = document.createElement("div");
+		this.float.classList.add("nice-select-float");
+		this.float.style.setProperty('position', 'absolute', 'important');
+		this.float.style.setProperty('padding', '0', 'important');
+		this.float.style.setProperty('margin', '0', 'important');
+		this.float.style.setProperty('transition', 'none', 'important');
+		this.float.style.setProperty('border', 'none', 'important');
+		this.float.style.setProperty('box-shadow', 'none', 'important');
+		this.float.style.setProperty('box-sizing', 'border-box', 'important');
+		this.float.style.setProperty('background', 'none', 'important');
+		this.float.style.setProperty('background-color', 'none', 'important');
+		this.float.style.setProperty('outline', 'none', 'important');
+		this.float.style.setProperty('z-index', this.menuZ, 'important');
+		this.float.appendChild(this.menu);
+
+		this.inputReplacement = document.createElement("div");
+		this.inputReplacement.classList.add('nice-select');
+		this.inputReplacement.tabIndex = this.disabled ? null : 0;
+		this.inputReplacement.innerHTML = `<span class="${this.multiple ? 'multiple-options' : 'current'}"></span>`;
+		if (this.el.classList.length > 0) this.el.classList.forEach(className => this.inputReplacement.classList.add(className));
+		if (this.disabled) this.inputReplacement.classList.add('disabled');
+		if (this.multiple) this.inputReplacement.classList.add('has-multiple');
+
+		this.el.after(this.inputReplacement);
+
+		this._renderItems();
+		this._renderSelectedItems();
+
+		if (this.fitContent && !this.el.classList.contains('wide')) {
+			document.body.appendChild(this.float);
+			this.inputReplacement.style.width = `${this.menu.offsetWidth}px`;
+			this.float.remove();
+		}
+	}
+
+	_renderSelectedItems() {
+		if (this.multiple) {
+			let multipleOptions = this.inputReplacement.querySelector(".multiple-options");
+			var selectedHtml = "";
+			if (this.config.showSelectedItems || window.getComputedStyle(this.inputReplacement).width == 'auto' || this.selectedOptions.length < 2) {
+				this.selectedOptions.forEach(function (item) {
+					selectedHtml += `<span class="current">${item.data.text}</span>`;
+				});
+
+				selectedHtml = selectedHtml == "" ? this.placeholder : selectedHtml;
+			} else {
+				selectedHtml = this.selectedOptions.length + ' ' + this.selectedtext;
+			}
+			this.selectedOptions.length === 0 ? multipleOptions.classList.add('placeholder') : multipleOptions.classList.remove('placeholder');
+			multipleOptions.innerHTML = selectedHtml;
+		} else {
+			let current = this.inputReplacement.querySelector(".current");
+			let html;
+			if (this.selectedOptions.length > 0 && this.selectedOptions[0].data.value) {
+				current.innerHTML = this.selectedOptions[0].data.text;
+				current.classList.remove('placeholder');
+			}
+			else {
+				current.innerHTML = this.placeholder;
+				current.classList.add('placeholder');
+			}
+		}
+	}
+
+	_renderItems() {
+		var ul = this.menu.querySelector("ul");
+		this.options.forEach(item => {
+			ul.appendChild(this._renderItem(item));
+		});
+	}
+
+	_renderItem(option) {
+		var el = document.createElement("li");
+
+		el.innerHTML = option.data.display;
+
+		if (option.attributes.optgroup) {
+			addClass(el, 'optgroup');
+		}
+		else {
+			el.dataset.value = option.data.value;
+			el.addEventListener("click", this._onItemClicked.bind(this, option));
+			el.classList.add("option");
+			if (option.attributes.selected) {
+				el.classList.add("selected");
+			}
+			if (option.attributes.disabled) {
+				el.classList.add("disabled");
+			}
+			if (option.attributes.optgroupOption) {
+				el.classList.add("optgroup-option");
+			}
+		}
+
+		option.element = el;
+		return el;
+	}
+
+	positionMenu(target, element) {
+		(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_2__.computePosition)(target, element, {
+			placement: this.placement,
+			middleware: [
+				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.offset)(this.offset),
+				this.availableHeight == true && (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.size)({
+					apply({ availableHeight }) {
+						Object.assign(element.style, {
+							maxHeight: `${Math.max(100, roundByDPR(availableHeight))}px`,
+							height: `${Math.max(100, roundByDPR(availableHeight))}px`,
+						});
+					},
+					padding: this.floatPadding
+				}),
+				this.sameWidth == true && (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.size)({
+					apply({ rects }) {
+						Object.assign(element.style, {
+							width: `${roundByDPR(rects.reference.width)}px`
+						});
+					}
+				}),
+				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.flip)({ fallbackStrategy: 'initialPlacement', padding: this.floatPadding, crossAxis: false }),
+			]
+		}).then(({ x, y, placement }) => {
+			Object.assign(element.style, {
+				top: `${roundByDPR(y)}px`,
+				left: `${roundByDPR(x)}px`
+			});
+
+			this.finalPosition = placement;
+			if (/^top/.test(placement)) {
+				this.menu.style.bottom = 0;
+				this.menu.style.top = "";
+			}
+			if (/^bottom/.test(placement)) {
+				this.menu.style.top = 0;
+				this.menu.style.bottom = "";
+			}
+		});
+	}
+
+	hideMenu(e) {
+		if (this.cleanup) this.cleanup();
+		removeClass(this.inputReplacement, "open");
+		removeClass(this.menu, "opening");
+		removeClass(this.menu, "open");
+		this.menu.style.maxHeight = "0";
+		setTimeout(() => {
+			this.float.remove();
+			this.menu.style.height = "";
+			this.menu.style.maxHeight = "";
+			this.menu.style.top = "";
+			this.menu.style.bottom = "";
+		}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
+	}
+
+	update() {
+		this.extractData();
+		if (this.inputReplacement) {
+			var open = hasClass(this.inputReplacement, "open");
+			this.inputReplacement.remove();
+			this.create();
+
+			if (open) {
+				triggerClick(this.inputReplacement);
+			}
+		}
+
+		if (attr(this.el, "disabled")) {
+			this.disable();
+		} else {
+			this.enable();
+			this.updateSelectValue();
+		}
+	}
+
+	disable() {
+		if (!this.disabled) {
+			this.disabled = true;
+			addClass(this.inputReplacement, "disabled");
+		}
+	}
+
+	enable() {
+		if (this.disabled) {
+			this.disabled = false;
+			removeClass(this.inputReplacement, "disabled");
+		}
+	}
+
+	clear() {
+		this.resetSelectValue();
+		this.selectedOptions = [];
+		this._renderSelectedItems();
+		this.update();
+
+		triggerChange(this.el);
+	}
+
+	destroy() {
+		if (this.inputReplacement) {
+			this.inputReplacement.remove();
+			this.el.style.display = "";
+		}
+	}
+
+	bindEvent() {
+		this.inputReplacement.addEventListener("click", this._onClicked.bind(this));
+		this.inputReplacement.addEventListener("keydown", this._onKeyPressed.bind(this));
+		this.inputReplacement.addEventListener("focusin", triggerFocusIn.bind(this, this.el));
+		this.inputReplacement.addEventListener("focusout", triggerFocusOut.bind(this, this.el));
+		this.el.addEventListener("invalid", triggerValidationMessage.bind(this, this.el, 'invalid'));
+		this.el.addEventListener("focusin", this._onFocusedNative.bind(this));
+		window.addEventListener("click", this._onClickedOutside.bind(this));
+
+		if (this.searchable) {
+			this._bindSearchEvent();
+		}
+	}
+
+	_bindSearchEvent() {
+		var searchBox = this.menu.querySelector(".nice-select-search");
+		if (searchBox) {
+			searchBox.addEventListener("click", function (e) {
+				e.stopPropagation();
+				return false;
+			});
+		}
+
+		searchBox.addEventListener("input", this._onSearchChanged.bind(this));
+		searchBox.addEventListener("keydown", this._onKeyPressed.bind(this));
+	}
+
+	_onClicked(e) {
+		e.preventDefault();
+		var search = this.menu.querySelector(".nice-select-search");
+		// e.stopImmediatePropagation();
+		if (!hasClass(this.inputReplacement, "open")) {
+			addClass(this.inputReplacement, "open");
+			document.body.appendChild(this.float);
+			if (search) search.value = "";
+
+			var t = this.menu.querySelector(".focus");
+			removeClass(t, "focus");
+			t = this.menu.querySelector(".selected");
+			if (!t) t = this.menu.querySelector(".list .option");
+			addClass(t, "focus");
+			this.menu.querySelectorAll("ul li").forEach(function (item) {
+				item.style.display = "";
+			});
+			this.cleanup = (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_2__.autoUpdate)(this.inputReplacement, this.float, () => {
+				this.positionMenu(this.inputReplacement, this.float);
+			}
+			);
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_0___default()(this.menu.querySelector(".selected"), {
+				time: 100, maxSynchronousAlignments: 6, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+			addClass(this.menu, "opening");
+			setTimeout(() => {
+				addClass(this.menu, "open");
+				if (search) search.focus();
+			}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
+		} else {
+			this.hideMenu(e);
+			this.inputReplacement.focus();
+		}
+	}
+	_onItemClicked(option, e) {
+		var optionEl = e.target;
+
+		if (!hasClass(optionEl, "disabled")) {
+			if (this.multiple) {
+				if (!optionEl.dataset.value) return;
+				if (hasClass(optionEl, "selected")) {
+					removeClass(optionEl, "selected");
+					this.selectedOptions.splice(this.selectedOptions.indexOf(option), 1);
+					this.el.querySelector(`option[value="${optionEl.dataset.value}"]`).removeAttribute('selected');
+				} else {
+					addClass(optionEl, "selected");
+					this.selectedOptions.push(option);
+				}
+			} else {
+				this.options.forEach(function (item) {
+					removeClass(item.element, "selected");
+				});
+				this.selectedOptions.forEach(function (item) {
+					removeClass(item.element, "selected");
+				});
+
+				addClass(optionEl, "selected");
+				this.selectedOptions = [option];
+			}
+
+			this._renderSelectedItems();
+			this.updateSelectValue();
+		}
+		this.inputReplacement.focus();
+	}
+
+	updateSelectValue() {
+		if (this.multiple) {
+			var select = this.el;
+			this.selectedOptions.forEach(function (item) {
+				var el = select.querySelector(`option[value="${item.data.value}"]`);
+				if (el) {
+					el.setAttribute("selected", true);
+				}
+			});
+		} else if (this.selectedOptions.length > 0) {
+			this.el.value = this.selectedOptions[0].data.value;
+		}
+		triggerChange(this.el);
+	}
+
+	resetSelectValue() {
+		if (this.multiple) {
+			var select = this.el;
+			this.selectedOptions.forEach(function (item) {
+				var el = select.querySelector(`option[value="${item.data.value}"]`);
+				if (el) {
+					el.removeAttribute("selected");
+				}
+			});
+		} else if (this.selectedOptions.length > 0) {
+			this.el.selectedIndex = -1;
+		}
+
+		triggerChange(this.el);
+	}
+
+	_onClickedOutside(e) {
+		if (!this.inputReplacement.contains(e.target)) {
+			this.hideMenu(e);
+		}
+	}
+
+	_onKeyPressed(e) {
+		// Keyboard events
+		let focusedOption = this.menu.querySelector(".focus");
+		let isOpen = hasClass(this.inputReplacement, "open");
+
+		if (!isOpen) {
+			// On "Arrow down", "Arrow up", "Space" and "Enter" keys opens the panel
+			if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 32 || e.keyCode === 13) {
+				e.preventDefault();
+				triggerClick(this.inputReplacement);
+			}
+		} else {
+			switch (e.keyCode) {
+				case 13:
+				case 32:
+					// On "Enter" or "Space" selects the focused element as the selected one
+					triggerClick(focusedOption);
+					break;
+
+				case 27:
+					// On "Escape" closes the panel
+					triggerClick(this.inputReplacement);
+					break;
+
+				case 38:
+					// On "Arrow up" set focus to the prev option if present
+					e.preventDefault();
+					this._focusPrev(focusedOption);
+					break;
+
+				case 40:
+					// On "Arrow down" set focus to the next option if present
+					e.preventDefault();
+					this._focusNext(focusedOption);
+					break;
+
+				default:
+					return;
+			}
+		}
+	}
+
+	_findNext(el) {
+		if (el) {
+			el = el.nextElementSibling;
+		} else {
+			el = this.menu.querySelector(".list .option");
+		}
+
+		while (el) {
+			if (!hasClass(el, "optgroup") && !hasClass(el, "disabled") && el.style.display !== "none") {
+				return el;
+			}
+			el = el.nextElementSibling;
+		}
+
+		return null;
+	}
+
+	_findPrev(el) {
+		if (el) {
+			el = el.previousElementSibling;
+		} else {
+			el = this.menu.querySelector(".list .option:last-child");
+		}
+
+		while (el) {
+			if (!hasClass(el, "optgroup") && !hasClass(el, "disabled") && el.style.display !== "none") {
+				return el;
+			}
+			el = el.previousElementSibling;
+		}
+
+		return null;
+	}
+
+	_focusNext(focusedOption) {
+		var next = this._findNext(focusedOption);
+		if (next) {
+			var t = this.menu.querySelector(".focus");
+			removeClass(t, "focus");
+			addClass(next, "focus");
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_0___default()(next, {
+				time: 250, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+		}
+	}
+
+	_focusPrev(focusedOption) {
+		var prev = this._findPrev(focusedOption);
+		if (prev) {
+			var t = this.menu.querySelector(".focus");
+			removeClass(t, "focus");
+			addClass(prev, "focus");
+			scroll_into_view__WEBPACK_IMPORTED_MODULE_0___default()(prev, {
+				time: 250, validTarget: function (target, parentsScrolled) {
+					return parentsScrolled < 2 && target !== window && target.matches('.list');
+				}
+			});
+		}
+	}
+
+	_onSearchChanged(e) {
+		var open = hasClass(this.inputReplacement, "open");
+		var text = e.target.value;
+		text = text.toLowerCase();
+
+		if (text === "") {
+			this.options.forEach(function (item) {
+				item.element.style.display = "";
+			});
+		} else if (open) {
+			var matchReg = new RegExp(text);
+			this.options.forEach(function (item) {
+				var optionText = item.data.text.toLowerCase();
+				var matched = matchReg.test(optionText);
+				item.element.style.display = matched ? "" : "none";
+			});
+		}
+
+		this.menu.querySelectorAll(".focus").forEach(function (item) {
+			removeClass(item, "focus");
+		});
+
+		var firstEl = this._findNext(null);
+		addClass(firstEl, "focus");
+	}
+
+	_onFocusedNative(e) {
+		e.preventDefault();
+		this.inputReplacement.focus();
+	}
+}
+
+function bind(el, options) {
+	return new NiceSelect(el, options);
+}
+
+})();
+
+var __webpack_exports__bind = __webpack_exports__.bind;
+var __webpack_exports__default = __webpack_exports__["default"];
+export { __webpack_exports__bind as bind, __webpack_exports__default as default };
+
+//# sourceMappingURL=nice-select2.js.map

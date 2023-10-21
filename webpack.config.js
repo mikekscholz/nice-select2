@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
 
 module.exports = {
-	mode: "production", // "production" | "development" | "none"
+	// mode: "production", // "production" | "development" | "none"
 	watch: true,
 	watchOptions: {
 	  aggregateTimeout: 1000,
