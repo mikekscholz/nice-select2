@@ -112,14 +112,8 @@ export default class NiceSelect {
 		this.searchable = Bool(this.el.dataset.searchable || this.config.searchable);
 		this.offset = Number(this.el.dataset.offset || this.config.offset);
 		this.menuClass = this.el.dataset.menuClass?.split(' ') || this.config.menuClass?.split(' ');
-		// if (this.menuClass) this.menuClass = this.menuClass.split(' ');
-		
-		console.log(this.menuClass);
-		console.log(typeof this.menuClass);
 		this.menuPadding = Number(this.el.dataset.menuPadding || this.config.menuPadding);
 		this.menuZ = Number(this.el.dataset.menuZ || this.config.menuZ);
-		console.log(this.menuZ);
-		console.log(typeof this.menuZ);
 		this.placement = this.el.dataset.placement || this.config.placement;
 
 		this.inputReplacement = null;
@@ -218,7 +212,6 @@ export default class NiceSelect {
 		// Menu list of select options/optgroups.
 		this.menu = document.createElement("div");
 		this.menu.classList.add("nice-select-menu");
-		// if (this.menuClass) this.menu.classList.add(this.menuClass);
 		if (this.menuClass.length > 0) this.menuClass.forEach(className => className !== '' && this.menu.classList.add(className));
 		if (this.searchable) {
 			this.searchBox = document.createElement("div");
