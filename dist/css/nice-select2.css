@@ -761,6 +761,7 @@ body > .os-scrollbar {
   line-height: 30px;
   outline: none;
   padding: 0px 32px 0px 8px;
+  padding-right: 32px !important;
   position: relative;
   text-align: left !important;
   transition: all 0.4s ease-in-out;
