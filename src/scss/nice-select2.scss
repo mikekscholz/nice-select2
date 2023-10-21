@@ -17,7 +17,7 @@ $border-color_3: #fff;
 $border-color_4: #ccc;
 $arrow-color: #fff;
 
-@import 'overlayscrollbars';
+@use 'overlayscrollbars';
 
 .nice-select {
 	-webkit-tap-highlight-color: transparent;

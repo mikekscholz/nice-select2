@@ -3,6 +3,7 @@
   "version": "2.2.0",
   "description": "A lightweight Vanilla JavaScript plugin that replaces native select elements with customizable dropdowns. Fork adds overlayscrollbars, floating-ui, and scroll-into-view libs.",
   "main": "src/js/nice-select2.js",
+  "style": "src/scss/nice-select2.scss",
   "directories": {
     "doc": "docs"
   },
