@@ -5716,7 +5716,7 @@ class NiceSelect {
 							height: `${Math.max(100, roundByDPR(availableHeight))}px`,
 						});
 					},
-					padding: this.floatPadding
+					padding: this.menuPadding
 				}),
 				this.sameWidth == true && (0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.size)({
 					apply({ rects }) {
@@ -5725,7 +5725,7 @@ class NiceSelect {
 						});
 					}
 				}),
-				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.flip)({ fallbackStrategy: 'initialPlacement', padding: this.floatPadding, crossAxis: false }),
+				(0,_floating_ui_dom__WEBPACK_IMPORTED_MODULE_3__.flip)({ fallbackStrategy: 'initialPlacement', padding: this.menuPadding, crossAxis: false }),
 			]
 		}).then(({ x, y, placement }) => {
 			Object.assign(element.style, {

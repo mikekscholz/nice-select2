@@ -335,7 +335,7 @@ export default class NiceSelect {
 							height: `${Math.max(100, roundByDPR(availableHeight))}px`,
 						});
 					},
-					padding: this.floatPadding
+					padding: this.menuPadding
 				}),
 				this.sameWidth == true && size({
 					apply({ rects }) {
@@ -344,7 +344,7 @@ export default class NiceSelect {
 						});
 					}
 				}),
-				flip({ fallbackStrategy: 'initialPlacement', padding: this.floatPadding, crossAxis: false }),
+				flip({ fallbackStrategy: 'initialPlacement', padding: this.menuPadding, crossAxis: false }),
 			]
 		}).then(({ x, y, placement }) => {
 			Object.assign(element.style, {
