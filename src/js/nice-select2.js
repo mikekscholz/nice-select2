@@ -519,7 +519,10 @@ export default class NiceSelect {
 			}
 
 			this._renderSelectedItems();
-			this.updateSelectValue();
+			setTimeout(() => {
+				this.updateSelectValue();
+			}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
+			
 		}
 		this.inputReplacement.focus();
 	}
