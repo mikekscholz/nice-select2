@@ -100,6 +100,7 @@ export default class NiceSelect {
 		this.el = element;
 		this.config = Object.assign({}, defaultOptions, options || {});
 		this.data = this.config.data;
+		this.hideDelay;
 		this.selectedOptions = [];
 
 		this.placeholder = attr(this.el, "placeholder") || this.config.placeholder || "Select an option";
@@ -131,6 +132,7 @@ export default class NiceSelect {
 		this.el.style.border = "0";
 		this.el.style.position = "absolute";
 		this.el.tabIndex = -1;
+		this.el.classList.add('replaced-by-niceselect');
 		if (this.data) {
 			this.processData(this.data);
 		} else {
@@ -365,18 +367,19 @@ export default class NiceSelect {
 	}
 
 	hideMenu(e) {
-		if (this.cleanup) this.cleanup();
 		removeClass(this.inputReplacement, "open");
 		removeClass(this.menu, "opening");
 		removeClass(this.menu, "open");
+		this.hideDelay = parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000;
 		this.menu.style.maxHeight = "0";
 		setTimeout(() => {
+			if (this.cleanup) this.cleanup();
 			this.float.remove();
 			this.menu.style.height = "";
 			this.menu.style.maxHeight = "";
 			this.menu.style.top = "";
 			this.menu.style.bottom = "";
-		}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
+		}, this.hideDelay);
 	}
 
 	update() {
@@ -519,9 +522,7 @@ export default class NiceSelect {
 			}
 
 			this._renderSelectedItems();
-			setTimeout(() => {
-				this.updateSelectValue();
-			}, parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000);
+			setTimeout(() => { this.updateSelectValue() }, this.hideDelay);
 			
 		}
 		this.inputReplacement.focus();
