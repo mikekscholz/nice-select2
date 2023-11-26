@@ -370,7 +370,6 @@ export default class NiceSelect {
 		removeClass(this.inputReplacement, "open");
 		removeClass(this.menu, "opening");
 		removeClass(this.menu, "open");
-		this.hideDelay = parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000;
 		this.menu.style.maxHeight = "0";
 		setTimeout(() => {
 			if (this.cleanup) this.cleanup();
@@ -466,6 +465,7 @@ export default class NiceSelect {
 		if (!hasClass(this.inputReplacement, "open")) {
 			addClass(this.inputReplacement, "open");
 			document.body.appendChild(this.float);
+			this.hideDelay = parseFloat(getComputedStyle(this.menu).transitionDuration) * 1000;
 			if (search) search.value = "";
 
 			var t = this.menu.querySelector(".focus");
